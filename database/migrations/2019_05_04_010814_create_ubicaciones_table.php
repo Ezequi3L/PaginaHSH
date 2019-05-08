@@ -17,6 +17,7 @@ class CreateUbicacionesTable extends Migration
             $table->increments('id');
             $table->string('ciudad');
             $table->string('provincia');
+            $table->unique(['ciudad','provincia']);
             $table->timestamps();
         });
     }
