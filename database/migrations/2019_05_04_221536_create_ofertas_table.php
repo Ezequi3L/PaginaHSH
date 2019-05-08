@@ -14,10 +14,11 @@ class CreateOfertasTable extends Migration
     public function up()
     {
         Schema::create('ofertas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->double('monto');
             $table->string('mail'); //mientras no tengamos usuarios, las ofertas se realizarán con una dirección de mail
            // $table->foreign('usr_id')->references('id')->on('users');
+            $table->integer('subasta_id')->unsigned();
             $table->foreign('subasta_id')->references('id')->on('subastas');
             $table->timestamps();
         });

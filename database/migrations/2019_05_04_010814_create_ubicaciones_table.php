@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubastasTable extends Migration
+class CreateUbicacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSubastasTable extends Migration
      */
     public function up()
     {
-        Schema::create('subastas', function (Blueprint $table) {
+        Schema::create('ubicaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('residencia')->unsigned();
-            $table->foreign('residencia')->references('id')->on('residencias');
-            $table->date('fecha_reserva'); //la fecha de inicio es 6 meses antes
-            $table->double('monto_minimo');
+            $table->string('ciudad');
+            $table->string('provincia');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateSubastasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subastas');
+        Schema::dropIfExists('ubicaciones');
     }
 }
