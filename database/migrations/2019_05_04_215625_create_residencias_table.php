@@ -14,9 +14,11 @@ class CreateResidenciasTable extends Migration
     public function up()
     {
         Schema::create('residencias', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('descripcion');
-            $table->string('ubicacion');
+            $table->integer('ubicacion_id')->unsigned();
+            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones')->nullable();
+            $table->integer('foto_id')->unsigned();
             $table->foreign('foto_id')->references('id')->on('fotos')->nullable();
             $table->timestamps();
         });

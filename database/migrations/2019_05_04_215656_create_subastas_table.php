@@ -14,9 +14,11 @@ class CreateSubastasTable extends Migration
     public function up()
     {
         Schema::create('subastas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreign('residencia')->references('id')->on('residencias');
+            $table->increments('id');
+            $table->integer('residencia_id')->unsigned();
+            $table->foreign('residencia_id')->references('id')->on('residencias');
             $table->date('fecha_reserva'); //la fecha de inicio es 6 meses antes
+            $table->unique(['residencia_id','fecha_reserva']);
             $table->double('monto_minimo');
             $table->timestamps();
         });
