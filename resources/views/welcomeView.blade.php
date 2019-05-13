@@ -7,7 +7,7 @@
       <h1 class="jumbotron-heading">Home Switch Home</h1>
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
-        <a href="#" class="btn btn-primary my-2">Botón 1</a>
+        <a href="eze" class="btn btn-primary my-2">Botón 1</a>
         <a href="#" class="btn btn-secondary my-2">Botón 2</a>
       </p>
     </div>
@@ -69,7 +69,7 @@
                     <div class="col-auto">
                         <i class="fas fa-search h4 text-body"></i>
                     </div>
-                       <!--end of col-->   
+                       <!--end of col-->
                      <div class="col">
                         <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Buscar residencias en subasta">
                     </div>
