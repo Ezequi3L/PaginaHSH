@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ResidenciasSeeder extends Seeder
+class SubastasSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class ResidenciasSeeder extends Seeder
      */
     public function run()
     {
-      factory(App\Residencia::class)->times(17)->create();
+        factory(App\Subasta::class)->times(17)->create();
     }
 }

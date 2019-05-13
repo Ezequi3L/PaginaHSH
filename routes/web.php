@@ -13,4 +13,4 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('/result', 'resultController@index');
+Route::post('/result', 'resultController@index');

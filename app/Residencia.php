@@ -12,8 +12,12 @@ class Residencia extends Model
         'descripcion','ubicacion_id','foto_id'
     ];
 
-    public function ubicaciones()
+    public function ubicacion()
     {
         return $this->belongsTo(Ubicacion::class);
+    }
+
+    public function foto() {
+    	return $this->belongsTo(Foto::class);
     }
 }
