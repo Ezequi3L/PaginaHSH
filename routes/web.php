@@ -25,4 +25,3 @@ Route::post('/newResLoc','ResidenciasController@ResForm')
 
 Route::post('/newRes','ResidenciasController@store')
 	->name('altaExitosa');
-
