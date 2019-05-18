@@ -25,3 +25,9 @@ Route::post('/newResLoc','ResidenciasController@ResForm')
 
 Route::post('/newRes','ResidenciasController@store')
 	->name('altaExitosa');
+
+Route::get('/newSub','SubastaController@SubForm')
+	->name('crearSubasta');
+
+Route::post('/newSub','SubastaController@store')
+	->name('subAltaExitosa');

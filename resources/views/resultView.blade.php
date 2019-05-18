@@ -22,7 +22,7 @@
 
 @section('mainContent')
 
-   <section class="jumbotron text-center">
+	 <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Home Switch Home</h1>
       <p class="lead text-muted">Resultados de la búsqueda</p>

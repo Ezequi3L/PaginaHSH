@@ -13,13 +13,6 @@ class ResidenciasController extends Controller
 
     public function store(){
 
-    /*	$data = request()->validate([
-    		'desc' => 'required',
-    		'localidad_id' => 'required'
-    		], [
-    		'desc.required' => 'El campo descripción es obligatorio'
-    		]);
-    */
     	$data = request()->all();
     	
     	if (empty($data['desc'])) {

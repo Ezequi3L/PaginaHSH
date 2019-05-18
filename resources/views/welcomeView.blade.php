@@ -8,7 +8,7 @@
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
-        <a href="#" class="btn btn-secondary my-2">Botón 2</a>
+        <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
       </p>
     </div>
   </section>
@@ -72,7 +72,7 @@
 
 @section('buscador')
 
-  <!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

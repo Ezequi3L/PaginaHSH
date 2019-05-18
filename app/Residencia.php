@@ -21,4 +21,3 @@ class Residencia extends Model
     	return $this->belongsTo(Foto::class);
     }
 }
-
