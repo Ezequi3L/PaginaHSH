@@ -22,7 +22,7 @@ class SubastaController extends Controller
     		'fecha.required' => 'El campo fecha es obligatorio',
     		'monto.required' => 'El campo monto es obligatorio'
     		]);
-    	dd($data);
+    	
     	Subasta::create([
     		'residencia_id' => $data['residencia'],
     		'fecha_reserva' => $data['fecha'],
