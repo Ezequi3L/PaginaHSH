@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-class UbicacionSeeder extends Seeder
+
+class SubastasSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,11 +11,6 @@ class UbicacionSeeder extends Seeder
      */
     public function run()
     {
-
-        factory(App\Ubicacion::class)->times(17)->create();
-
-
-
-
+        factory(App\Subasta::class)->times(17)->create();
     }
 }

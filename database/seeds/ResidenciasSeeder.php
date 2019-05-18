@@ -12,9 +12,6 @@ class ResidenciasSeeder extends Seeder
      */
     public function run()
     {
-
-        factory(App\Residencia::class)->times(17)->create();
-
-        //
+      factory(App\Residencia::class)->times(17)->create();
     }
 }

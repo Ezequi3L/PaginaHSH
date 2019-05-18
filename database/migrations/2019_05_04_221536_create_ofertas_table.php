@@ -17,7 +17,6 @@ class CreateOfertasTable extends Migration
             $table->increments('id');
             $table->double('monto');
             $table->string('mail'); //mientras no tengamos usuarios, las ofertas se realizarán con una dirección de mail
-            //$table->integer('usuario_id')->unsigned();
            // $table->foreign('usr_id')->references('id')->on('users');
             $table->integer('subasta_id')->unsigned();
             $table->foreign('subasta_id')->references('id')->on('subastas');

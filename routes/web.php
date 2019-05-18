@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')
+	->name('inicio');
 
-Route::get('/result', 'resultController@index');
+Route::post('/result', 'resultController@index')
+	->name('resultados');
+
+Route::get('/newRes','ResidenciasController@ResForm')
+	->name('crearResidencia');
+
+Route::post('/newResLoc','ResidenciasController@ResForm')
+	->name('continuar');
+
+Route::post('/newRes','ResidenciasController@store')
+	->name('altaExitosa');
+

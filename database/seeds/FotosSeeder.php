@@ -11,7 +11,15 @@ class FotosSeeder extends Seeder
      */
     public function run()
     {
-      factory(App\Foto::class)->times(17)->create();
-        //
+    	for ($i=1;$i<=5;$i++) {
+    		DB::table('fotos')->insert([
+    			'src' => '/public/imagenes/foto'.$i.'.jpg',
+    			]);
+    	}
+
+
+
+      //  factory(App\Foto::class)->times(17)->create();
+        
     }
 }

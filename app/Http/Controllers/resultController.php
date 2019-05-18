@@ -8,7 +8,7 @@ class resultController extends Controller
 {
     public function index(){
     	return view('resultView', [
-    		'title' => "HSH - Subastas"
+    		'title' => "HSH - Resultados de búsqueda"
     	]);
     }
 }

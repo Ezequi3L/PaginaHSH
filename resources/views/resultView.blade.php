@@ -29,4 +29,65 @@
     </div>
   </section>
 
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+  <?php
+
+  use App\Subasta;
+  use App\Residencia;
+
+  if(isset($_POST['buscar'])) {
+    
+    $resultado = Subasta::all();
+
+    foreach ($resultado as $subasta) {
+         
+      $residencia = Residencia::find($subasta->residencia_id);
+      $descripcion = $residencia->descripcion;
+      $localidad = $residencia->localidad;
+      $provincia = $localidad->provincia;
+      $src = ($residencia->foto)->src;
+
+  ?>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="<?php echo $src; ?>">
+            <div class="card-body">
+              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+   <?php
+         
+     } //fin foreach
+   }   //fin if(isset)
+   
+   ?>
+      </div>
+    </div>
+  </div>
+
+@endsection
+
+@section('footer')
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Ir arriba</a>
+    </p>
+  </div>
+</footer>
+
 @endsection
