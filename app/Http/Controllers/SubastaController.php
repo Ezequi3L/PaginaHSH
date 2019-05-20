@@ -30,4 +30,5 @@ class SubastaController extends Controller
     		]);
     	return redirect()->route('inicio');
     }
+
 }

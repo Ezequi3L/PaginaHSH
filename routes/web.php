@@ -31,3 +31,9 @@ Route::get('/newSub','SubastaController@SubForm')
 
 Route::post('/newSub','SubastaController@store')
 	->name('subAltaExitosa');
+
+Route::get('/ofertaSub/{subasta}','OfertaController@OfertaForm')
+	->name('ofertar');
+
+Route::post('/ofertaSub','OfertaController@store')
+	->name('subOfertaExitosa');
