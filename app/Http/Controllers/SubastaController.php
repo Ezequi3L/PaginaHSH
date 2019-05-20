@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subasta;
+use App\Residencia;
+use Carbon\Carbon;
 
 class SubastaController extends Controller
 {
@@ -22,13 +24,27 @@ class SubastaController extends Controller
     		'fecha.required' => 'El campo fecha es obligatorio',
     		'monto.required' => 'El campo monto es obligatorio'
     		]);
-    	
+
+        $fIni = Carbon::createFromDate($data['fecha'])->subMonth(6);
+        $fAct = Carbon::createFromDate('now');
+        if ($fAct > $fIni) {
+            return redirect()->route('crearSubasta')->withErrors('La fecha de reserva debe ser por lo menos dentro de seis meses');
+        }
+
+        $subastasConMismaFecha = Subasta::whereFecha_reserva($data['fecha'])->get();
+        foreach ($subastasConMismaFecha as $sub) {
+            if ($sub->residencia_id == $data['residencia']) {
+                return redirect()->route('crearSubasta')->withErrors('La residencia indicada ya posee una subasta para la fecha seleccionada');
+            }
+    	}
+   
     	Subasta::create([
     		'residencia_id' => $data['residencia'],
     		'fecha_reserva' => $data['fecha'],
     		'monto_minimo' => $data['monto']
     		]);
     	return redirect()->route('inicio');
+
     }
 
 }

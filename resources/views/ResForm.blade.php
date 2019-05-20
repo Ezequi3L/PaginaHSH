@@ -33,7 +33,7 @@ if (isset($_POST['siguiente'])) {
   			$localidades = $provSelect->localidades;
  			foreach ($localidades as $localidad) {
   		?>
-  				<option value= <?php echo '"'; echo $localidad->id; echo '"' ?> > <?php echo $localidad->localidad; ?> </option>
+  				<option value="{{$localidad->id}}">{{$localidad->localidad}}</option>
   			<?php
   			} //end foreach
   			?>

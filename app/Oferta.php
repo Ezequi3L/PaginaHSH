@@ -18,9 +18,10 @@ class Oferta extends Model
     }
 
     public function ocupado(){
+    	// retorna true si para este mail hay más de una oferta hecha con la misma fecha de reserva
     	$ok = true;
     	$fechaDeEstaSub = $this->subasta->fecha_reserva;
-    	$subastasConMismaFecha = Subasta::whereFecha_reserva($fechaDeEstaSub);
+    	$subastasConMismaFecha = Subasta::whereFecha_reserva($fechaDeEstaSub)->get();
 
     	foreach ($subastasConMismaFecha as $sub) {
     		$ofertas = $sub->ofertas;

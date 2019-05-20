@@ -29,4 +29,5 @@ class Subasta extends Model
         }
         else return 0;
     }
+ 
 }
