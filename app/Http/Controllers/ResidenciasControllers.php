@@ -14,7 +14,7 @@ class ResidenciasController extends Controller
     public function store(){
 
     	$data = request()->all();
-    	dd($data);
+    	
     	if (empty($data['desc'])) {
     		return redirect()->route('crearResidencia')->withErrors('El campo descripción es obligatorio');
     	}	
