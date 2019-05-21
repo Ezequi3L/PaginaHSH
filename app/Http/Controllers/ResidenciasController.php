@@ -25,4 +25,35 @@ class ResidenciasController extends Controller
     		]);
     	return redirect()->route('inicio');
     }
+
+     public function ViewRes($id){
+      return view('viewRes', [
+        'title' => 'Detalles de la residencia',
+        'id' => $id,
+        ]);
+    }
+
+    public function EditRes($id){
+      return view('editRes', [
+        'title' => 'Modificar la residencia',
+        'id' => $id,
+        ]);
+    }
+
+     public function update(Residencia $residencia){
+        $data = request()->validate([
+            'descripcion' => '',
+            'localidad_id' => 'required'
+            ], [
+            'localidad_id.required' => 'El campo localidad_id es obligatorio'
+            ]);
+
+        if(empty($data['descripcion'])) {
+            $data['descripcion'] = $residencia->descripcion;
+        }
+        
+        $residencia->update($data);
+        return redirect()->route('viewRes', [$residencia]);
+    }
+
 }

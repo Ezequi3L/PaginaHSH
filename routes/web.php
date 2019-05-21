@@ -37,3 +37,12 @@ Route::get('/ofertaSub/{subasta}','OfertaController@OfertaForm')
 
 Route::post('/ofertaSub','OfertaController@store')
 	->name('subOfertaExitosa');
+
+Route::get('/residencias/{id}','ResidenciasController@ViewRes')
+	->name('viewRes');
+
+Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
+	->name('editRes');
+
+Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
+	->name('updateExitoso');

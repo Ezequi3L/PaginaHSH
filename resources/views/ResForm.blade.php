@@ -53,8 +53,7 @@ else {
 	@csrf
 	<div class="form-group">
 	  <textarea name="descripcion" rows="7" cols="30" placeholder="Ingrese una descripcion" required autofocus></textarea>
-	 <!-- <input class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripcion" required autofocus>
-	--></div>
+	</div>
 	<div class="form-group">
 	  <label for="provincia">Seleccione una provincia...</label>
 	  <select class="form-control" name="provincia" id="provincia">
