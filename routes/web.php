@@ -46,3 +46,9 @@ Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
 
 Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 	->name('updateExitoso');
+
+Route::get('/subastas/{id}','SubastaController@EditSub')
+	->name('editSub');
+
+Route::put('/subastas/{id}','SubastaController@update')
+	->name('subUpdateExitoso');

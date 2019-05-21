@@ -28,45 +28,49 @@ if ($errors->any()) {
   foreach ($errors->all() as $error) {
     echo "<p class='alert alert-danger'>*".$error."</p>";
   }
-}
-  use App\Residencia;
-  use App\Localidad;
-  use App\Provincia;
-  use App\Foto;
 
-  $res = Residencia::find($id);
-  $foto_src = $res->foto->src;
-  $desc = $res->descripcion;
-  $loc = $res->localidad;
-  $prov = $loc->provincia;
-  $pais = $prov->pais;
+}
+
+use App\Residencia;
+use App\Subasta;
+use Carbon\Carbon;
+
+$sub = Subasta::find($id);
+$res = $sub->residencia_id;
+$fecha = $sub->fecha_reserva;
+$monto = $sub->monto_minimo;
 
 ?>
 
 <div style="text-align:center; margin-top:100px; "> <! form >
-  <form method="post" action="{{ route('updateExitoso', [$id]) }}"> 
+  <form method="post" action="{{ route('subUpdateExitoso', [$sub->id]) }}"> 
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
-    <!-- <input class="form-control" type="text" name="descripcion" value="{{ old('descripcion', $desc) }}" required autofocus> -->
-     <textarea name="descripcion" rows="7" cols="30" placeholder="{{ $desc }}" autofocus></textarea>
+    <label for="monto_minimo">Monto mínimo</label>
+    <input class="form-control" type="number" step="any" name="monto_minimo" value="{{ old('monto_minimo', $monto) }}" required autofocus> 
     </div>
     <div class="form-group">
-        <label for="localidad_id">Localidad:</label>
-        <select class="form-control" name="localidad_id" id="localidad" value="{{ $loc->id }}">   
+        <label for="residencia">Residencia:</label>
+        <select class="form-control" name="residencia_id" id="residencia_id">   
           <?php
-            $localidades = Localidad::all();
-          foreach ($localidades as $localidad) {
+            $residencias = Residencia::all();
+          foreach ($residencias as $residencia) {
           ?>
-              <option value="{{$localidad->id}}" <?php if($loc->id == $localidad->id) echo "selected"; ?>>{{$localidad->localidad}}</option>
+              <option value="{{$residencia->id}}" <?php if($res == $residencia->id) echo "selected"; ?>>{{$residencia->id}}</option>
             <?php
             } //end foreach
             ?>
         </select>
     </div>
-    <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
+    <div class="form-group">
+      <label for="fecha_reserva">Fecha de reserva</label>
+      <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="{{ $fecha }}" required>
+    </div>
+    <a href="{{ route('inicio') }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
 </div>
+
 
 @endsection

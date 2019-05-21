@@ -45,7 +45,7 @@ class ResidenciasController extends Controller
             'descripcion' => '',
             'localidad_id' => 'required'
             ], [
-            'localidad_id.required' => 'El campo localidad_id es obligatorio'
+            'localidad_id.required' => 'El campo localidad es obligatorio'
             ]);
 
         if(empty($data['descripcion'])) {

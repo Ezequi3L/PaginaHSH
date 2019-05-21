@@ -47,4 +47,35 @@ class SubastaController extends Controller
 
     }
 
+     public function EditSub($id){
+      return view('editSub', [
+        'title' => 'Detalles de la subasta',
+        'id' => $id,
+        ]);
+    }
+
+     public function update($subid){
+        $subasta = Subasta::find($subid);
+        $data = request()->validate([
+            'residencia_id' => 'required',
+            'fecha_reserva' => 'required',
+            'monto_minimo' => 'required'
+            ], [
+            'residencia_id.required' => 'El campo residencia es obligatorio',
+            'fecha_reserva.required' => 'El campo fecha es obligatorio',
+            'monto_minimo.required' => 'El campo monto es obligatorio',
+            ]);
+
+        $subastasConMismaFecha = Subasta::whereFecha_reserva($data['fecha_reserva'])->get();     
+        $menosEsta = $subastasConMismaFecha->where('id','!=',$subid);
+        foreach ($menosEsta as $sub) {
+            if ($sub->residencia_id == $data['residencia_id']) {
+                return redirect()->route('editSub', [$subid])->withErrors('La residencia indicada ya posee una subasta para la fecha seleccionada');
+            }
+        }
+        
+        $subasta->update($data);
+        return redirect()->route('inicio');
+    }
+
 }
