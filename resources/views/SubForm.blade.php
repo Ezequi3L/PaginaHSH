@@ -2,6 +2,8 @@
 
 <?php
 use  App\Residencia;
+use Carbon\Carbon;
+
 ?>
 
 @section('mainContent')
@@ -11,16 +13,16 @@ if ($errors->any()) {
 	foreach ($errors->all() as $error) {
 		echo "<p class='alert alert-danger'>*".$error."</p>";
 	}
-	
+
 }
 ?>
 
 <div style="display:block; text-align:center; margin-top:100px; "> <! form >
-	<form method="post" action="{{ route('subAltaExitosa') }}"> 
+	<form method="post" action="{{ route('subAltaExitosa') }}">
 	@csrf
 		<div class="form-group">
 		<label for="residencia">Seleccione una residencia</label>
-	 	 	<select class="form-control" name="residencia" id="residencia" value="{{ old('residencia') }}" autofocus>		
+	 	 	<select class="form-control" name="residencia" id="residencia" value="{{ old('residencia') }}" autofocus>
 	  		<?php
 	  			$residencias = Residencia::all();
 	 			foreach ($residencias as $res) {
@@ -33,7 +35,7 @@ if ($errors->any()) {
 		</div>
 		<div class="form-group">
 			<label for="fecha">Seleccione una fecha de reserva</label>
-			<input class="form-control" type="date" name="fecha" id="fecha" value="{{ old('fecha') }}" required>
+			<input class="form-control" type="date" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> name="fecha" id="fecha" value="{{ old('fecha') }}" required>
 		</div>
 		<div class="form-group">
 			<input class="form-control" type="number" step="any" name="monto" placeholder="Ingrese el monto mínimo" required>

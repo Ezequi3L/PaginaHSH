@@ -6,7 +6,7 @@ use App\Residencia;
 
 class ResidenciasController extends Controller
 {
-    
+
     public function ResForm(){
       return view('ResForm', ['title' => "Agregar una residencia"]);
     }
@@ -14,11 +14,10 @@ class ResidenciasController extends Controller
     public function store(){
 
     	$data = request()->all();
-    	
+
     	if (empty($data['desc'])) {
     		return redirect()->route('crearResidencia')->withErrors('El campo descripción es obligatorio');
-    	}	
-
+    	}
     	Residencia::create([
     		'descripcion' => $data['desc'],
     		'localidad_id' => $data['localidad'],
