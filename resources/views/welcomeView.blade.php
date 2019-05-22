@@ -24,14 +24,14 @@
   $mostrar =  Residencia::all()->take(6);
 
   foreach ($mostrar as $residencia) {
-      
+
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
-      $src = ($residencia->foto)->src;
+      $src = $residencia->fotos()->first()->src;
 
 ?>
-        
+
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <img src="<?php echo $src; ?>">
@@ -49,7 +49,7 @@
 
 <?php
 
- }  //end foreach 
+ }  //end foreach
 
 ?>
 
@@ -149,7 +149,7 @@ body {
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
 }
 </style>

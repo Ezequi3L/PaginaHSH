@@ -16,6 +16,8 @@ class CreateFotosTable extends Migration
         Schema::create('fotos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('src');
+            $table->integer('residencia_id')->unsigned()->nullable();
+            $table->foreign('residencia_id')->references('id')->on('residencias');
             $table->timestamps();
         });
     }

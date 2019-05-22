@@ -18,8 +18,6 @@ class CreateResidenciasTable extends Migration
             $table->string('descripcion');
             $table->integer('localidad_id')->unsigned();
             $table->foreign('localidad_id')->references('id')->on('localidades')->nullable();
-            $table->integer('foto_id')->unsigned()->nullable();
-            $table->foreign('foto_id')->references('id')->on('fotos')->nullable();
             $table->timestamps();
         });
     }

@@ -12,4 +12,8 @@ class Foto extends Model
       'src'
   ];
 
+  public function residencia(){
+    return $this->belongsTo(Residencia::class);
+  }
+
 }

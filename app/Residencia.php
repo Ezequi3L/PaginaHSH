@@ -17,8 +17,8 @@ class Residencia extends Model
         return $this->belongsTo(Localidad::class);
     }
 
-    public function foto() {
-    	return $this->belongsTo(Foto::class);
+    public function fotos() {
+    	return $this->hasMany(Foto::class);
     }
-    
+
 }
