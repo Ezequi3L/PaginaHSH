@@ -166,17 +166,6 @@ body {
      @csrf
       <input type="text" placeholder="Buscar.." name="search">
       <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
-      <select class="form-control" name="localidad" id="localidad">
-        <?php
-
-    			$localidades = App\Localidad::all();
-   			foreach ($localidades as $localidad) {
-    		?>
-    				<option value="{{$localidad->id}}">{{$localidad->localidad}}</option>
-    			<?php
-    			} //end foreach
-    			?>
-  		</select>
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>

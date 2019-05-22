@@ -9,7 +9,7 @@ class Foto extends Model
   protected $table = 'fotos';
   //
   protected $fillable = [
-      'src', 'residencia_id'
+      'src'
   ];
 
   public function residencia(){
