@@ -55,3 +55,9 @@ Route::get('/subastas/{id}','SubastaController@EditSub')
 
 Route::put('/subastas/{id}','SubastaController@update')
 	->name('subUpdateExitoso');
+
+Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
+	->name('adjudicar');
+
+Route::get('/subastas/adjudicar/save/{id}','SubastaController@GuardarAdjudicacion')
+	->name('saveAdj');

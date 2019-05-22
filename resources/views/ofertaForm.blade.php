@@ -19,7 +19,8 @@ if ($errors->any()) {
  $descripcion = $residencia->descripcion;
  $localidad = $residencia->localidad;
  $provincia = $localidad->provincia;
- $src = ($residencia->foto)->src;
+ $src = $residencia->fotos()->first();
+ if ($src != null)  $src = $src->first()->src;
  $actual = $subasta->oferta_maxima();
 ?>
  <div class="album py-5 bg-light">

@@ -78,4 +78,19 @@ class SubastaController extends Controller
         return redirect()->route('inicio');
     }
 
+      public function Adjudicar($id){
+      return view('adjudicar', [
+        'title' => 'Adjudicar la subasta',
+        'id' => $id,
+        ]);
+    }
+
+     public function GuardarAdjudicacion($id){
+
+        //$sub = Subasta::find($id); 
+        //$sub->marca_de_baja = true;
+     
+        return redirect()->route('inicio');
+    }
+
 }

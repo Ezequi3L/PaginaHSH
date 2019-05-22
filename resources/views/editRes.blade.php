@@ -35,12 +35,11 @@ if ($errors->any()) {
   use App\Foto;
 
   $res = Residencia::find($id);
-  $foto_src = $res->foto->src;
   $desc = $res->descripcion;
   $loc = $res->localidad;
   $prov = $loc->provincia;
   $pais = $prov->pais;
-
+  
 ?>
 
 <div style="text-align:center; margin-top:100px; "> <! form >
