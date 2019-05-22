@@ -28,8 +28,8 @@
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
-      $src = $residencia->fotos()->first()->src;
-
+  //    $src = $residencia->fotos()->first()->src;
+      $src=1;
 ?>
 
         <div class="col-md-4">
