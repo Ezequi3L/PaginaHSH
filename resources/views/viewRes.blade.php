@@ -30,11 +30,14 @@
   use App\Foto;
 
   $res = Residencia::find($id);
-  //$foto_src = $res->hasMany();
   $desc = $res->descripcion;
   $loc = $res->localidad;
   $prov = $loc->provincia;
   $pais = $prov->pais;
+
+  $src = $res->fotos()->first();
+  if ($src != null)  $src = $src->first()->src;
+ 
 
 ?>
 
@@ -43,13 +46,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="{{ $foto_src }}" alt="{{ $foto_src }}">
+      <img class="d-block w-100" src="{{ $src }}">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ $foto_src }}" alt="{{ $foto_src }}">
+      <img class="d-block w-100" src="{{ $src }}">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ $foto_src }}" alt="{{ $foto_src }}">
+      <img class="d-block w-100" src="{{ $src }}">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

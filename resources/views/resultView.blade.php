@@ -123,7 +123,7 @@
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
-      $src = ($residencia->foto)->src;
+      if ($src != null)  $src = $src->first()->src;
 
   ?>
 
