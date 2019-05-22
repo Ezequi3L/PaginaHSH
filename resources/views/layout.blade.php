@@ -10,8 +10,8 @@
     <title>{{ $title }}</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/public/css/bootstrap.min.js">
-
+<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+  
 
 
     <style>
@@ -40,7 +40,7 @@
     <div class="container">
 
       @yield('headerContent')
-
+      
     </div>
   </div>
   <!Link al inicio>
