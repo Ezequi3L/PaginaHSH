@@ -9,6 +9,7 @@ class resultController extends Controller
 {
     public function index(){
       $data = request()->all();
+      dd($data);
       $title = "HSH - Resultados de Busqueda";
     	return view('resultView', compact('title','data'));
     }
