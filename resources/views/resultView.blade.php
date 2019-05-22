@@ -42,14 +42,38 @@
 
     if ($data->search != '') {
 
-        $resultado=Residencia::whereHas('descripcion',function($q){
-              $q->where('nombre','like','%$data-search%');
+        $resultado=Residencia::whereHas('descripcion', 'like', %$data->search%)->get();
+        foreach ($resultado as $subasta) {
 
-        })->get();
-
+          $residencia = Residencia::find($subasta->residencia_id);
+          $descripcion = $residencia->descripcion;
+          $localidad = $residencia->localidad;
+          $provincia = $localidad->provincia;
+          $src = ($residencia->foto)->src;
         //imprimir resultado de nuevo si es que anda
+        ?>
+        
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="<?php echo $src; ?>">
+                  <div class="card-body">
+                    <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                        <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                        <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                        <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-    }
+
+         <?php
+    }//fin foreach
+  }//fin if $data search
 
     if ($data->subasta == "subasta") {
 
