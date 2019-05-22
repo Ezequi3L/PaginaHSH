@@ -30,7 +30,7 @@
   use App\Foto;
 
   $res = Residencia::find($id);
-  $foto_src = $res->foto->src;
+  //$foto_src = $res->hasMany();
   $desc = $res->descripcion;
   $loc = $res->localidad;
   $prov = $loc->provincia;

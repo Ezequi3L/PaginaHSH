@@ -11,4 +11,12 @@ class resultController extends Controller
     		'title' => "HSH - Resultados de búsqueda"
     	]);
     }
+
+    public function listarSubasta(){
+      $title = "HSH - Listado de Subastas"
+      $resultado = App\Subasta::all();
+      return view('listadoSubastas', compact($title,$resultado))
+
+
+    }
 }

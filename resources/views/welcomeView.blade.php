@@ -9,6 +9,7 @@
       <p>
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
+        <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
       </p>
     </div>
   </section>
