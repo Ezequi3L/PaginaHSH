@@ -42,7 +42,7 @@
 
     if ($data->search != '') {
 
-        $resultado=Residencia::where('descripcion', 'like', '%' $data->search '%')->get();
+        $resultado=Residencia::where('descripcion', 'like', '%'. $data->search .'%');
         foreach ($resultado as $subasta) {
 
           $residencia = Residencia::find($subasta->residencia_id);
