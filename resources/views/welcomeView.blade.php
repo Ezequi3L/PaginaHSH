@@ -29,8 +29,11 @@
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
-  //    $src = $residencia->fotos()->first()->src;
-      $src=1;
+      $src = $residencia->fotos()->first();
+      if ($src != null)  $src = $src->first()->src;
+  
+      
+     // $src=1;
 ?>
 
         <div class="col-md-4">

@@ -42,11 +42,11 @@
   foreach ($resultado as $subasta) {
 
     $residencia = Residencia::find($subasta->residencia_id);
-    $src= 1;
     $descripcion = $residencia->descripcion;
     $localidad = $residencia->localidad;
     $provincia = $localidad->provincia;
-  //  $src = $residencia->fotos();
+    $src = $residencia->fotos()->first();
+    if ($src != null)  $src = $src->first()->src;
 
 ?>
 
