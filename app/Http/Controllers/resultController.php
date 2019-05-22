@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Subasta;
 
 class resultController extends Controller
 {
     public function index(){
-    	return view('resultView', [
-    		'title' => "HSH - Resultados de búsqueda"
-    	]);
+      $data = request()->all();
+      $title = "HSH - Resultados de Busqueda";
+    	return view('resultView', compact('title','data'));
     }
 
     public function listarSubasta(){
-      $title = "HSH - Listado de Subastas"
-      $resultado = App\Subasta::all();
-      return view('listadoSubastas', compact($title,$resultado))
+      $title = "HSH - Listado de Subastas";
+      $resultado = Subasta::all();
+      return view('lisSub', compact('title','resultado'));
 
 
     }

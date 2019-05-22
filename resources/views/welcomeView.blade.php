@@ -162,6 +162,7 @@ body {
     <form  method="POST" action={{ route('resultados') }}>
      @csrf
       <input type="text" placeholder="Buscar.." name="search">
+      <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>

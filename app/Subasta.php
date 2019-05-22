@@ -13,21 +13,25 @@ class Subasta extends Model
         'residencia_id','fecha_reserva','monto_minimo'
     ];
 
+		public function residencia(){
+			return $this->belongsTo(Residencia::class);
+		}
+
     public function fecha_inicio(){  //se invoca así $varSubasta->fecha_inicio();
     	return (Carbon::createFromDate($this->fecha_reserva))->subMonth(6);
     }
-    
 
-    public function ofertas(){ 
+
+    public function ofertas(){
     	return $this->hasMany(Oferta::class);
     }
-    
-    public function oferta_maxima(){ 
+
+    public function oferta_maxima(){
         $ret = $this->ofertas->max('monto');
     	if ( $ret != null) {
             return $ret;
         }
         else return 0;
     }
- 
+
 }

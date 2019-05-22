@@ -41,12 +41,13 @@
 
   foreach ($resultado as $subasta) {
 
-    $residencia = subasta->belongsTo();
+    $residencia = Residencia::find($subasta->residencia_id);
+    $src= 1;
     $descripcion = $residencia->descripcion;
     $localidad = $residencia->localidad;
     $provincia = $localidad->provincia;
-  //  $src = $residencia->hasMany();
-    $src= 1;
+  //  $src = $residencia->fotos();
+
 ?>
 
 <div class="col-md-4">

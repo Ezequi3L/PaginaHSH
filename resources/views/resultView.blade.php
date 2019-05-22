@@ -39,11 +39,13 @@
   use App\Residencia;
 
   if(isset($_POST['buscar'])) {
-    
-    $resultado = Subasta::all();
+
+    if ($data->subasta == "subasta") {
+
+      $resultado=Subasta::all();
 
     foreach ($resultado as $subasta) {
-         
+
       $residencia = Residencia::find($subasta->residencia_id);
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
@@ -68,13 +70,14 @@
             </div>
           </div>
         </div>
-      
+
 
    <?php
-         
+
      } //fin foreach
+   } //fin if(subasta)
    }   //fin if(isset)
-   
+
    ?>
       </div>
     </div>
