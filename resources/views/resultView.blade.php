@@ -40,6 +40,17 @@
 
   if(isset($_POST['buscar'])) {
 
+    if ($data->search != '') {
+
+        $resultado=Residencia::whereHas('descripcion',function($q){
+              $q->where('nombre','like','%$data-search%');
+
+        })->get();
+
+        //imprimir resultado de nuevo si es que anda
+
+    }
+
     if ($data->subasta == "subasta") {
 
       $resultado=Subasta::all();
