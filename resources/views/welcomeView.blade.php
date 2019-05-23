@@ -30,6 +30,7 @@
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
+      $foto = $residencia->fotos()->first();
       $src = $residencia->fotos()->first();
       if ($src != null)  $src = $src->first()->src;
 
