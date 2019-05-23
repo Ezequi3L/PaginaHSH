@@ -33,15 +33,13 @@
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
       $foto = $residencia->fotos()->first();
-      $src = $residencia->fotos()->first();
-      if ($src != null)  $src = $src->first()->src;
 
      // $src=1;
 ?>
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+            <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
               <div class="d-flex justify-content-between align-items-center">

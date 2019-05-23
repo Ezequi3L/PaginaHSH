@@ -12,7 +12,7 @@ class Oferta extends Model
     protected $fillable = [
         'subasta_id','mail','monto'
     ];
-    
+
     public function subasta(){
     	return $this->belongsTo(Subasta::class);
     }
@@ -28,7 +28,7 @@ class Oferta extends Model
     		foreach ($ofertas as $oferta) {
     			if ($oferta->mail == $this->mail) $ok = true;
     		}
-    		
+
     	}
 
     	return $ok;
