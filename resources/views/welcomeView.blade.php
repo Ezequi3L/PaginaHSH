@@ -10,6 +10,8 @@
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
+        <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
+
       </p>
     </div>
   </section>
@@ -30,9 +32,9 @@
       $descripcion = $residencia->descripcion;
       $localidad = $residencia->localidad;
       $provincia = $localidad->provincia;
+      $foto = $residencia->fotos()->first();
       $src = $residencia->fotos()->first();
       if ($src != null)  $src = $src->first()->src;
-
 
      // $src=1;
 ?>
