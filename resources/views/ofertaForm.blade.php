@@ -19,7 +19,8 @@ if ($errors->any()) {
  $descripcion = $residencia->descripcion;
  $localidad = $residencia->localidad;
  $provincia = $localidad->provincia;
- $src = ($residencia->foto)->src;
+ $foto = $residencia->fotos()->first();
+ $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
  $actual = $subasta->oferta_maxima();
 ?>
  <div class="album py-5 bg-light">
@@ -27,7 +28,7 @@ if ($errors->any()) {
       <div class="row">
 		<div class="col-md-4" style="margin-inline: 100px;">
           <div class="card mb-4 shadow-sm">
-            <img src="<?php echo $src; ?>">
+             <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
               <div class="d-flex justify-content-between align-items-center">

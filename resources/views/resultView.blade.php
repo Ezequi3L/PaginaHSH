@@ -39,7 +39,7 @@
   use App\Residencia;
 
   if(isset($_POST['buscar'])) {
-
+    
     if ($data->search != '') {
 
         $resultado=Residencia::where('descripcion', 'like', '%'. $data->search .'%');

@@ -35,26 +35,35 @@
   $prov = $loc->provincia;
   $pais = $prov->pais;
 
-  $src = $res->fotos()->first();
-  if ($src != null)  $src = $src->first()->src;
- 
-
+  $fotos = $res->fotos()->get();
+  
+  if ($fotos->first() != null) {
+    $primera = $fotos->shift()->src;
+    
 ?>
-
-  <! Mostrar todas las fotos de la residencia >
-
+ <! Primera foto (item active) >
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="{{ $src }}">
+      <img class="d-block w-100" src="{{ $primera }}">
     </div>
+
+<?php
+
+  foreach ($fotos as $foto) {
+
+?>
+  <! Resto de las fotos >
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ $src }}">
+      <img class="d-block w-100" src="{{ $foto->src }}">
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="{{ $src }}">
-    </div>
+   
+<?php
+  } //end foreach
+?>
+
   </div>
+  <! Botones de navegación entre fotos >
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -65,9 +74,9 @@
   </a>
 </div>
 
-  <! Mostrar toda la info
-    *descripcion
-    *localidad, provincia, país >
+<?php
+  } //endif
+?>  
 
 <ul class="list-group">
   <li class="list-group-item">{{ $desc }}</li>
