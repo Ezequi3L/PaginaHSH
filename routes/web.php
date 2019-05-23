@@ -14,7 +14,7 @@
 Route::get('/', 'WelcomeController@index')
 	->name('inicio');
 
-Route::post('/result', 'resultController@index')
+Route::get('/result', 'resultController@index')
 	->name('resultados');
 
 Route::get('/newRes','ResidenciasController@ResForm')
