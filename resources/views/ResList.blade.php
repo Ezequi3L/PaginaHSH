@@ -59,7 +59,11 @@
         <div class="btn-group">
           <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
           <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-          <a href="{{ route('aniquilarResidencia', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Eliminar</button></a>
+          <form action="{{ route('aniquilarResidencia', [$residencia]) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button type="submit">Eliminar</button>
+</form>
         </div>
       </div>
     </div>
