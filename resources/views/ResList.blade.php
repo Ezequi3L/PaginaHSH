@@ -43,6 +43,8 @@
     $descripcion = $residencia->descripcion;
     $localidad = $residencia->localidad;
     $provincia = $localidad->provincia;
+    $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
+    $foto = $residencia->fotos()->first();
     $src = $residencia->fotos()->first();
     if ($src != null)  $src = $src->first()->src;
 
@@ -50,7 +52,7 @@
 
 <div class="col-md-4">
   <div class="card mb-4 shadow-sm">
-    <img src="<?php echo $src; ?>">
+    <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
     <div class="card-body">
       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
       <div class="d-flex justify-content-between align-items-center">
