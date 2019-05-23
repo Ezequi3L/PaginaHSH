@@ -39,7 +39,7 @@
   use App\Residencia;
 
   foreach ($resultado as $residencia) {
-
+    if (!$residencia->dada_de_baja){
     $descripcion = $residencia->descripcion;
     $localidad = $residencia->localidad;
     $provincia = $localidad->provincia;
@@ -73,7 +73,7 @@
 <?php
 
   } //fin foreach
-
+}
 ?>
 
 </div>
