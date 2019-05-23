@@ -65,5 +65,5 @@ Route::get('/subastas/adjudicar/save/{id}','SubastaController@GuardarAdjudicacio
 Route::get('/lisRes','ResidenciasController@ResList')
 	->name('listarResidencias');
 
-Route::delete('/residencias/{id}','ResidenciasController@destroy')
+Route::delete('/residencias/{residencia}','ResidenciasController@destroy')
 	->name('aniquilarResidencia');

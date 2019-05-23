@@ -20,7 +20,6 @@ class CreateSubastasTable extends Migration
             $table->date('fecha_reserva'); //la fecha de inicio es 6 meses antes
             $table->unique(['residencia_id','fecha_reserva']);
             $table->double('monto_minimo');
-            $table->boolean('dada_de_baja')->default(false);
             $table->timestamps();
         });
     }
