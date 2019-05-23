@@ -62,7 +62,7 @@
           <form action="{{ route('aniquilarResidencia', [$residencia]) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
-            <button type="submit">Eliminar</button>
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
 </form>
         </div>
       </div>

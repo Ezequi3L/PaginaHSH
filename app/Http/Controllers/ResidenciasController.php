@@ -64,7 +64,7 @@ class ResidenciasController extends Controller
 
     function destroy(Residencia $residencia){
       $residencia->delete();
-      return redirect()->route('listarResidencias');
+      return redirect()->route('inicio');
     }
 
 }

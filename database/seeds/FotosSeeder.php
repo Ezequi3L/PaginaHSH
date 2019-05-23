@@ -20,6 +20,6 @@ class FotosSeeder extends Seeder
 
 
       //  factory(App\Foto::class)->times(17)->create();
-        
+
     }
 }
