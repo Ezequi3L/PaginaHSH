@@ -11,6 +11,12 @@ class ResidenciasController extends Controller
       return view('ResForm', ['title' => "Agregar una residencia"]);
     }
 
+    public function ResList(){
+      $title = "HSH - Listado de Residencias";
+      $resultado = Residencia::all();
+      return view('ResList', compact('title','resultado'));
+    }
+
     public function store(){
 
     	$data = request()->all();
@@ -51,9 +57,14 @@ class ResidenciasController extends Controller
         if(empty($data['descripcion'])) {
             $data['descripcion'] = $residencia->descripcion;
         }
-        
+
         $residencia->update($data);
         return redirect()->route('viewRes', [$residencia]);
+    }
+
+    function aniquilar(Residencia $residencia){
+      $residencia->delete();
+      return redirect()->route('listarResidencias');
     }
 
 }
