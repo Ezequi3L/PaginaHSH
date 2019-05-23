@@ -11,6 +11,6 @@ class SubastasSeeder extends Seeder
      */
     public function run()
     {
-  //      factory(App\Subasta::class)->times(17)->create();
+        factory(App\Subasta::class)->times(17)->create();
     }
 }

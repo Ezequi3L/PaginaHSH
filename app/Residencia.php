@@ -9,7 +9,7 @@ class Residencia extends Model
     protected $table = 'residencias';
     //
     protected $fillable = [
-        'descripcion','localidad_id'
+        'descripcion','localidad_id','dada_de_baja'
     ];
 
     public function localidad()
