@@ -43,7 +43,7 @@ $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
       if (($_GET['search'] != NULL) and ($_GET['localidad'] !=NULL)) {
           $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
           ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-          ->orWhere('residencias.localidad_id','localidad')->distinct()->get();
+          ->orWhere('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
 
         foreach ($resultado as $subasta) {
 
@@ -118,7 +118,7 @@ $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
       if($_GET['localidad'] != NULL){
 
         $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-        ->where('residencias.localidad_id','localidad')->distinct()->get();
+        ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
 
         foreach ($resultado as $subasta) {
 
@@ -269,7 +269,7 @@ else {
   if($_GET['localidad'] != NULL){
 
     $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-    ->where('residencias.localidad_id','localidad')->distinct()->get();
+    ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
 
     foreach ($resultado as $subasta) {
 
