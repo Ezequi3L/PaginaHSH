@@ -33,54 +33,235 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="row">
-  <?php
+        <<?php
+        use App\Subasta;
+        use App\Residencia;
+        $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
-  use App\Subasta;
-  use App\Residencia;
-$imgnodisp = '/public/imagenes/img-nodisponible.jpg';
-  if(isset($_GET['buscar'])) {
-    if (isset($_GET['subasta'])) {
-      if (($_GET['search'] != NULL) and ($_GET['localidad'] !=NULL)) {
-          $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-          ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-          ->orWhere('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
+        if (isset($_GET['buscar'])){
+          if (($_GET['search'] != NULL) and ($_GET['localidad'] != NULL) and (isset($_GET['fecha_reserva']))) {
+            $accion =1;
+          }
+          else{
+            if (($_GET['search'] != NULL) and ($_GET['localidad'] !=NULL)) {
+              $accion =2;
 
-        foreach ($resultado as $subasta) {
+            }
+            else{
+                if (($_GET['search'] != NULL) and (isset($_GET['fecha_reserva']))){
+                  $accion =3;
+                }
+                else{
 
-          $residencia = Residencia::find($subasta->residencia_id);
-          $descripcion = $residencia->descripcion;
-          $localidad = $residencia->localidad;
-          $provincia = $localidad->provincia;
-          $src = $residencia->fotos()->first();
-          if ($src != null)  $src = $src->first()->src;
-        //imprimir resultado de nuevo si es que anda
-        ?>
+                  if(($_GET['localidad'] != NULL) and (isset($_GET['fecha_reserva']))){
+                    $accion =4;
+                  }
+                  else{
+                    if ($_GET['search'] !=NULL){
+                      $accion=5;
+                    }
+                    else{
+                      if ($_GET['localidad'] != NULL){
+                        $accion=6;
+                      }
+                      else{
+                        if(isset($_GET['fecha_reserva']){
+                          $accion=7;
+                        }
+                        else{
+                          $accion=8;
+                        }
+                      }
+                    }
+                  }
+                }
+            }
+          }
 
-              <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-                  <div class="card-body">
-                    <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                        <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                        <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                        <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                      </div>
-                    </div>
+          if isset($_GET['subasta']){
+            //imprimir subastas segun switch
+            switch ($accion) {
+              case 1:
+                    $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                    ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                    ->where('residencias.localidad_id',$_GET['localidad'])
+                    ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->get();
+
+                    foreach ($resultado as $subasta) {
+
+                      $residencia = Residencia::find($subasta->residencia_id);
+                      $descripcion = $residencia->descripcion;
+                      $localidad = $residencia->localidad;
+                      $provincia = $localidad->provincia;
+                      $src = $residencia->fotos()->first();
+                      if ($src != null)  $src = $src->first()->src;
+                      //imprimir resultado de nuevo si es que anda
+                      ?>
+                      <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                          <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                            <div class="card-body">
+                              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    }
+
+         <?php
+                break;
+              case 2:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+        ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+        ->where('residencias.localidad_id',$_GET['localidad'])->get();
+
+      foreach ($resultado as $subasta) {
+
+        $residencia = Residencia::find($subasta->residencia_id);
+        $descripcion = $residencia->descripcion;
+        $localidad = $residencia->localidad;
+        $provincia = $localidad->provincia;
+        $src = $residencia->fotos()->first();
+        if ($src != null)  $src = $src->first()->src;
+      //imprimir resultado de nuevo si es que anda
+      ?>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+            <div class="card-body">
+              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+    }
+
+<?php
+                break;
+              case 3:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->get();
+
+              foreach ($resultado as $subasta) {
+
+                $residencia = Residencia::find($subasta->residencia_id);
+                $descripcion = $residencia->descripcion;
+                $localidad = $residencia->localidad;
+                $provincia = $localidad->provincia;
+                $src = $residencia->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                            <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                            <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            }
+
+        <?php
+                break;
+              case 4:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+              ->where('residencias.localidad_id',$_GET['localidad'])
+              ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->distinct()->get();
+
+              foreach ($resultado as $subasta) {
+
+  $residencia = Residencia::find($subasta->residencia_id);
+  $descripcion = $residencia->descripcion;
+  $localidad = $residencia->localidad;
+  $provincia = $localidad->provincia;
+  $src = $residencia->fotos()->first();
+  if ($src != null)  $src = $src->first()->src;
+//imprimir resultado de nuevo si es que anda
+?>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+          <div class="card-body">
+            <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-         <?php
-    }//fin foreach
-  }//fin if isset
-  else{
-    if($_GET['search'] != NULL){
-      $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')->get();
+ <?php
+}
+                break;
+              case 5:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                    ->where('residencias.descripcion','like','%'.$_GET['search'].'%')->get();
+
+                    foreach ($resultado as $subasta) {
+
+                      $residencia = Residencia::find($subasta->residencia_id);
+                      $descripcion = $residencia->descripcion;
+                      $localidad = $residencia->localidad;
+                      $provincia = $localidad->provincia;
+                      $src = $residencia->fotos()->first();
+                      if ($src != null)  $src = $src->first()->src;
+                    //imprimir resultado de nuevo si es que anda
+                    ?>
+
+                          <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                              <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                              <div class="card-body">
+                                <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                     <?php
+                break;
+              case 6:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+      ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
 
       foreach ($resultado as $subasta) {
 
@@ -112,206 +293,57 @@ $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
 
        <?php
-  }//fin foreach
-    }//fin if isset
-    else {
-      if($_GET['localidad'] != NULL){
+                break;
+              case 7:
+              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+      ->where('subastas.fecha_reserva',$_GET['fecha_reserva'])->distinct()->get();
 
-        $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-        ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
+      foreach ($resultado as $subasta) {
 
-        foreach ($resultado as $subasta) {
+        $residencia = Residencia::find($subasta->residencia_id);
+        $descripcion = $residencia->descripcion;
+        $localidad = $residencia->localidad;
+        $provincia = $localidad->provincia;
+        $src = $residencia->fotos()->first();
+        if ($src != null)  $src = $src->first()->src;
+      //imprimir resultado de nuevo si es que anda
+      ?>
 
-          $residencia = Residencia::find($subasta->residencia_id);
-          $descripcion = $residencia->descripcion;
-          $localidad = $residencia->localidad;
-          $provincia = $localidad->provincia;
-          $src = $residencia->fotos()->first();
-          if ($src != null)  $src = $src->first()->src;
-        //imprimir resultado de nuevo si es que anda
-        ?>
-
-              <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-                  <div class="card-body">
-                    <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                        <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                        <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                        <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                      </div>
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                <div class="card-body">
+                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                      <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                      <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                      <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
                     </div>
                   </div>
                 </div>
               </div>
-
-
-         <?php
-    }//fin foreach
-      }
-      else{
-        $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')->distinct()->get();
-
-        foreach ($resultado as $subasta) {
-
-          $residencia = Residencia::find($subasta->residencia_id);
-          $descripcion = $residencia->descripcion;
-          $localidad = $residencia->localidad;
-          $provincia = $localidad->provincia;
-          $src = $residencia->fotos()->first();
-          if ($src != null)  $src = $src->first()->src;
-        //imprimir resultado de nuevo si es que anda
-        ?>
-
-              <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-                  <div class="card-body">
-                    <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                        <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                        <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                        <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-         <?php
-    }//fin foreach
-      }
-    }
-  }//fin else
-}//fin if isset
-else{
-  if (($_GET['search'] != NULL) and ($_GET['localidad'] != NULL)) {
-      $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-      ->orWhere('residencias.localidad_id','localidad')->distinct()->get();
-
-    foreach ($resultado as $subasta) {
-
-      $residencia = Residencia::find($subasta->residencia_id);
-      $descripcion = $residencia->descripcion;
-      $localidad = $residencia->localidad;
-      $provincia = $localidad->provincia;
-      $src = $residencia->fotos()->first();
-      if ($src != null)  $src = $src->first()->src;
-    //imprimir resultado de nuevo si es que anda
-    ?>
-
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-              <div class="card-body">
-                <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
 
 
-     <?php
-}//fin foreach
-}//fin if isset
-else{
-if($_GET['search'] != NULL){
-  $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')->get();
+       <?php
+                break;
+              case 8:
+                echo "Seleccione un tipo de busqueda";
+                break;
 
-  foreach ($resultado as $subasta) {
-
-    $residencia = Residencia::find($subasta->residencia_id);
-    $descripcion = $residencia->descripcion;
-    $localidad = $residencia->localidad;
-    $provincia = $localidad->provincia;
-    $src = $residencia->fotos()->first();
-    if ($src != null)  $src = $src->first()->src;
-  //imprimir resultado de nuevo si es que anda
-  ?>
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-            <div class="card-body">
-              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                  <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                  <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                  <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-   <?php
-}//fin foreach
-}//fin if isset
-else {
-  if($_GET['localidad'] != NULL){
-
-    $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-    ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
-
-    foreach ($resultado as $subasta) {
-
-      $residencia = Residencia::find($subasta->residencia_id);
-      $descripcion = $residencia->descripcion;
-      $localidad = $residencia->localidad;
-      $provincia = $localidad->provincia;
-      $src = $residencia->fotos()->first();
-      if ($src != null)  $src = $src->first()->src;
-    //imprimir resultado de nuevo si es que anda
-    ?>
-
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-              <div class="card-body">
-                <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-     <?php
-}//fin foreach
-  }
-  else
-      echo "Seleccione un campo del buscador";
 }
-}//fin else
-}//fin if isset
+
+          }
+          else {
+            echo "Seleccione el tipo de busqueda que desea";
+          }
 
 
-}//fin if isset
-  ?>
+
+        }
+         ?>
       </div>
     </div>
   </div>

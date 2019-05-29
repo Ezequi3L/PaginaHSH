@@ -43,29 +43,12 @@ $monto = $sub->monto_minimo;
 ?>
 
 <div style="text-align:center; margin-top:100px; "> <! form >
-  <form method="post" action="{{ route('subUpdateExitoso', [$sub->id]) }}"> 
+  <form method="post" action="{{ route('subUpdateExitoso', [$sub->id]) }}">
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
     <label for="monto_minimo">Monto mínimo</label>
-    <input class="form-control" type="number" step="any" name="monto_minimo" value="{{ old('monto_minimo', $monto) }}" required autofocus> 
-    </div>
-    <div class="form-group">
-        <label for="residencia">Residencia:</label>
-        <select class="form-control" name="residencia_id" id="residencia_id">   
-          <?php
-            $residencias = Residencia::all();
-          foreach ($residencias as $residencia) {
-          ?>
-              <option value="{{$residencia->id}}" <?php if($res == $residencia->id) echo "selected"; ?>>{{$residencia->id}}</option>
-            <?php
-            } //end foreach
-            ?>
-        </select>
-    </div>
-    <div class="form-group">
-      <label for="fecha_reserva">Fecha de reserva</label>
-      <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="{{ $fecha }}" required>
+    <input class="form-control" type="number" step="any" name="monto_minimo" value="{{ old('monto_minimo', $monto) }}" required autofocus>
     </div>
     <a href="{{ route('inicio') }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">

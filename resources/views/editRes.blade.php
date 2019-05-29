@@ -39,11 +39,11 @@ if ($errors->any()) {
   $loc = $res->localidad;
   $prov = $loc->provincia;
   $pais = $prov->pais;
-  
+
 ?>
 
 <div style="text-align:center; margin-top:100px; "> <! form >
-  <form method="post" action="{{ route('updateExitoso', [$id]) }}"> 
+  <form method="post" action="{{ route('updateExitoso', [$id]) }}">
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
@@ -52,7 +52,7 @@ if ($errors->any()) {
     </div>
     <div class="form-group">
         <label for="localidad_id">Localidad:</label>
-        <select class="form-control" name="localidad_id" id="localidad" value="{{ $loc->id }}">   
+        <select class="form-control" name="localidad_id" id="localidad" value="{{ $loc->id }}">
           <?php
             $localidades = Localidad::all();
           foreach ($localidades as $localidad) {
