@@ -16,8 +16,8 @@ class CreateResidenciasTable extends Migration
         Schema::create('residencias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion');
-            $table->integer('localidad_id')->unsigned();
-            $table->foreign('localidad_id')->references('id')->on('localidades')->nullable();
+            $table->integer('ubicacion_id')->unsigned();
+            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones')->nullable();
             $table->boolean('dada_de_baja')->default(false);
             $table->timestamps();
         });

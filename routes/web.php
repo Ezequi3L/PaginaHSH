@@ -67,3 +67,9 @@ Route::get('/lisRes','ResidenciasController@ResList')
 
 Route::delete('/residencias/{residencia}','ResidenciasController@destroy')
 	->name('aniquilarResidencia');
+
+Route::get('/ubicacion/alta', 'UbicacionController@UbicacionForm')
+	->name('altaUbicacion');
+
+Route::post('/ubicacion/alta', 'UbicacionController@store')
+	->name('altaUbicacion');

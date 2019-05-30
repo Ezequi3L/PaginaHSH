@@ -39,7 +39,7 @@
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
         if (isset($_GET['buscar'])){
-          if (($_GET['search'] != NULL) and ($_GET['localidad'] != NULL) and (isset($_GET['fecha_reserva']))) {
+          if (($_GET['search'] != NULL) and ($_GET['localidad'] != NULL) and (($_GET['fecha_reserva']) !=NULL)) {
             $accion =1;
           }
           else{
@@ -48,12 +48,12 @@
 
             }
             else{
-                if (($_GET['search'] != NULL) and (isset($_GET['fecha_reserva']))){
+                if (($_GET['search'] != NULL) and (($_GET['fecha_reserva']) != NULL)){
                   $accion =3;
                 }
                 else{
 
-                  if(($_GET['localidad'] != NULL) and (isset($_GET['fecha_reserva']))){
+                  if(($_GET['localidad'] != NULL) and (($_GET['fecha_reserva']) !=NULL)){
                     $accion =4;
                   }
                   else{
@@ -65,9 +65,8 @@
                         $accion=6;
                       }
                       else{
-                        if(isset($_GET['fecha_reserva']){
-                          $accion=7;
-                        }
+                        if(($_GET['fecha_reserva']) !=NULL){
+                          $accion=7;}
                         else{
                           $accion=8;
                         }
@@ -77,11 +76,10 @@
                 }
             }
           }
-
-          if isset($_GET['subasta']){
+          if (isset($_GET['subasta'])){
             //imprimir subastas segun switch
             switch ($accion) {
-              case 1:
+              case 1:{
                     $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                     ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                     ->where('residencias.localidad_id',$_GET['localidad'])
@@ -102,7 +100,7 @@
                           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                             <div class="card-body">
                               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                                <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                                <p class="card-text"> <?php echo "Reserva:" ; echo $subasta->fecha_reserva; ?> </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
                                     <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -114,10 +112,11 @@
                               </div>
                             </div>
                           </div>
-                    }
+
 
          <?php
-                break;
+       }
+                break;}
               case 2:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
         ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
@@ -138,7 +137,7 @@
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                    <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                    <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -150,9 +149,10 @@
               </div>
             </div>
           </div>
-    }
+
 
 <?php
+}
                 break;
               case 3:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
@@ -174,7 +174,7 @@
                   <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                     <div class="card-body">
                       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                            <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                            <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="btn-group">
                             <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -186,9 +186,10 @@
                       </div>
                     </div>
                   </div>
-            }
+
 
         <?php
+      }
                 break;
               case 4:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
@@ -211,7 +212,7 @@
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
           <div class="card-body">
             <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                  <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                  <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -248,7 +249,7 @@
                               <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                               <div class="card-body">
                                 <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                                      <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                                      <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
                                     <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -285,7 +286,7 @@
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
                   <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                        <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -323,7 +324,7 @@
                 <div class="card-body">
 
                   <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                        <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -359,7 +360,7 @@
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
                   <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
-                        <p class="card-text"> <?php echo "Reserva:" echo $subasta->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>

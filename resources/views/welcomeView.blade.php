@@ -11,6 +11,7 @@
         <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
+        <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>
 
       </p>
     </div>
