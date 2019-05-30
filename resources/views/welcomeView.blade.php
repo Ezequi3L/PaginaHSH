@@ -179,7 +179,7 @@ body {
     			} //end foreach
     			?>
   		</select>
-      <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="{{ $fecha }}" >
+      <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="" >
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>
