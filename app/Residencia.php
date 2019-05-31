@@ -9,12 +9,12 @@ class Residencia extends Model
     protected $table = 'residencias';
     //
     protected $fillable = [
-        'descripcion','localidad_id','dada_de_baja'
+        'descripcion','ubicacion_id','dada_de_baja'
     ];
 
-    public function localidad()
+    public function ubicacion()
     {
-        return $this->belongsTo(Localidad::class);
+        return $this->belongsTo(Ubicacion::class);
     }
 
     public function fotos() {

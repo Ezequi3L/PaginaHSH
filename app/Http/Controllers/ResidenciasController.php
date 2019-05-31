@@ -26,7 +26,7 @@ class ResidenciasController extends Controller
     	}
     	Residencia::create([
     		'descripcion' => $data['desc'],
-    		'localidad_id' => $data['localidad'],
+    		'ubicacion_id' => $data['ubicacion'],
     		//'foto_id' => $data['']
     		]);
     	return redirect()->route('inicio');
@@ -49,9 +49,9 @@ class ResidenciasController extends Controller
      public function update(Residencia $residencia){
         $data = request()->validate([
             'descripcion' => '',
-            'localidad_id' => 'required'
+            'ubicacion_id' => 'required'
             ], [
-            'localidad_id.required' => 'El campo localidad es obligatorio'
+            'ubicacion_id.required' => 'El campo ubicacion es obligatorio'
             ]);
 
         if(empty($data['descripcion'])) {
@@ -63,8 +63,8 @@ class ResidenciasController extends Controller
     }
 
     function destroy(Residencia $residencia){
-      
-      $residencia->dada_de_baja = true; 
+
+      $residencia->dada_de_baja = true;
       $residencia->update();
       return redirect()->route('listarResidencias');
     }

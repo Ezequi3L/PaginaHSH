@@ -31,8 +31,7 @@
   foreach ($mostrar as $residencia) {
 
       $descripcion = $residencia->descripcion;
-      $localidad = $residencia->localidad;
-      $provincia = $localidad->provincia;
+      $ubicacion = $residencia->ubicacion;
       $foto = $residencia->fotos()->first();
 
      // $src=1;
@@ -42,7 +41,7 @@
           <div class="card mb-4 shadow-sm">
             <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
-              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -168,14 +167,14 @@ body {
      @csrf
       <input type="text" placeholder="Buscar.." name="search">
       <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
-      <select class="form-control" name="localidad" id="localidad">
-            <option value=""> {{"Seleccione una localidad"}} </option>
+      <select class="form-control" name="ubicacion" id="ubicacion">
+            <option value=""> {{"Seleccione una ubicacion"}} </option>
         <?php
 
-    			$localidades = App\Localidad::all();
-   			foreach ($localidades as $localidad) {
+    			$ubicaciones = App\Ubicacion::all();
+   			foreach ($ubicaciones as $ubicacion) {
     		?>
-    				<option value="{{$localidad->id}}">{{$localidad->localidad}}</option>
+    				<option value="{{$ubicacion->id}}">{{$ubicacion->ubicacion}}</option>
     			<?php
     			} //end foreach
     			?>

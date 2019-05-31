@@ -45,8 +45,7 @@
 
     $residencia = Residencia::find($subasta->residencia_id);
     $descripcion = $residencia->descripcion;
-    $localidad = $residencia->localidad;
-    $provincia = $localidad->provincia;
+    $ubicacion = $residencia->ubicacion->ubicacion;
     $foto = $residencia->fotos()->first();
 
 ?>
@@ -56,7 +55,7 @@
     <?php echo "Subasta" ?>
    <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
     <div class="card-body">
-      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
       <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">

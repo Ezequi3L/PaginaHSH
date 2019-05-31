@@ -11,14 +11,13 @@ use App\Residencia;
 if ($errors->any()) {
 	foreach ($errors->all() as $error) {
 		echo "<p class='alert alert-danger'>*".$error."</p>";
-	}	
+	}
 }
 
  $subasta = Subasta::find($sub_id);
  $residencia = Residencia::find($subasta->residencia_id);
  $descripcion = $residencia->descripcion;
- $localidad = $residencia->localidad;
- $provincia = $localidad->provincia;
+ $ubicacion = $residencia->ubicacion;
  $foto = $residencia->fotos()->first();
  $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
  $actual = $subasta->oferta_maxima();
@@ -30,7 +29,7 @@ if ($errors->any()) {
           <div class="card mb-4 shadow-sm">
              <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
-              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
               </div>
             </div>
@@ -38,7 +37,7 @@ if ($errors->any()) {
      	</div>
      	<div style="text-align:center; margin-top:100px; "> <! form >
      		<p>Monto actual de la subasta: ${{ $actual }}</p>
-			<form method="post" action="{{ route('subOfertaExitosa') }}"> 
+			<form method="post" action="{{ route('subOfertaExitosa') }}">
 			@csrf
 				<div class="form-group">
 					<input class="form-control" type="email" name="mail" placeholder="Ingrese su correo electrónico" required autofocus>

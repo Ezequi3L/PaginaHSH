@@ -25,21 +25,17 @@
 <?php
 
   use App\Residencia;
-  use App\Localidad;
-  use App\Provincia;
+  use App\Ubicacion;
   use App\Foto;
 
   $res = Residencia::find($id);
   $desc = $res->descripcion;
-  $loc = $res->localidad;
-  $prov = $loc->provincia;
-  $pais = $prov->pais;
-
+  $loc = $res->ubicacion;
   $fotos = $res->fotos()->get();
-  
+
   if ($fotos->first() != null) {
     $primera = $fotos->shift()->src;
-    
+
 ?>
  <! Primera foto (item active) >
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -57,7 +53,7 @@
     <div class="carousel-item">
       <img class="d-block w-100" src="{{ $foto->src }}">
     </div>
-   
+
 <?php
   } //end foreach
 ?>
@@ -76,11 +72,11 @@
 
 <?php
   } //endif
-?>  
+?>
 
 <ul class="list-group">
   <li class="list-group-item">{{ $desc }}</li>
-  <li class="list-group-item">{{ $loc->localidad }}, {{ $prov->provincia }}, {{ $pais->pais }}</li>
+  <li class="list-group-item">{{ $loc->ubicacion }}</li>
 </ul>
 
 @endsection

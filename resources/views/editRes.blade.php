@@ -30,15 +30,12 @@ if ($errors->any()) {
   }
 }
   use App\Residencia;
-  use App\Localidad;
-  use App\Provincia;
+  use App\Ubicacion;
   use App\Foto;
 
   $res = Residencia::find($id);
   $desc = $res->descripcion;
-  $loc = $res->localidad;
-  $prov = $loc->provincia;
-  $pais = $prov->pais;
+  $loc = $res->ubicacion();
 
 ?>
 
@@ -51,13 +48,13 @@ if ($errors->any()) {
      <textarea name="descripcion" rows="7" cols="30" placeholder="{{ $desc }}" autofocus></textarea>
     </div>
     <div class="form-group">
-        <label for="localidad_id">Localidad:</label>
-        <select class="form-control" name="localidad_id" id="localidad" value="{{ $loc->id }}">
+        <label for="ubicacion_id">Ubicacion:</label>
+        <select class="form-control" name="ubicacion_id" id="ubicacion" value="{{ $loc->id }}">
           <?php
-            $localidades = Localidad::all();
-          foreach ($localidades as $localidad) {
+            $ubicaciones = Ubicacion::all();
+          foreach ($ubicaciones as $ubicacion) {
           ?>
-              <option value="{{$localidad->id}}" <?php if($loc->id == $localidad->id) echo "selected"; ?>>{{$localidad->localidad}}</option>
+              <option value="{{$ubicacion->id}}" <?php if($loc->id == $ubicacion->id) echo "selected"; ?>>{{$ubicacion->ubicacion}}</option>
             <?php
             } //end foreach
             ?>

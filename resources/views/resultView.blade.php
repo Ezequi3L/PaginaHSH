@@ -39,11 +39,11 @@
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
         if (isset($_GET['buscar'])){
-          if (($_GET['search'] != NULL) and ($_GET['localidad'] != NULL) and (($_GET['fecha_reserva']) !=NULL)) {
+          if (($_GET['search'] != NULL) and ($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva']) !=NULL)) {
             $accion =1;
           }
           else{
-            if (($_GET['search'] != NULL) and ($_GET['localidad'] !=NULL)) {
+            if (($_GET['search'] != NULL) and ($_GET['ubicacion'] !=NULL)) {
               $accion =2;
 
             }
@@ -53,7 +53,7 @@
                 }
                 else{
 
-                  if(($_GET['localidad'] != NULL) and (($_GET['fecha_reserva']) !=NULL)){
+                  if(($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva']) !=NULL)){
                     $accion =4;
                   }
                   else{
@@ -61,7 +61,7 @@
                       $accion=5;
                     }
                     else{
-                      if ($_GET['localidad'] != NULL){
+                      if ($_GET['ubicacion'] != NULL){
                         $accion=6;
                       }
                       else{
@@ -82,15 +82,14 @@
               case 1:{
                     $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                     ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                    ->where('residencias.localidad_id',$_GET['localidad'])
+                    ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                     ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->get();
 
                     foreach ($resultado as $subasta) {
 
                       $residencia = Residencia::find($subasta->residencia_id);
                       $descripcion = $residencia->descripcion;
-                      $localidad = $residencia->localidad;
-                      $provincia = $localidad->provincia;
+                      $ubicacion = $residencia->ubicacion;
                       $src = $residencia->fotos()->first();
                       if ($src != null)  $src = $src->first()->src;
                       //imprimir resultado de nuevo si es que anda
@@ -99,7 +98,7 @@
                         <div class="card mb-4 shadow-sm">
                           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                             <div class="card-body">
-                              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                                 <p class="card-text"> <?php echo "Reserva:" ; echo $subasta->fecha_reserva; ?> </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
@@ -120,14 +119,13 @@
               case 2:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
         ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-        ->where('residencias.localidad_id',$_GET['localidad'])->get();
+        ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
 
       foreach ($resultado as $subasta) {
 
         $residencia = Residencia::find($subasta->residencia_id);
         $descripcion = $residencia->descripcion;
-        $localidad = $residencia->localidad;
-        $provincia = $localidad->provincia;
+        $ubicacion = $residencia->ubicacion;
         $src = $residencia->fotos()->first();
         if ($src != null)  $src = $src->first()->src;
       //imprimir resultado de nuevo si es que anda
@@ -136,7 +134,7 @@
         <div class="card mb-4 shadow-sm">
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
-              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                     <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
@@ -163,8 +161,7 @@
 
                 $residencia = Residencia::find($subasta->residencia_id);
                 $descripcion = $residencia->descripcion;
-                $localidad = $residencia->localidad;
-                $provincia = $localidad->provincia;
+                $ubicacion = $residencia->ubicacion;
                 $src = $residencia->fotos()->first();
                 if ($src != null)  $src = $src->first()->src;
               //imprimir resultado de nuevo si es que anda
@@ -173,7 +170,7 @@
                 <div class="card mb-4 shadow-sm">
                   <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                     <div class="card-body">
-                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                             <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="btn-group">
@@ -193,15 +190,14 @@
                 break;
               case 4:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-              ->where('residencias.localidad_id',$_GET['localidad'])
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])
               ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->distinct()->get();
 
               foreach ($resultado as $subasta) {
 
   $residencia = Residencia::find($subasta->residencia_id);
   $descripcion = $residencia->descripcion;
-  $localidad = $residencia->localidad;
-  $provincia = $localidad->provincia;
+  $ubicacion = $residencia->ubicacion;
   $src = $residencia->fotos()->first();
   if ($src != null)  $src = $src->first()->src;
 //imprimir resultado de nuevo si es que anda
@@ -211,7 +207,7 @@
         <div class="card mb-4 shadow-sm">
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
           <div class="card-body">
-            <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+            <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                   <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
@@ -237,8 +233,7 @@
 
                       $residencia = Residencia::find($subasta->residencia_id);
                       $descripcion = $residencia->descripcion;
-                      $localidad = $residencia->localidad;
-                      $provincia = $localidad->provincia;
+                      $ubicacion = $residencia->ubicacion;
                       $src = $residencia->fotos()->first();
                       if ($src != null)  $src = $src->first()->src;
                     //imprimir resultado de nuevo si es que anda
@@ -248,7 +243,7 @@
                             <div class="card mb-4 shadow-sm">
                               <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                               <div class="card-body">
-                                <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                                <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                                       <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
@@ -268,14 +263,13 @@
                 break;
               case 6:
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-      ->where('residencias.localidad_id',$_GET['localidad'])->distinct()->get();
+      ->where('residencias.ubicacion_id',$_GET['ubicacion'])->distinct()->get();
 
       foreach ($resultado as $subasta) {
 
         $residencia = Residencia::find($subasta->residencia_id);
         $descripcion = $residencia->descripcion;
-        $localidad = $residencia->localidad;
-        $provincia = $localidad->provincia;
+        $ubicacion = $residencia->ubicacion;
         $src = $residencia->fotos()->first();
         if ($src != null)  $src = $src->first()->src;
       //imprimir resultado de nuevo si es que anda
@@ -285,7 +279,7 @@
               <div class="card mb-4 shadow-sm">
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
-                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                         <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
@@ -311,8 +305,7 @@
 
         $residencia = Residencia::find($subasta->residencia_id);
         $descripcion = $residencia->descripcion;
-        $localidad = $residencia->localidad;
-        $provincia = $localidad->provincia;
+        $ubicacion = $residencia->ubicacion;
         $src = $residencia->fotos()->first();
         if ($src != null)  $src = $src->first()->src;
       //imprimir resultado de nuevo si es que anda
@@ -323,7 +316,7 @@
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
 
-                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                         <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
@@ -348,8 +341,7 @@
 
         $residencia = Residencia::find($subasta->residencia_id);
         $descripcion = $residencia->descripcion;
-        $localidad = $residencia->localidad;
-        $provincia = $localidad->provincia;
+        $ubicacion = $residencia->ubicacion;
         $src = $residencia->fotos()->first();
         if ($src != null)  $src = $src->first()->src;
       //imprimir resultado de nuevo si es que anda
@@ -359,7 +351,7 @@
               <div class="card mb-4 shadow-sm">
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
-                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $localidad->localidad; echo ", "; echo $provincia->provincia; ?> </p>
+                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
                         <p class="card-text"> <?php echo "Reserva:" ;echo $subasta->fecha_reserva; ?> </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
