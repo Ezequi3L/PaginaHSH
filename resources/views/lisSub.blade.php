@@ -52,7 +52,7 @@
 
 <div class="col-md-4">
   <div class="card mb-4 shadow-sm">
-    <?php echo "Subasta" ?>
+   <p>&nbsp;Subasta</p>
    <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
     <div class="card-body">
       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
@@ -61,8 +61,13 @@
         <div class="btn-group">
           <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
           <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-          <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+          <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
           <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Adjudicar</button></a>
+          <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
+            @csrf
+            {{ method_field('DELETE') }}
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
+          </form>
         </div>
       </div>
     </div>

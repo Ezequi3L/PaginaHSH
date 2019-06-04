@@ -24,6 +24,7 @@
 
 <?php
   use App\Residencia;
+  use App\Ubiacion;
 
   $mostrar =  Residencia::all()->take(6);
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
@@ -33,8 +34,6 @@
       $descripcion = $residencia->descripcion;
       $ubicacion = $residencia->ubicacion;
       $foto = $residencia->fotos()->first();
-
-     // $src=1;
 ?>
 
         <div class="col-md-4">

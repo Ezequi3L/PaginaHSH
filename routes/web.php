@@ -35,6 +35,21 @@ Route::get('/lisSub','resultController@listarSubasta')
 Route::post('/newSub','SubastaController@store')
 	->name('subAltaExitosa');
 
+Route::get('/subastas/{id}','SubastaController@EditSub')
+	->name('editSub');
+
+Route::put('/subastas/{id}','SubastaController@update')
+	->name('subUpdateExitoso');
+
+Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
+	->name('adjudicar');
+
+Route::get('/subastas/adjudicar/save/{id}','SubastaController@GuardarAdjudicacion')
+	->name('saveAdj');
+
+Route::delete('/subastas/{subasta}','SubastaController@destroy')
+	->name('deleteSub');
+
 Route::get('/ofertaSub/{subasta}','OfertaController@OfertaForm')
 	->name('ofertar');
 
@@ -49,18 +64,6 @@ Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
 
 Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 	->name('updateExitoso');
-
-Route::get('/subastas/{id}','SubastaController@EditSub')
-	->name('editSub');
-
-Route::put('/subastas/{id}','SubastaController@update')
-	->name('subUpdateExitoso');
-
-Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
-	->name('adjudicar');
-
-Route::get('/subastas/adjudicar/save/{id}','SubastaController@GuardarAdjudicacion')
-	->name('saveAdj');
 
 Route::get('/lisRes','ResidenciasController@ResList')
 	->name('listarResidencias');

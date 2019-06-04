@@ -78,9 +78,21 @@ class SubastaController extends Controller
      public function GuardarAdjudicacion($id){
 
         //$sub = Subasta::find($id);
-        //$sub->marca_de_baja = true;
+        //$sub->delete();
 
         return redirect()->route('inicio');
+    }
+
+     public function destroy(Subasta $subasta){
+       
+        $ofertas = $subasta->ofertas;
+        foreach ($ofertas as $oferta) { // primero deben borrarse todas las ofertas de esta subasta
+            $usr = $oferta->mail; //hay que notificar a este mail
+            $oferta->delete();
+        }
+
+        $subasta->delete();
+        return redirect()->route('listarSubasta');
     }
 
 }
