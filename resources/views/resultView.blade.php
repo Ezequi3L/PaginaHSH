@@ -33,7 +33,7 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="row">
-        <<?php
+        <?php
         use App\Subasta;
         use App\Residencia;
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';

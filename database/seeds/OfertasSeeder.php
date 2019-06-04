@@ -14,43 +14,43 @@ class OfertasSeeder extends Seeder
     {
       //factory(App\Oferta::class)->times(17)->create();
 
-        Oferta::create(['monto' => 1000, 'mail' => 'nico1@hotmail.com', 'subasta_id' => 1
+        Oferta::create(['monto' => 1000, 'usr_id' => '1', 'subasta_id' => 1
 
         ]);
 
-        Oferta::create(['monto' => 1200, 'mail' => 'nico2@hotmail.com', 'subasta_id' => 1
+        Oferta::create(['monto' => 1200, 'usr_id' => '2', 'subasta_id' => 1
 
         ]);
 
-        Oferta::create(['monto' => 1400, 'mail' => 'nico1@hotmail.com', 'subasta_id' => 1
+        Oferta::create(['monto' => 1400, 'usr_id' => '3', 'subasta_id' => 1
 
         ]);
 
-        Oferta::create(['monto' => 1500, 'mail' => 'nico2@hotmail.com', 'subasta_id' => 1
+        Oferta::create(['monto' => 1500, 'usr_id' => '2', 'subasta_id' => 1
 
         ]);
 
-        Oferta::create(['monto' => 1350, 'mail' => 'eze1@hotmail.com', 'subasta_id' => 2
+        Oferta::create(['monto' => 1350, 'usr_id' => '1', 'subasta_id' => 2
 
         ]);
 
-        Oferta::create(['monto' => 1450, 'mail' => 'eze2@hotmail.com', 'subasta_id' => 2
+        Oferta::create(['monto' => 1450, 'usr_id' => '2', 'subasta_id' => 2
 
         ]);
 
-        Oferta::create(['monto' => 1900, 'mail' => 'eze1@hotmail.com', 'subasta_id' => 2
+        Oferta::create(['monto' => 1900, 'usr_id' => '4', 'subasta_id' => 2
 
         ]);
 
-        Oferta::create(['monto' => 850, 'mail' => 'tomas1@hotmail.com', 'subasta_id' => 3
+        Oferta::create(['monto' => 850, 'usr_id' => '5', 'subasta_id' => 3
 
         ]);
 
-        Oferta::create(['monto' => 1000, 'mail' => 'tomas2@hotmail.com', 'subasta_id' => 3
+        Oferta::create(['monto' => 1000, 'usr_id' => '7', 'subasta_id' => 3
 
         ]);
 
-        Oferta::create(['monto' => 2000, 'mail' => 'tomas1@hotmail.com', 'subasta_id' => 3
+        Oferta::create(['monto' => 2000, 'usr_id' => '6', 'subasta_id' => 3
 
         ]);
 

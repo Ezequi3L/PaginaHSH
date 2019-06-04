@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
         DB::table('subastas')->truncate();
         DB::table('ubicaciones')->truncate();
         DB::table('ofertas')->truncate();
+        DB::table('users')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+        $this->call(UsersSeeder::class);
         $this->call(UbicacionesSeeder::class);
         $this->call(ResidenciasSeeder::class);
         $this->call(FotosSeeder::class);
         $this->call(SubastasSeeder::class);
         $this->call(OfertasSeeder::class);
-        // $this->call(UsersTableSeeder::class);
     }
 }

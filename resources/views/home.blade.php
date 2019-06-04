@@ -2,7 +2,7 @@
 
 @section('mainContent')
 
- <section class="jumbotron text-center">
+<section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Home Switch Home</h1>
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
@@ -12,26 +12,20 @@
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>
-        @if (Route::has('login'))
+         @if (Route::has('login'))
           @auth
             <form action="{{ route('logout') }}" method="POST">
               @csrf
               <button type="submit" class="btn btn-primary my-2">LogOut</button>
             </form>
-        @else
-             <a class="btn btn-primary my-2" href="{{ route('login') }}">Login</a>
-          @if (Route::has('register'))
-            <a class="btn btn-secondary my-2" href="{{ route('register') }}">Register</a>
-          @endif
           @endauth
-
         @endif
-
       </p>
     </div>
   </section>
 
-  <div class="album py-5 bg-light">
+
+ <div class="album py-5 bg-light">
     <div class="container">
 
       <div class="row">
@@ -111,7 +105,7 @@
 
 @section('buscador')
 
-	<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -184,14 +178,14 @@ body {
             <option value=""> {{"Seleccione una ubicacion"}} </option>
         <?php
 
-    			$ubicaciones = App\Ubicacion::all();
-   			foreach ($ubicaciones as $ubicacion) {
-    		?>
-    				<option value="{{$ubicacion->id}}">{{$ubicacion->ubicacion}}</option>
-    			<?php
-    			} //end foreach
-    			?>
-  		</select>
+                $ubicaciones = App\Ubicacion::all();
+            foreach ($ubicaciones as $ubicacion) {
+            ?>
+                    <option value="{{$ubicacion->id}}">{{$ubicacion->ubicacion}}</option>
+                <?php
+                } //end foreach
+                ?>
+        </select>
       <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="" >
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>

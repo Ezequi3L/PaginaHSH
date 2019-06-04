@@ -76,3 +76,7 @@ Route::get('/ubicacion/alta', 'UbicacionController@UbicacionForm')
 
 Route::post('/ubicacion/alta', 'UbicacionController@store')
 	->name('altaUbicacion');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -19,11 +19,11 @@ class OfertaController extends Controller
 
     	$data = request()->validate([
     		'subasta_id' => 'required',
-    		'mail' => 'required',
+    		'user_id' => 'required',
     		'monto' => 'required'
     		], [
     		'subasta_id.required' => 'Ha ocurrido un error. Por favor, inténtelo nuevamente',
-    		'mail.required' => 'El campo mail es obligatorio',
+    		'user_id.required' => 'Ha ocurrido un error. Por favor, inténtelo nuevamente',
     		'monto.required' => 'El campo monto es obligatorio'
     		]);
 
@@ -37,7 +37,7 @@ class OfertaController extends Controller
     	
     	Oferta::create([
     		'subasta_id' => $data['subasta_id'],
-    		'mail' => $data['mail'],
+    		'usr_id' => $data['user_id'],
     		'monto' => $data['monto']
     		]);
     	return redirect()->route('inicio');

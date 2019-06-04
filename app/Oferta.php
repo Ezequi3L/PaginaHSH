@@ -10,7 +10,7 @@ class Oferta extends Model
     protected $table = 'ofertas';
 
     protected $fillable = [
-        'subasta_id','mail','monto'
+        'subasta_id','usr_id','monto'
     ];
 
     public function subasta(){

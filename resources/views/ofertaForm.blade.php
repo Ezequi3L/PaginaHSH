@@ -40,12 +40,10 @@ if ($errors->any()) {
 			<form method="post" action="{{ route('subOfertaExitosa') }}">
 			@csrf
 				<div class="form-group">
-					<input class="form-control" type="email" name="mail" placeholder="Ingrese su correo electrónico" required autofocus>
-				</div>
-				<div class="form-group">
 					<input class="form-control" type="number" step="any" name="monto" placeholder="Ingrese el monto" required>
 				</div>
 				<input type="hidden" name="subasta_id" value="{{ $sub_id }}">
+				<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 				<input type="submit" name="confirmar" value="Confirmar oferta" class="btn btn-primary">
 			</form>
 		</div>
