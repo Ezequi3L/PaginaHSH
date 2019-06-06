@@ -17,10 +17,11 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
+        'username' => $faker->unique()->username->nullable(),
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '12345678', // password
+        'password' => bcrypt('12345678'), // password
         'remember_token' => Str::random(10),
     ];
 });
