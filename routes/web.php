@@ -44,7 +44,7 @@ Route::put('/subastas/{id}','SubastaController@update')
 Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
 	->name('adjudicar');
 
-Route::get('/subastas/adjudicar/save/{id}','SubastaController@GuardarAdjudicacion')
+Route::post('/subastas/adjudicar/{id}','SubastaController@GuardarAdjudicacion')
 	->name('saveAdj');
 
 Route::delete('/subastas/{subasta}','SubastaController@destroy')

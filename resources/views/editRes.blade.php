@@ -35,7 +35,7 @@ if ($errors->any()) {
 
   $res = Residencia::find($id);
   $desc = $res->descripcion;
-  $loc = $res->ubicacion();
+  $loc = $res->ubicacion;
 
 ?>
 

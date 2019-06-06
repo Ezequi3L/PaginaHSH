@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Subasta;
 use App\Residencia;
 use Carbon\Carbon;
+use App\Oferta;
 
 class SubastaController extends Controller
 {
@@ -77,9 +78,18 @@ class SubastaController extends Controller
 
      public function GuardarAdjudicacion($id){
 
-        //$sub = Subasta::find($id);
-        //$sub->delete();
+        $data = request();
+        $oferta = Oferta::find($data->oferta);
+        $sub = Subasta::find($id);
 
+        if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
+            //notificar al usuario que ganó
+           $this->destroy($sub);
+        }
+        else {
+            return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
+        }
+    
         return redirect()->route('inicio');
     }
 
