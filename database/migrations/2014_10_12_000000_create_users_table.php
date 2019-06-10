@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->date('fecha_nac')->nullable();
             $table->string('metodo_pago')->nullable();
             $table->boolean('es_premium')->nullable();
+            $table->boolean('es_admin');
+            $table->integer('semanas_disp')->nullable();
             //reservas-ofertas-hotsales
             $table->rememberToken();
             $table->timestamps();

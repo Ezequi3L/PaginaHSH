@@ -79,6 +79,8 @@ class RegisterController extends Controller
             'dni' => $data['dni'],
             'fecha_nac' => $data['fecha_nac'],
             'metodo_pago' => $data['metodo_pago'],
+            'es_admin' => false,
+            'semanas_disp' => 2,
         ]);
     }
 
