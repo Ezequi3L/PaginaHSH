@@ -7,11 +7,6 @@
       <h1 class="jumbotron-heading">Home Switch Home</h1>
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
-        <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
-        <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
-        <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
-        <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
-        <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>
         @if (Route::has('login'))
           @auth
             <form action="{{ route('logout') }}" method="POST">
@@ -56,10 +51,6 @@
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                  <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                </div>
               </div>
             </div>
           </div>

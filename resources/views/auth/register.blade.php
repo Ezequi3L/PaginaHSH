@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre y apellido') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -21,6 +21,20 @@
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Nombre de usuario') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+
+                                @if ($errors->has('username'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -63,18 +77,60 @@
                         </div>
 
                          <div class="form-group row">
-                            <label for="dir" class="col-md-4 col-form-label text-md-right">{{ __('Dirección (opcional)') }}</label>
+                            <label for="dir" class="col-md-4 col-form-label text-md-right">{{ __('Dirección') }}</label>
 
                             <div class="col-md-6">
-                                <input id="dir" type="text" class="form-control" name="dir" value="{{ old('dir') }}">
+                                <input id="dir" type="text" class="form-control" name="dir" value="{{ old('dir') }}" required>
                             </div>
                         </div>
 
                          <div class="form-group row">
-                            <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Teléfono (opcional)') }}</label>
+                            <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Teléfono') }}</label>
 
                             <div class="col-md-6">
-                                <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}">
+                                <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="dni" class="col-md-4 col-form-label text-md-right">{{ __('DNI') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="dni" type="number" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ old('dni') }}" required>
+
+                                @if ($errors->has('dni'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('dni') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label for="fecha_nac" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de nacimiento') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="fecha_nac" type="date" class="form-control{{ $errors->has('fecha_nac') ? ' is-invalid' : '' }}" name="fecha_nac" value="{{ old('fecha_nac') }}" required>
+
+                                @if ($errors->has('fecha_nac'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('fecha_nac') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="metodo_pago" class="col-md-4 col-form-label text-md-right">{{ __('Método de pago predilecto') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="metodo_pago" type="text" class="form-control{{ $errors->has('metodo_pago') ? ' is-invalid' : '' }}" name="metodo_pago" value="{{ old('metodo_pago') }}" required>
+
+                                @if ($errors->has('metodo_pago'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('metodo_pago') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
