@@ -46,7 +46,16 @@
   <!Link al inicio>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
-      <a href={{ route('inicio') }} class="navbar-brand d-flex align-items-center">
+      <a href="
+        <?php
+          if ( \Auth::check()) {
+            echo  "/server.php/home";
+           }
+          else {
+            echo "/server.php";
+          }
+        ?>"
+        class="navbar-brand d-flex align-items-center">
         <span class="glyphicon glyphicon-home" style="color:white;"></span>
         <strong>Inicio</strong>
       </a>
