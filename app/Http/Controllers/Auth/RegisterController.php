@@ -50,14 +50,16 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'dir' => ['required'],
             'telefono' => ['required'],
             'dni' => ['required'],
             'fecha_nac' => ['required'],
-            'metodo_pago' => ['required'],
+            'pago_tipo' => ['required'],
+            'pago_numero' => ['required', 'digits:16'],
+            'pago_cvv' => ['required', 'digits:3'],
+            'pago_vencimiento' => ['required', 'date_format:m/y'],
         ]);
     }
 
@@ -71,15 +73,17 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'direccion' => $data['dir'],
             'telefono' => $data['telefono'],
             'dni' => $data['dni'],
             'fecha_nac' => $data['fecha_nac'],
-            'metodo_pago' => $data['metodo_pago'],
-            'es_admin' => false,
+            'pago_tipo' => $data['pago_tipo'],
+            'pago_numero' => $data['pago_numero'],
+            'pago_cvv' => $data['pago_cvv'],
+            'pago_vencimiento' => $data['pago_vencimiento'],
+            'tipo_de_usuario' => 1,
             'semanas_disp' => 2,
         ]);
     }

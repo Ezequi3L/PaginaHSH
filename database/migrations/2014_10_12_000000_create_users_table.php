@@ -16,19 +16,23 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->string('username')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable();
-            $table->integer('dni')->nullable();
+            $table->string('dni')->nullable();
             $table->date('fecha_nac')->nullable();
-            $table->string('metodo_pago')->nullable();
-            $table->boolean('es_premium')->nullable();
-            $table->boolean('es_admin');
-            $table->integer('semanas_disp')->nullable();
+            //tipo de usuario: 0:admin,1:sin verificar,2: verificado,3:premium
+            $table->integer('tipo_de_usuario')->default(1);
             //reservas-ofertas-hotsales
+            $table->integer('semanas_disp')->nullable()->default(null);
+            //metodo de pago
+            $table->string('pago_tipo')->nullable();
+            $table->string('pago_numero')->nullable();
+            $table->integer('pago_cvv')->nullable();
+            $table->string('pago_vencimiento')->nullable();
+            //
             $table->rememberToken();
             $table->timestamps();
         });

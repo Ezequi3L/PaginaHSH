@@ -20,8 +20,16 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
+        'dni' => $faker->ssn,
+        'fecha_nac'=> $faker->date,
+        'direccion' =>$faker->address,
+        'telefono' =>$faker->phoneNumber,
+        'semanas_disp' => 2,
         'password' => bcrypt('contraseña'), // password
+        'pago_tipo' => $faker->creditCardType,
+        'pago_numero' => $faker->creditCardNumber,
+        'pago_cvv' => $faker->randomNumber(3,true),
+        'pago_vencimiento' => $faker->creditCardExpirationDateString,
         'remember_token' => Str::random(10),
-        'es_admin' => false,
     ];
 });

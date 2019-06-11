@@ -27,20 +27,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Nombre de usuario') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-
-                                @if ($errors->has('username'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Dirección de e-mail') }}</label>
 
                             <div class="col-md-6">
@@ -121,14 +107,56 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="metodo_pago" class="col-md-4 col-form-label text-md-right">{{ __('Método de pago predilecto') }}</label>
+                            <label for="pago_tipo" class="col-md-4 col-form-label text-md-right">{{ __('Proveedor de tarjeta') }}</label>
 
                             <div class="col-md-6">
-                                <input id="metodo_pago" type="text" class="form-control{{ $errors->has('metodo_pago') ? ' is-invalid' : '' }}" name="metodo_pago" value="{{ old('metodo_pago') }}" required>
+                                <input id="pago_tipo" type="text" class="form-control{{ $errors->has('pago_tipo') ? ' is-invalid' : '' }}" name="pago_tipo" value="{{ old('pago_tipo') }}" required>
 
-                                @if ($errors->has('metodo_pago'))
+                                @if ($errors->has('pago_tipo'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('metodo_pago') }}</strong>
+                                        <strong>{{ $errors->first('pago_tipo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="pago_numero" class="col-md-4 col-form-label text-md-right">{{ __('Número de tarjeta') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="pago_numero" type="text" class="form-control{{ $errors->has('pago_numero') ? ' is-invalid' : '' }}" name="pago_numero" value="{{ old('pago_numero') }}" required>
+
+                                @if ($errors->has('pago_numero'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('pago_numero') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="pago_cvv" class="col-md-4 col-form-label text-md-right">{{ __('CVV') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="pago_cvv" type="number" class="form-control{{ $errors->has('pago_cvv') ? ' is-invalid' : '' }}" name="pago_cvv" value="{{ old('pago_cvv') }}" required>
+
+                                @if ($errors->has('pago_cvv'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('pago_cvv') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="pago_vencimiento" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de vencimiento') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="pago_vencimiento" type="text" class="form-control{{ $errors->has('pago_vencimiento') ? ' is-invalid' : '' }}" placeholder="mm/aa" name="pago_vencimiento" value="{{ old('pago_vencimiento') }}" required>
+
+                                @if ($errors->has('pago_vencimiento'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('pago_vencimiento') }}</strong>
                                     </span>
                                 @endif
                             </div>
