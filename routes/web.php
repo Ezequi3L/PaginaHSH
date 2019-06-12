@@ -62,6 +62,12 @@ Route::get('/residencias/{id}','ResidenciasController@ViewRes')
 Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
 	->name('editRes');
 
+Route::get('/upload/{id}','ResidenciasController@UploadFoto')
+	->name('upload');
+
+Route::post('/upload/{id}','ResidenciasController@fotoExitosa')
+	->name('fotoexitosa');
+
 Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 	->name('updateExitoso');
 

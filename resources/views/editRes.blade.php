@@ -63,6 +63,7 @@ if ($errors->any()) {
     <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
+      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary">Agregar foto</a>
 </div>
 
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Residencia;
+use App\Foto;
 
 class ResidenciasController extends Controller
 {
@@ -60,6 +61,19 @@ class ResidenciasController extends Controller
 
         $residencia->update($data);
         return redirect()->route('viewRes', [$residencia]);
+    }
+
+
+    public function UploadFoto($id){
+      return view('uploadFoto',['title' => 'Subir Foto', 'id' => $id]);
+
+
+    }
+
+    public function fotoExitosa($id){
+        request()->foto->store('public');
+        Foto::create(['src' => request()->foto->store('public'), 'residencia_id' => $id]);
+        return redirect()->route('upload',[$id]);
     }
 
     function destroy(Residencia $residencia){
