@@ -12,7 +12,7 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-      User::create(['name' => "Ezequiel Dall'Aglio",'email' => "ezequieldall@live.com.ar",'email_verified_at' => now(),'password' => bcrypt('ezequiel98'),'remember_token' => Str::random(10),'tipo_de_usuario' => 0]);
+      User::create(['email' => "admin@hsh.com",'email_verified_at' => now(),'password' => bcrypt('admin'),'remember_token' => Str::random(10),'tipo_de_usuario' => 0]);
       factory(User::class)->times(15)->create();
     }
 }
