@@ -1,6 +1,15 @@
 @extends('layout')
 
 @section('mainContent')
+<<?php
+if ($errors->any()) {
+  foreach ($errors->all() as $error) {
+    echo "<p class='alert alert-danger'>*".$error."</p>";
+  }
+
+}
+ ?>
+
 
 <section class="jumbotron text-center">
     <div class="container">
@@ -33,6 +42,10 @@
 <?php
   use App\Residencia;
   use App\Ubiacion;
+  use Carbon\Carbon;
+
+
+
 
   $mostrar =  Residencia::all()->take(6);
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
@@ -186,7 +199,9 @@ body {
                 } //end foreach
                 ?>
         </select>
-      <input class="form-control" type="date" name="fecha_reserva" id="fecha" value="" >
+        {{"Rango de fechas"}}
+      <input class="form-control" type="date" name="fecha_reserva1" id="fecha1" value="" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> max=<?php $hoy=Carbon::today()->addYear()->toDateString(); echo $hoy; ?>>
+      <input class="form-control" type="date" name="fecha_reserva2" id="fecha2" value="" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> max=<?php $hoy=Carbon::today()->addYear()->toDateString(); echo $hoy; ?>>
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>

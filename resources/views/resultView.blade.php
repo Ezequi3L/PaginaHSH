@@ -22,6 +22,7 @@
 
 @section('mainContent')
 
+
 	 <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Home Switch Home</h1>
@@ -39,7 +40,7 @@
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
         if (isset($_GET['buscar'])){
-          if (($_GET['search'] != NULL) and ($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva']) !=NULL)) {
+          if (($_GET['search'] != NULL) and ($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva1']) !=NULL)) {
             $accion =1;
           }
           else{
@@ -48,12 +49,12 @@
 
             }
             else{
-                if (($_GET['search'] != NULL) and (($_GET['fecha_reserva']) != NULL)){
+                if (($_GET['search'] != NULL) and (($_GET['fecha_reserva1']) != NULL)){
                   $accion =3;
                 }
                 else{
 
-                  if(($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva']) !=NULL)){
+                  if(($_GET['ubicacion'] != NULL) and (($_GET['fecha_reserva1']) !=NULL)){
                     $accion =4;
                   }
                   else{
@@ -65,7 +66,7 @@
                         $accion=6;
                       }
                       else{
-                        if(($_GET['fecha_reserva']) !=NULL){
+                        if(($_GET['fecha_reserva1']) !=NULL){
                           $accion=7;}
                         else{
                           $accion=8;
@@ -80,10 +81,18 @@
             //imprimir subastas segun switch
             switch ($accion) {
               case 1:{
+                    if ($_GET['fecha_reserva2'] != NULL) {
+
                     $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                     ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                     ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                    ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->get();
+                    ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
+                    else {
+                      $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+                      $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                      ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                      ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
 
                     foreach ($resultado as $subasta) {
 
@@ -153,9 +162,16 @@
 }
                 break;
               case 3:
+
+              if ($_GET['fecha_reserva2'] != NULL) {
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
               ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-              ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->get();
+              ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
+              else {
+                  $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+                  $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                  ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
 
               foreach ($resultado as $subasta) {
 
@@ -189,9 +205,16 @@
       }
                 break;
               case 4:
+              if ($_GET['fecha_reserva2'] != NULL) {
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-              ->where('subastas.fecha_reserva', $_GET['fecha_reserva'])->distinct()->get();
+              ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
+              else {
+                $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+                $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
+
 
               foreach ($resultado as $subasta) {
 
@@ -298,8 +321,13 @@
      }
                 break;
               case 7:
+              if ($_GET['fecha_reserva2'] != NULL) {
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-      ->where('subastas.fecha_reserva',$_GET['fecha_reserva'])->distinct()->get();
+              ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
+              else {
+                $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+                $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+                ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
 
       foreach ($resultado as $subasta) {
 
