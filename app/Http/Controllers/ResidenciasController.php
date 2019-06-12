@@ -72,7 +72,7 @@ class ResidenciasController extends Controller
 
     public function fotoExitosa($id){
         request()->foto->store('public');
-        Foto::create(['src' => request()->foto->store('public'), 'residencia_id' => $id]);
+        Foto::create(['src' => '/storage/app/'.request()->foto->store('public'), 'residencia_id' => $id]);
         return redirect()->route('upload',[$id]);
     }
 
