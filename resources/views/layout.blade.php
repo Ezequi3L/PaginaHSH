@@ -71,6 +71,18 @@
   @yield('buscador')
   @yield('mainContent')
 
+  <script>
+    $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      language:"es",
+      startDate: '+6m',
+      endDate: '+12m',
+      daysOfWeekDisabled: "0,2,3,4,5,6",
+      daysOfWeekHighlighted: "1",
+      autoclose: true
+    });
+  </script>
+  
 </main>
 
 @yield('footer')
