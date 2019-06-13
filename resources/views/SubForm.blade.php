@@ -35,7 +35,31 @@ if ($errors->any()) {
 		</div>
 		<div class="form-group">
 			<label for="fecha">Seleccione una fecha de reserva</label>
-			<input class="form-control" type="date" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> name="fecha" id="fecha" value="{{ old('fecha') }}" required>
+
+					<div class="content">
+
+							<div class="panel panel-default">
+									<div class="panel-body">
+											<div class="col-md-4 col-md-offset-4">
+
+
+															<div class="form-group">
+																	<label for="fecha">Fecha</label>
+																	<div class="input-group">
+																			<input type="text" class="form-control datepicker" name="fecha">
+																			<div class="input-group-addon">
+																					<span class="glyphicon glyphicon-th"></span>
+																			</div>
+																	</div>
+															</div>
+															<!-- <button type="submit" class="btn btn-default btn-primary">Guardar</button> -->
+
+
+											</div>
+									</div>
+							</div>
+					</div>
+
 		</div>
 		<div class="form-group">
 			<input class="form-control" type="number" step="any" name="monto" placeholder="Ingrese el monto mínimo" required>
@@ -62,46 +86,6 @@ if ($errors->any()) {
 	    <script src="{{'/public/datePicker/locales/bootstrap-datepicker.es.min.js'}}"></script>
 
 	</head>
-	<body>
-	<div class="container">
-	    <div class="content">
-
-	        <div class="panel panel-default">
-	            <div class="panel-body">
-	                <div class="col-md-4 col-md-offset-4">
-
-	                    <form action="/test/save" method="post">
-	                        <div class="form-group">
-	                            <label for="date">Fecha</label>
-	                            <div class="input-group">
-	                                <input type="text" class="form-control datepicker" name="date">
-	                                <div class="input-group-addon">
-	                                    <span class="glyphicon glyphicon-th"></span>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <button type="submit" class="btn btn-default btn-primary">Enviar</button>
-	                    </form>
-
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-
-	<!-- <script>
-		$('.datepicker').datepicker({
-	    format: "dd/mm/yyyy",
-			language:"es",
-			startDate: '+6m',
-			endDate: '+12m',
-	    daysOfWeekDisabled: "0,2,3,4,5,6",
-	    daysOfWeekHighlighted: "1",
-	    autoclose: true
-		});
-	</script> -->
-
-	</body>
 	</html>
 
 @endsection
