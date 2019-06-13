@@ -86,3 +86,5 @@ Route::post('/ubicacion/alta', 'UbicacionController@store')
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('refresh_captcha', 'HomeController@refreshCaptcha')->name('refresh_captcha');

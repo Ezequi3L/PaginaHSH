@@ -60,6 +60,7 @@ class RegisterController extends Controller
             'pago_numero' => ['required', 'digits:16'],
             'pago_cvv' => ['required', 'digits:3'],
             'pago_vencimiento' => ['required', 'date_format:m/y'],
+            'captcha' => 'required|captcha',
         ]);
     }
 

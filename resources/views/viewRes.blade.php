@@ -41,7 +41,9 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="{{ $primera }}">
+      <!-- <img class="d-block w-100" src="{{ $primera }}"> -->
+      <!-- parche para ver el botón xd -->
+      <img class="d-block w-50" src="{{ $primera }}">
     </div>
 
 <?php
@@ -51,7 +53,8 @@
 ?>
   <! Resto de las fotos >
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ $foto->src }}">
+      <!-- lo mismo de arriba -->
+      <img class="d-block w-50" src="{{ $foto->src }}">
     </div>
 
 <?php
@@ -65,7 +68,7 @@
     <span class="sr-only">Previous</span>
   </a>
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="carousel-control-n ext-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
@@ -77,6 +80,10 @@
 <ul class="list-group">
   <li class="list-group-item">{{ $desc }}</li>
   <li class="list-group-item">{{ $loc->ubicacion }}</li>
+  <center>
+  <a href="{{ route('viewRes', [$res]) }}"><button type="button" class="btn btn-sm btn-outline-primary">RESERVAR</button></a>
+</center>
 </ul>
+
 
 @endsection
