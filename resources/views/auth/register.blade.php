@@ -163,11 +163,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Captcha</label>
+                            <label for="captcha" class="col-md-4 col-form-label text-md-right">Captcha</label>
 
                             <div class="col-md-6 captcha">
-                                <span>{!! captcha_img('flat') !!}</span>
-                                <!-- <a href="{{route('refresh_captcha')}}"> --><button type="button" class="btn btn-success btn-refresh">Refresh</button></a>
+                              <img src="{{captcha_src('flat')}}" onclick="this.src='/captcha/flat?'+Math.random()" id="captchaCode" alt="" class="captcha">
+                              <a <rel="nofollow" href="javascript:;" onclick="document.getElementById('captchaCode').src='captcha/flat?'+Math.random()" class="refresh">refresh</a>
                             </div>
 
                             <input type="text" id="captcha" class="form-control{{ $errors->has('captcha') ? ' is-invalid' : '' }}" placeholder="Enter Captcha" name ="captcha" required>

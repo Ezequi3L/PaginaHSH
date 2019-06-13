@@ -32,12 +32,13 @@ const app = new Vue({
     el: '#app'
 });
 
-$(".btn-refresh").click(function(){
-  $.ajax({
-    type: 'GET',
-    url: '/refresh_captcha',
-    succes: function(data) {
-      $(".captcha span").html(data.captcha);
-    }
-  })
-})
+$('img.captcha-img').on('click', function () {
+    var captcha = $(this);
+    var config = captcha.data('refresh-config');
+    $.ajax({
+        method: 'GET',
+        url: '/get_captcha/' + config,
+    }).done(function (response) {
+        captcha.prop('src', response);
+    });
+});

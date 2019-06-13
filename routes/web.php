@@ -87,4 +87,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('refresh_captcha', 'HomeController@refreshCaptcha')->name('refresh_captcha');
+Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
+});
