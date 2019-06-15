@@ -29,40 +29,34 @@ if ($errors->any()) {
     echo "<p class='alert alert-danger'>*".$error."</p>";
   }
 }
-  use App\Residencia;
-  use App\Ubicacion;
-  use App\Foto;
 
-  $res = Residencia::find($id);
-  $desc = $res->descripcion;
-  $loc = $res->ubicacion;
+use App\User;
+
+$usr = User::find($id); 
 
 ?>
 
 <div style="text-align:center; margin-top:100px; "> <! form >
-  <form method="post" action="{{ route('updateExitoso', [$id]) }}">
+  <form method="post" action="{{ route('updatePass', [$id]) }}">
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
-     <textarea name="descripcion" rows="7" cols="30" placeholder="{{ $desc }}" autofocus></textarea>
+        <label for="actual">Contraseña actual: </label>
+        <input class="form-control" type="password" name="actual" autofocus>
     </div>
     <div class="form-group">
-        <label for="ubicacion_id">Ubicacion:</label>
-        <select class="form-control" name="ubicacion_id" id="ubicacion" value="{{ $loc->id }}">
-          <?php
-            $ubicaciones = Ubicacion::all();
-          foreach ($ubicaciones as $ubicacion) {
-          ?>
-              <option value="{{$ubicacion->id}}" <?php if($loc->id == $ubicacion->id) echo "selected"; ?>>{{$ubicacion->ubicacion}}</option>
-            <?php
-            } //end foreach
-            ?>
-        </select>
+        <label for="password">Contraseña nueva: </label>
+        <input class="form-control" type="password" name="password">
     </div>
-    <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
+    <div class="form-group">
+        <label for="password_confirmation">Repita la contraseña nueva: </label>
+        <input class="form-control" type="password" name="password_confirmation">
+    </div>
+    <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
-      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary" style="margin: 5px;" >Agregar foto</a>
 </div>
+
+
 
 @endsection

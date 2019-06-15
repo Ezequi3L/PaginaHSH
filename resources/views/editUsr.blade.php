@@ -39,3 +39,64 @@ if ($errors->any()) {
   $usr = User::find($id);
 
 ?>
+<div class="container">
+  <div class="row justify-content-center" style="margin-top:50px; ">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">{{ __('Modificar sus datos') }}</div>
+          <div class="card-body">
+           
+            <form method="post" action="{{ route('usrUpdateExitoso', [$id]) }}">
+            {{ method_field('put') }}
+            @csrf
+              <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">Nombre </label>
+                <div class="col-md-6">
+                  <input class="form-control" type="text" name="name" value="{{ $usr->name }}" autofocus>
+                </div>
+              </div>
+              <div class="form-group row">
+               <label for="email" class="col-md-4 col-form-label text-md-right">E-mail </label>
+               <div class="col-md-6">
+                  <input class="form-control" type="text" name="email" value="{{ $usr->email }}">
+               </div>
+              </div>
+              <div class="form-group row">
+                <label for="direccion" class="col-md-4 col-form-label text-md-right">Domicilio </label>
+                <div class="col-md-6">
+                  <input class="form-control" type="text" name="direccion" value="{{ $usr->direccion }}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="telefono" class="col-md-4 col-form-label text-md-right">Teléfono </label>
+                <div class="col-md-6">
+                  <input class="form-control" type="text" name="telefono" value="{{ $usr->telefono }}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="dni" class="col-md-4 col-form-label text-md-right">DNI </label>
+                <div class="col-md-6">
+                  <input class="form-control" type="text" name="dni" value="{{ $usr->dni }}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="fecha_nac" class="col-md-4 col-form-label text-md-right">Fecha de nacimiento </label>
+                <div class="col-md-6">
+                  <input class="form-control" type="date" name="fecha_nac" value="{{ $usr->fecha_nac }}">
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <div class="col-md-8 offset-md-4">
+                  <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-primary">Cancelar</a>
+                  <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+@endsection

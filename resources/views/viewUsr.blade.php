@@ -42,6 +42,7 @@
   <li class="list-group-item">Semanas que tengo disponibles: {{ $usr->semanas_disp }}</li>
   <center>
 <a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a>
+<a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
 </center>
   </ul>
 

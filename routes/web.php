@@ -68,14 +68,14 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
 		->name('editRes');
 
+	Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
+		->name('updateExitoso');
+
 	Route::get('/upload/{id}','ResidenciasController@UploadFoto')
 		->name('upload');
 
 	Route::post('/upload/{id}','ResidenciasController@fotoExitosa')
 		->name('fotoexitosa');
-
-	Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
-		->name('updateExitoso');
 
 	Route::get('/lisRes','ResidenciasController@ResList')
 		->name('listarResidencias');
@@ -94,6 +94,15 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::get('/usuarios/edit/{id}','UserController@EditUsr')
 		->name('editUsr');
+
+	Route::put('/usuarios/edit/{user}','UserController@update')
+		->name('usrUpdateExitoso');
+
+	Route::get('/usuarios/pass/{user}','UserController@ChangePass')
+		->name('changePass');
+
+	Route::put('/usuarios/pass/{user}','UserController@updatePass')
+		->name('updatePass');
 });
 
 Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
