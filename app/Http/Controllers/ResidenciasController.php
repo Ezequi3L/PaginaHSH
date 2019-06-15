@@ -71,9 +71,20 @@ class ResidenciasController extends Controller
     }
 
     public function fotoExitosa($id){
-        request()->foto->store('public');
-        Foto::create(['src' => '/storage/app/'.request()->foto->store('public'), 'residencia_id' => $id]);
-        return redirect()->route('upload',[$id]);
+       
+      if (request()->hasFile('foto')) {
+       
+        $extensiones = ["jpg","jpeg","png","gif","ico","bmp"];
+        $fileExt = request('foto')->getClientOriginalExtension();
+
+        if (in_array($fileExt, $extensiones)) {
+          request()->foto->store('public');
+          Foto::create(['src' => '/storage/app/'.request()->foto->store('public'), 'residencia_id' => $id]);
+          return redirect()->route('upload',[$id]);
+        }
+        else return redirect()->route('upload',[$id])->withErrors('El archivo seleccionado debe ser una imagen');
+      }
+      else return redirect()->route('upload',[$id])->withErrors('No hay ningún archivo seleccionado');        
     }
 
     function destroy(Residencia $residencia){
