@@ -88,6 +88,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::post('/ubicacion/alta', 'UbicacionController@store')
 		->name('altaUbicacion');
+
+	Route::get('/usuarios/{id}','UserController@ViewUsr')
+		->name('viewUsr');
+
+	Route::get('/usuarios/edit/{id}','UserController@EditUsr')
+		->name('editUsr');
 });
 
 Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);

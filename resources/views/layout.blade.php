@@ -59,6 +59,16 @@
         <span class="glyphicon glyphicon-home" style="color:white;"></span>
         <strong>Inicio</strong>
       </a>
+  <?php  if ( \Auth::check()) { ?>
+    <!Link al perfil>
+     <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
+          class="navbar-brand d-flex align-items-center">
+          <span class="glyphicon glyphicon-home" style="color:white;"></span>
+          <strong>Mi perfil</strong>
+        </a>
+  <?php }  ?>
       <!Botón para desplegar la NavBar>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
