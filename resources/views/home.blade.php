@@ -21,14 +21,6 @@ if ($errors->any()) {
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>
-         @if (Route::has('login'))
-          @auth
-            <form action="{{ route('logout') }}" method="POST">
-              @csrf
-              <button type="submit" class="btn btn-primary my-2">LogOut</button>
-            </form>
-          @endauth
-        @endif
         <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
       </p>
     </div>

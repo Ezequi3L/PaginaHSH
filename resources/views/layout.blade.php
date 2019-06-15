@@ -43,9 +43,9 @@
 
     </div>
   </div>
-  <!Link al inicio>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
+    <!Link al inicio>
       <a href="
         <?php
           if ( \Auth::check()) {
@@ -61,13 +61,19 @@
       </a>
   <?php  if ( \Auth::check()) { ?>
     <!Link al perfil>
-     <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container d-flex justify-content-between">
         <a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
           class="navbar-brand d-flex align-items-center">
-          <span class="glyphicon glyphicon-home" style="color:white;"></span>
           <strong>Mi perfil</strong>
         </a>
+    <!Link al perfil>
+         @if (Route::has('login'))
+          @auth
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="navbar-brand d-flex align-items-center" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
+            </form>
+          @endauth
+         @endif
   <?php }  ?>
       <!Botón para desplegar la NavBar>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
