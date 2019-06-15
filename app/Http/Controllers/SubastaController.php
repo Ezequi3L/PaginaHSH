@@ -67,7 +67,7 @@ class SubastaController extends Controller
             ]);
 
         $subasta->update($data);
-        return redirect()->route('inicio');
+        return redirect()->route('home');
     }
 
       public function Adjudicar($id){
@@ -91,7 +91,7 @@ class SubastaController extends Controller
             return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
         }
 
-        return redirect()->route('inicio');
+        return redirect()->route('home');
     }
 
      public function destroy(Subasta $subasta){
