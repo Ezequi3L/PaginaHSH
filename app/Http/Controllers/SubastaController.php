@@ -27,7 +27,7 @@ class SubastaController extends Controller
       ]);
         // dd($data);
         $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
-        
+
     	Subasta::create([
     		'residencia_id' => $data['id'],
     		'fecha_reserva' => $fecha,
@@ -71,14 +71,11 @@ class SubastaController extends Controller
         $sub = Subasta::find($id);
         //notificar al usuario que ganó
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-           $destinatario = User::find($oferta->usr_id)->email;
+           $destinatario = User::find($oferta->usr_id)->id; 
 
-           $this->destroy($sub);
-             /*   ['destinatario' => $destinatario,
-                    'msj' => 'emails.subastaGanada',
-                    'asunto' => 'Subasta ganada'
-                    ]   */
-           return redirect('enviar');
+           //$this->destroy($sub);
+
+           return redirect()->route('sendMail', [$destinatario]);
         }
         else {
             return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
