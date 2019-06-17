@@ -56,7 +56,7 @@
    <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
     <div class="card-body">
       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
-      <p class="card-text"> <?php echo "Reserva:"; echo $subasta->fecha_reserva; ?> </p>
+      <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
           <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
