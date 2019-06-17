@@ -16,23 +16,10 @@ if ($errors->any()) {
 
 }
 ?>
-
 <div style="display:block; text-align:center; margin-top:100px; "> <! form >
 	<form method="post" action="{{ route('subAltaExitosa') }}">
 	@csrf
-		<div class="form-group">
-		<label for="residencia">Seleccione una residencia</label>
-	 	 	<select class="form-control" name="residencia" id="residencia" value="{{ old('residencia') }}" autofocus>
-	  		<?php
-	  			$residencias = Residencia::all();
-	 			foreach ($residencias as $res) {
-	  		?>
-	  				<option value= <?php echo '"'; echo $res->id; echo '"' ?> > <?php echo $res->id; ?> </option>
-	  			<?php
-	  			} //end foreach
-	  			?>
-			</select>
-		</div>
+	<input type="hidden" name="id" value=<?php echo'"';echo"$id";echo'"'?>>
 		<div class="form-group">
 			<label for="fecha">Seleccione una fecha de reserva</label>
 
@@ -87,5 +74,16 @@ if ($errors->any()) {
 
 	</head>
 	</html>
-
+	<script>
+		$('.datepicker').datepicker({
+			format: "dd/mm/yyyy",
+			language:"es",
+			startDate: '+6m',
+			endDate: '+12m',
+			daysOfWeekDisabled: "0,2,3,4,5,6",
+			daysOfWeekHighlighted: "1",
+			// datesDisabled: $diasOcupados,
+			autoclose: true
+		});
+	</script>
 @endsection

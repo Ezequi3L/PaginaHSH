@@ -22,15 +22,15 @@ class ResidenciasController extends Controller
 
     	$data = request()->all();
 
-    	if (empty($data['desc'])) {
+    	if (empty($data['descripcion'])) {
     		return redirect()->route('crearResidencia')->withErrors('El campo descripción es obligatorio');
     	}
     	Residencia::create([
-    		'descripcion' => $data['desc'],
+    		'descripcion' => $data['descripcion'],
     		'ubicacion_id' => $data['ubicacion'],
     		//'foto_id' => $data['']
     		]);
-    	return redirect()->route('inicio');
+    	return redirect()->route('home')->with('alert-success','La residencia ha sido creada con exito');
     }
 
      public function ViewRes($id){
@@ -71,9 +71,9 @@ class ResidenciasController extends Controller
     }
 
     public function fotoExitosa($id){
-       
+
       if (request()->hasFile('foto')) {
-       
+
         $extensiones = ["jpg","jpeg","png","gif","ico","bmp"];
         $fileExt = request('foto')->getClientOriginalExtension();
 
@@ -84,7 +84,7 @@ class ResidenciasController extends Controller
         }
         else return redirect()->route('upload',[$id])->withErrors('El archivo seleccionado debe ser una imagen');
       }
-      else return redirect()->route('upload',[$id])->withErrors('No hay ningún archivo seleccionado');        
+      else return redirect()->route('upload',[$id])->withErrors('No hay ningún archivo seleccionado');
     }
 
     function destroy(Residencia $residencia){

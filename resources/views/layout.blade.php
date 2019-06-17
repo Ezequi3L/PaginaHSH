@@ -86,8 +86,10 @@
 <main role="main">
   @yield('buscador')
   @yield('mainContent')
-
-  <script>
+  @if (session()->has('alert-success'))
+   <script> alert("{{session()->get('alert-success')}}")</script>
+  @endif
+  <!-- <script>
     $('.datepicker').datepicker({
       format: "dd/mm/yyyy",
       language:"es",
@@ -95,10 +97,11 @@
       endDate: '+12m',
       daysOfWeekDisabled: "0,2,3,4,5,6",
       daysOfWeekHighlighted: "1",
+      datesDisabled: $diasOcupados,
       autoclose: true
     });
-  </script>
-  
+  </script> -->
+
 </main>
 
 @yield('footer')
