@@ -71,6 +71,12 @@ Route::post('/upload/{id}','ResidenciasController@fotoExitosa')
 Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 	->name('updateExitoso');
 
+Route::get('/borrarfoto/{id}','ResidenciasController@BajaFoto')
+	->name('borrarfoto');
+
+Route::put('/borrarfoto/{id}','ResidenciasController@destroyfoto')
+	->name('destroyfoto');
+
 Route::get('/lisRes','ResidenciasController@ResList')
 	->name('listarResidencias');
 

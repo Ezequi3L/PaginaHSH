@@ -76,6 +76,17 @@ class ResidenciasController extends Controller
         return redirect()->route('upload',[$id]);
     }
 
+    public function BajaFoto($id){
+      return view('BorrarFoto',['title' => 'Borrar foto', 'id' => $id]);
+    }
+
+    public function destroyfoto($id){
+      $foto=Foto::select()->where('id',request()->foto_id);
+      $foto->residencia_id=NULL;
+      return redirect()->route('viewRes',[$id]);
+
+    }
+
     function destroy(Residencia $residencia){
 
       $residencia->dada_de_baja = true;

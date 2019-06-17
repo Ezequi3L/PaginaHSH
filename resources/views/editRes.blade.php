@@ -64,6 +64,7 @@ if ($errors->any()) {
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
       <a href="{{ route('upload', [$id]) }}"class="btn btn-primary">Agregar foto</a>
+      <a href="{{ route('borrarfoto', [$id]) }}"class="btn btn-primary">Borrar foto</a>
 </div>
 
 @endsection
