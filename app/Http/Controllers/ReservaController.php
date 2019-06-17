@@ -21,8 +21,14 @@ class ReservaController extends Controller
     'usr_id' =>'El id del usuario es necesario',
   ]);
   $usuario=User::select()->where('id',$data['usr_id'])->first();
+  $reservas=Reserva::select()->where('id',$usuario->id)->get();
   if(($usuario->semanas_disp)>=1){
     $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
+    foreach ($reservas as $reserva){
+      if($reserva->fecha==$fecha->format('Y-m-d')){
+      return redirect()->route('home')->with('alert-success', 'La reserva no se ha realizado debido a que ya cuenta con una reserva para esa semana');
+    }
+  }
     Reserva::create([
       'usr_id' => $data['usr_id'],
       'residencia_id' => $data['residencia_id'],
@@ -37,7 +43,7 @@ class ReservaController extends Controller
     $usuario->update();
     return redirect()->route('home')->with('alert-success', 'Reserva realizada con exito');
   }
-  return redirect()->route('home')->with('alert-success', 'La reserva no se ha realizado debido a que no cuenta con semanas disponibles');
+  return redirect()->route('home')->with('alert-success', 'La reserva no se ha realizado debido a que no cuenta con semananas disponibles');
 
 
 }
