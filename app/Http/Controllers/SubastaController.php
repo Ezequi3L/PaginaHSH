@@ -27,15 +27,10 @@ class SubastaController extends Controller
       ]);
         // dd($data);
         $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
-        $fIni = $fecha->subMonth(6);
-        $fAct = Carbon::createFromDate('now');
-        if ($fAct > $fIni) {
-            return redirect()->route('crearSubasta')->withErrors('La fecha de reserva debe ser por lo menos dentro de seis meses');
-        }
-
+        
     	Subasta::create([
     		'residencia_id' => $data['id'],
-    		'fecha_reserva' => $fecha->addMonth(6),
+    		'fecha_reserva' => $fecha,
     		'monto_minimo' => $data['monto']
     		]);
     	return redirect()->route('home')->with('alert-success', 'Subasta creada con exito');
@@ -74,10 +69,10 @@ class SubastaController extends Controller
         $data = request();
         $oferta = Oferta::find($data->oferta);
         $sub = Subasta::find($id);
-
+        //notificar al usuario que ganó
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-           $destinatario = User::find($oferta->usr_id)->email; 
-     
+           $destinatario = User::find($oferta->usr_id)->email;
+
            $this->destroy($sub);
              /*   ['destinatario' => $destinatario,
                     'msj' => 'emails.subastaGanada',

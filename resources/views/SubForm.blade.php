@@ -33,14 +33,10 @@ $fechas_subastas=$fechas_subastas."]";
 	<input type="hidden" name="id" value=<?php echo'"';echo"$id";echo'"'?>>
 		<div class="form-group">
 			<label for="fecha">Seleccione una fecha de reserva</label>
-
 					<div class="content">
-
 							<div class="panel panel-default">
 									<div class="panel-body">
 											<div class="col-md-4 col-md-offset-4">
-
-
 															<div class="form-group">
 																	<label for="fecha">Fecha</label>
 																	<div class="input-group">
@@ -50,9 +46,6 @@ $fechas_subastas=$fechas_subastas."]";
 																			</div>
 																	</div>
 															</div>
-															<!-- <button type="submit" class="btn btn-default btn-primary">Guardar</button> -->
-
-
 											</div>
 									</div>
 							</div>

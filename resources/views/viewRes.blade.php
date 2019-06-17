@@ -27,7 +27,16 @@
   use App\Residencia;
   use App\Ubicacion;
   use App\Foto;
+  use App\Reserva;
 
+//mostrar errores
+  if ($errors->any()) {
+  	foreach ($errors->all() as $error) {
+  		echo "<p class='alert alert-danger'>*".$error."</p>";
+  	}
+
+  }
+//
   $res = Residencia::find($id);
   $desc = $res->descripcion;
   $loc = $res->ubicacion;
@@ -75,13 +84,86 @@
 
 <?php
   } //endif
+  $usr_id=Auth::user()->id;
+  $reserva=Reserva::select('fecha')->where('residencia_id',$id)->get();
+  dd($reserva);
+  $fechas_subastas="[";
+  foreach ($subastas as $subasta) {
+  	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva);
+  	$carbon=$carbon->format('d/m/Y');
+  	$fechas_subastas=$fechas_subastas."'".$carbon."'".",";
+  }
+  $fechas_subastas=$fechas_subastas."]";
+  // dd($fechas_subastas);
 ?>
 
 <ul class="list-group">
   <li class="list-group-item">{{ $desc }}</li>
   <li class="list-group-item">{{ $loc->ubicacion }}</li>
   <center>
-  <a href="{{ route('viewRes', [$res]) }}"><button type="button" class="btn btn-sm btn-outline-primary">RESERVAR</button></a>
+    <div style="display:block; text-align:center; margin-top:100px; "> <! form >
+    	<form method="post" action="{{ route('reservaExitosa') }}">
+    	@csrf
+    	<input type="hidden" name="usr_id" value=<?php echo'"';echo"$usr_id";echo'"'?>>
+      <input type="hidden" name="residencia_id" value=<?php echo'"';echo"$id";echo'"'?>>
+    		<div class="form-group">
+    			<label for="fecha">Seleccione la fecha de reserva</label>
+
+    					<div class="content">
+
+    							<div class="panel panel-default">
+    									<div class="panel-body">
+    											<div class="col-md-4 col-md-offset-4">
+
+
+    															<div class="form-group">
+    																	<label for="fecha">Fecha</label>
+    																	<div class="input-group">
+    																			<input type="text" class="form-control datepicker" name="fecha">
+    																			<div class="input-group-addon">
+    																					<span class="glyphicon glyphicon-th"></span>
+    																			</div>
+    																	</div>
+    															</div>
+    											</div>
+    									</div>
+    							</div>
+    					</div>
+    		</div>
+    		<input type="submit" name="rerservar" value="Reservar" class="btn btn-primary">
+    	</form>
+
+    	<title>Datepicker</title>
+    	    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    	    <!-- Latest compiled and minified CSS -->
+    	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    	    <!-- Optional theme -->
+    	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    	    <!-- Latest compiled and minified JavaScript -->
+    	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    	    <!-- Jquery -->
+    	    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    	    <!-- Datepicker Files -->
+    	    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-datepicker3.css'}}">
+    	    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-standalone.css'}}">
+    	    <script src="{{'/public/datePicker/js/bootstrap-datepicker.js'}}"></script>
+    	    <!-- Languaje -->
+    	    <script src="{{'/public/datePicker/locales/bootstrap-datepicker.es.min.js'}}"></script>
+    	</head>
+    	</html>
+
+    	<script>
+    		$('.datepicker').datepicker({
+    			format: "dd/mm/yyyy",
+    			language:"es",
+    			startDate: '+6m',
+    			endDate: '+12m',
+    			daysOfWeekDisabled: "0,2,3,4,5,6",
+    			daysOfWeekHighlighted: "1",
+    			// datesDisabled: ['30/12/2019','23/12/2019'],
+    			autoclose: true
+    		});
+    	</script>
 </center>
 </ul>
 

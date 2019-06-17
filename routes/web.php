@@ -106,7 +106,10 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::put('/usuarios/pass/{user}','UserController@updatePass')
 		->name('updatePass');
+
+	Route::post('/newRes','ReservaController@store')
+		->name('reservaExitosa');
+
 });
 
-Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
-});
+Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);});
