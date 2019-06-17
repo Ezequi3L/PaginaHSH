@@ -65,7 +65,7 @@
           class="navbar-brand d-flex align-items-center">
           <strong>Mi perfil</strong>
         </a>
-    <!Link al perfil>
+    <!Botón de LogOut>
          @if (Route::has('login'))
           @auth
             <form action="{{ route('logout') }}" method="POST">

@@ -7,6 +7,7 @@ use App\Subasta;
 use App\Residencia;
 use Carbon\Carbon;
 use App\Oferta;
+use App\User;
 
 class SubastaController extends Controller
 {
@@ -84,14 +85,18 @@ class SubastaController extends Controller
         $sub = Subasta::find($id);
 
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-            //notificar al usuario que ganó
+           $destinatario = User::find($oferta->usr_id)->email; 
+     
            $this->destroy($sub);
+             /*   ['destinatario' => $destinatario,
+                    'msj' => 'emails.subastaGanada',
+                    'asunto' => 'Subasta ganada'
+                    ]   */
+           return redirect('enviar');
         }
         else {
             return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
         }
-
-        return redirect()->route('home');
     }
 
      public function destroy(Subasta $subasta){
