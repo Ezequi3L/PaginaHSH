@@ -92,6 +92,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::post('/ubicacion/alta', 'UbicacionController@store')
 		->name('altaUbicacion');
 
+	Route::get('/usuarios/list','UserController@listado')
+		->name('listUsr');
+
+	Route::post('/usuario/verificar/{id}','UserController@check')
+		->name('check');
+
 	Route::get('/usuarios/{id}','UserController@ViewUsr')
 		->name('viewUsr');
 

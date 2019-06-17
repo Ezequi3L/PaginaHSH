@@ -8,7 +8,22 @@ use Hash;
 
 class UserController extends Controller
 {
-     public function ViewUsr($id){
+
+
+    public function listado(){
+      return view('UserList', ['title' => 'Listado de Usuarios']);
+
+    }
+
+    public function check($id){
+      $user=User::Find($id);
+      $user->tipo_de_usuario=2;
+      $user->update();
+      return redirect()->route('listUsr');
+    }
+
+
+    public function ViewUsr($id){
       return view('viewUsr', [
         'title' => 'Detalles del usuario',
         'id' => $id,
@@ -56,7 +71,7 @@ class UserController extends Controller
     }
 
      public function updatePass(User $user){
-     	
+
      	$data = request()->validate([
      		'actual' => 'required',
      		'password' => ['required', 'string', 'min:8', 'confirmed'],
