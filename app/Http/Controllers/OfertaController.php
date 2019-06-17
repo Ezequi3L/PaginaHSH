@@ -40,6 +40,6 @@ class OfertaController extends Controller
     		'usr_id' => $data['user_id'],
     		'monto' => $data['monto']
     		]);
-    	return redirect()->route('inicio');
+    	return redirect()->route('home');
     }
 }

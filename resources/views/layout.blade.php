@@ -43,9 +43,9 @@
 
     </div>
   </div>
-  <!Link al inicio>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
+    <!Link al inicio>
       <a href="
         <?php
           if ( \Auth::check()) {
@@ -59,6 +59,22 @@
         <span class="glyphicon glyphicon-home" style="color:white;"></span>
         <strong>Inicio</strong>
       </a>
+  <?php  if ( \Auth::check()) { ?>
+    <!Link al perfil>
+        <a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
+          class="navbar-brand d-flex align-items-center">
+          <strong>Mi perfil</strong>
+        </a>
+    <!Link al perfil>
+         @if (Route::has('login'))
+          @auth
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="navbar-brand d-flex align-items-center" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
+            </form>
+          @endauth
+         @endif
+  <?php }  ?>
       <!Botón para desplegar la NavBar>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -71,6 +87,18 @@
   @yield('buscador')
   @yield('mainContent')
 
+  <script>
+    $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      language:"es",
+      startDate: '+6m',
+      endDate: '+12m',
+      daysOfWeekDisabled: "0,2,3,4,5,6",
+      daysOfWeekHighlighted: "1",
+      autoclose: true
+    });
+  </script>
+  
 </main>
 
 @yield('footer')

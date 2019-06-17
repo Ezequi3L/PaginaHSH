@@ -44,7 +44,6 @@ if ($errors->any()) {
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
-    <!-- <input class="form-control" type="text" name="descripcion" value="{{ old('descripcion', $desc) }}" required autofocus> -->
      <textarea name="descripcion" rows="7" cols="30" placeholder="{{ $desc }}" autofocus></textarea>
     </div>
     <div class="form-group">
@@ -63,8 +62,7 @@ if ($errors->any()) {
     <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
-      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary">Agregar foto</a>
-      <a href="{{ route('borrarfoto', [$id]) }}"class="btn btn-primary">Borrar foto</a>
+      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary" style="margin: 5px;" >Agregar foto</a>
 </div>
 
 @endsection

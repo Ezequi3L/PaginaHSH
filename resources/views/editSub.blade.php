@@ -50,7 +50,7 @@ $monto = $sub->monto_minimo;
     <label for="monto_minimo">Monto mínimo</label>
     <input class="form-control" type="number" step="any" name="monto_minimo" value="{{ old('monto_minimo', $monto) }}" required autofocus>
     </div>
-    <a href="{{ route('inicio') }}"class="btn btn-primary">Cancelar</a>
+    <a href="{{ route('home') }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
 </div>

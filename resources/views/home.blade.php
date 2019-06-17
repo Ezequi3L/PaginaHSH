@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('mainContent')
-<<?php
+<?php
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
     echo "<p class='alert alert-danger'>*".$error."</p>";
@@ -13,7 +13,7 @@ if ($errors->any()) {
 
 <section class="jumbotron text-center">
     <div class="container">
-      <h1 class="jumbotron-heading">Home Switch Home</h1>
+      <!-- iba acá xd -->
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
@@ -21,14 +21,7 @@ if ($errors->any()) {
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>
-         @if (Route::has('login'))
-          @auth
-            <form action="{{ route('logout') }}" method="POST">
-              @csrf
-              <button type="submit" class="btn btn-primary my-2">LogOut</button>
-            </form>
-          @endauth
-        @endif
+        <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
       </p>
     </div>
   </section>
@@ -147,7 +140,7 @@ body {
 }
 
 .topnav .search-container button {
-  float: right;
+  float: none;
   padding: 6px 10px;
   margin-top: 8px;
   margin-right: 16px;
