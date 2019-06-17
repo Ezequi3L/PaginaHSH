@@ -2,9 +2,7 @@
 
 
 @section('mainContent')
-@if (session()->has('alert-success'))
- <script> alert("{{session()->get('alert-success')}}")</script>
-@endif
+
 <?php
 
 use App\Foto;
