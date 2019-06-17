@@ -2,6 +2,8 @@
 
 @section('mainContent')
 <?php
+use config\Session;
+
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
     echo "<p class='alert alert-danger'>*".$error."</p>";
@@ -17,7 +19,6 @@ if ($errors->any()) {
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
-        <a href={{ route('crearSubasta') }} class="btn btn-secondary my-2">Programar subasta</a>
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <a href={{ route('altaUbicacion')}} class="btn btn-secondary my-2">Agregar Ubicacion</a>

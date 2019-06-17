@@ -20,6 +20,6 @@ class UbicacionController extends Controller
         Ubicacion::create([
           'ubicacion' => $data['ubicacion']
         ]);
-        return redirect()->route('inicio');
+        return redirect()->route('home')->with('alert-success','La ubicación ha sido creada con éxito');
 }
 }

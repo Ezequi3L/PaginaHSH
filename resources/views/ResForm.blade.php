@@ -19,7 +19,7 @@ if ($errors->any()) {
 
 ?>
   <div style="display:block; text-align:center; margin-top:100px; ">
-	<form id="formProv" method="post" action="{{ route('continuar') }}">
+	<form id="formProv" method="post" action="{{ route('altaExitosa') }}">
 	@csrf
 	<div class="form-group">
 	  <textarea name="descripcion" rows="7" cols="30" placeholder="Ingrese una descripcion" required autofocus></textarea>
@@ -37,7 +37,7 @@ if ($errors->any()) {
 	 		?>
 	  </select>
 	</div>
-	   <input type="submit" name="siguiente" value="Siguiente" class="btn btn-primary">
+	   <input type="submit" value="Crear Residencia" class="btn btn-primary">
 	</form>
    </div>
 

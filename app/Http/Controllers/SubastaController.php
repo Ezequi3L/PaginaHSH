@@ -11,22 +11,21 @@ use App\User;
 
 class SubastaController extends Controller
 {
-     public function SubForm(){
-      return view('SubForm', ['title' => "Programar una subasta"]);
+     public function SubForm($id){
+      return view('SubForm', ['title' => "Programar una subasta",'id'=>$id]);
     }
 
       public function store(){
       // dd(request());
     	$data = request()->validate([
-    		'residencia' => 'required',
+        'id' =>'required',
     		'fecha' => 'required',
     		'monto' => 'required'
     		], [
-    		'residencia.required' => 'El campo residencia es obligatorio',
     		'fecha.required' => 'El campo fecha es obligatorio',
     		'monto.required' => 'El campo monto es obligatorio'
       ]);
-
+        // dd($data);
         $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
         $fIni = $fecha->subMonth(6);
         $fAct = Carbon::createFromDate('now');
@@ -42,12 +41,11 @@ class SubastaController extends Controller
     	}
 
     	Subasta::create([
-    		'residencia_id' => $data['residencia'],
+    		'residencia_id' => $data['id'],
     		'fecha_reserva' => $fecha,
     		'monto_minimo' => $data['monto']
     		]);
-    	return redirect()->route('inicio');
-
+    	return redirect()->route('home')->with('alert-success', 'Subasta creada con exito');
     }
 
      public function EditSub($id){

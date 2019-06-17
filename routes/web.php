@@ -26,13 +26,10 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/newRes','ResidenciasController@ResForm')
 		->name('crearResidencia');
 
-	Route::post('/newResLoc','ResidenciasController@ResForm')
-		->name('continuar');
-
 	Route::post('/newRes','ResidenciasController@store')
 		->name('altaExitosa');
 
-	Route::get('/newSub','SubastaController@SubForm')
+	Route::get('/newSub/{id}','SubastaController@SubForm')
 		->name('crearSubasta');
 
 	Route::get('/lisSub','resultController@listarSubasta')
@@ -44,7 +41,7 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/subastas/{id}','SubastaController@EditSub')
 		->name('editSub');
 
-	Route::put('/subastas/{id}','SubastaController@update')
+	Route::put('/subasta/{id}','SubastaController@update')
 		->name('subUpdateExitoso');
 
 	Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
