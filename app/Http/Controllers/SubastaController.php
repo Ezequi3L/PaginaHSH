@@ -33,16 +33,9 @@ class SubastaController extends Controller
             return redirect()->route('crearSubasta')->withErrors('La fecha de reserva debe ser por lo menos dentro de seis meses');
         }
 
-        $subastasConMismaFecha = Subasta::whereFecha_reserva($data['fecha'])->get();
-        foreach ($subastasConMismaFecha as $sub) {
-            if ($sub->residencia_id == $data['residencia']) {
-                return redirect()->route('crearSubasta')->withErrors('La residencia indicada ya posee una subasta para la fecha seleccionada');
-            }
-    	}
-
     	Subasta::create([
     		'residencia_id' => $data['id'],
-    		'fecha_reserva' => $fecha,
+    		'fecha_reserva' => $fecha->addMonth(6),
     		'monto_minimo' => $data['monto']
     		]);
     	return redirect()->route('home')->with('alert-success', 'Subasta creada con exito');

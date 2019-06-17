@@ -69,11 +69,17 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 		->name('updateExitoso');
 
-	Route::get('/upload/{id}','ResidenciasController@UploadFoto')
+	Route::get('/upload/{id}','FotosController@UploadFoto')
 		->name('upload');
 
-	Route::post('/upload/{id}','ResidenciasController@fotoExitosa')
+	Route::post('/upload/{id}','FotosController@fotoExitosa')
 		->name('fotoexitosa');
+
+	Route::get('/bajaFoto/{id}', 'FotosController@BajaFoto')
+		->name('BajaFoto');
+
+	Route::delete('/bajaFoto/{id}','FotosController@destroy')
+		->name('BajaFotoOk');
 
 	Route::get('/lisRes','ResidenciasController@ResList')
 		->name('listarResidencias');
