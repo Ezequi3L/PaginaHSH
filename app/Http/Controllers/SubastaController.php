@@ -71,7 +71,7 @@ class SubastaController extends Controller
         $sub = Subasta::find($id);
         //notificar al usuario que ganó
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-           $destinatario = User::find($oferta->usr_id)->id; 
+           $destinatario = User::find($oferta->usr_id)->id;
 
            //$this->destroy($sub);
 

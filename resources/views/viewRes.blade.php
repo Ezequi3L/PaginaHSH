@@ -28,6 +28,7 @@
   use App\Ubicacion;
   use App\Foto;
   use App\Reserva;
+  use Carbon\Carbon;
 
 //mostrar errores
   if ($errors->any()) {
@@ -85,16 +86,14 @@
 <?php
   } //endif
   $usr_id=Auth::user()->id;
-  $reserva=Reserva::select('fecha')->where('residencia_id',$id)->get();
-  dd($reserva);
-  $fechas_subastas="[";
-  foreach ($subastas as $subasta) {
-  	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva);
-  	$carbon=$carbon->format('d/m/Y');
-  	$fechas_subastas=$fechas_subastas."'".$carbon."'".",";
+  $reservas=Reserva::select('fecha')->where('residencia_id',$id)->get();
+  $fechas_reservas="[";
+  foreach ($reservas as $reserva) {
+  	$carbon=Carbon::createFromFormat('Y-m-d',$reserva->fecha)->format('d/m/Y');
+  	$fechas_reservas=$fechas_reservas."'".$carbon."'".",";
   }
-  $fechas_subastas=$fechas_subastas."]";
-  // dd($fechas_subastas);
+  $fechas_reservas=$fechas_reservas."]";
+  // dd($fechas_reservas);
 ?>
 
 <ul class="list-group">
@@ -160,6 +159,7 @@
     			endDate: '+12m',
     			daysOfWeekDisabled: "0,2,3,4,5,6",
     			daysOfWeekHighlighted: "1",
+          datesDisabled: "<?php echo $fechas_reservas; ?>",
     			// datesDisabled: ['30/12/2019','23/12/2019'],
     			autoclose: true
     		});

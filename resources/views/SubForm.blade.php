@@ -19,8 +19,7 @@ if ($errors->any()) {
 $subastas=Subasta::select('fecha_reserva')->where('residencia_id',$id)->get();
 $fechas_subastas="[";
 foreach ($subastas as $subasta) {
-	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva);
-	$carbon=$carbon->format('d/m/Y');
+	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva)->format('d/m/Y');
 	$fechas_subastas=$fechas_subastas."'".$carbon."'".",";
 }
 $fechas_subastas=$fechas_subastas."]";

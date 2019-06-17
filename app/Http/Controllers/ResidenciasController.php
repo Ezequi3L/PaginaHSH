@@ -29,6 +29,7 @@ class ResidenciasController extends Controller
     		'ubicacion_id' => $data['ubicacion'],
     		//'foto_id' => $data['']
     		]);
+
     	return redirect()->route('home')->with('alert-success','La residencia ha sido creada con exito');
     }
 
@@ -67,7 +68,7 @@ class ResidenciasController extends Controller
 
 
 
-  
+
     function destroy(Residencia $residencia){
 
       $residencia->dada_de_baja = true;
