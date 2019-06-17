@@ -24,11 +24,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/result', 'resultController@index')
 		->name('resultados');
 
-	Route::get('/newRes','ResidenciasController@ResForm')
+		Route::get('/newRes','ResidenciasController@ResForm')
 		->name('crearResidencia');
 
 	Route::post('/newRes','ResidenciasController@store')
-		->name('altaExitosa');
+	->name('altaExitosa');
+
 
 	Route::get('/newSub/{id}','SubastaController@SubForm')
 		->name('crearSubasta');
@@ -114,7 +115,7 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::put('/usuarios/pass/{user}','UserController@updatePass')
 		->name('updatePass');
 
-	Route::post('/newRes','ReservaController@store')
+	Route::post('/newReserva','ReservaController@store')
 		->name('reservaExitosa');
 
 });
