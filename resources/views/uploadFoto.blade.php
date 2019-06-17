@@ -9,6 +9,9 @@ if ($errors->any()) {
   }
 }
 ?>
+@if (session()->has('alert-success'))
+ <script> alert("{{session()->get('alert-success')}}")</script>
+@endif
 
 <div style="text-align:center; margin-top:100px; "> <! form >
   <form method="post" action="{{ route('fotoexitosa', [$id]) }}"
