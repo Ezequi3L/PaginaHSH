@@ -64,8 +64,9 @@ class UserController extends Controller
         ]);
     }
 
-     public function updatePass(User $user){
+     public function updatePass(int $user){
 
+      $user = User::find($user);
      	$data = request()->validate([
      		'actual' => 'required',
      		'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -81,7 +82,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors('La contraseña actual no es correcta');
         }
 
-     	$data['password'] = bcrypt($data['password']);
+    $data['password'] = bcrypt($data['password']);
 		$user->update($data);
 
         return redirect()->route('viewUsr', [$user]);
