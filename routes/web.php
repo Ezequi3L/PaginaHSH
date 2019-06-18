@@ -117,20 +117,28 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/lisSub','resultController@listarSubasta')
 		->name('listarSubasta');
 
-	Route::get('/ofertaSub/{subasta}','OfertaController@OfertaForm')
-		->name('ofertar');
-
-	Route::post('/ofertaSub','OfertaController@store')
-		->name('subOfertaExitosa');
+	Route::get('/lisRes','ResidenciasController@ResList')
+		->name('listarResidencias');
 
 	Route::get('/residencias/{id}','ResidenciasController@ViewRes')
 		->name('viewRes');
 
-	Route::get('/lisRes','ResidenciasController@ResList')
-		->name('listarResidencias');
+	Route::group( ['middleware' => 'App\Http\Middleware\ClientMiddleware'], function() {  //	solo para clientes
 
-	Route::post('/newReserva','ReservaController@store')
-		->name('reservaExitosa');
+		Route::get('/ofertaSub/{subasta}','OfertaController@OfertaForm')
+			->name('ofertar');
+
+		Route::post('/ofertaSub','OfertaController@store')
+			->name('subOfertaExitosa');
+
+	});
+
+	Route::group( ['middleware' => 'App\Http\Middleware\PremiumMiddleware'], function() {  //	solo para premium
+		
+		Route::post('/newReserva','ReservaController@store')
+			->name('reservaExitosa');
+
+	});
 
 });
 

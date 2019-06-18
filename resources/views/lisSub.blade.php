@@ -60,14 +60,18 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
           <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-          <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-          <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-          <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Adjudicar</button></a>
-          <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
-            @csrf
-            {{ method_field('DELETE') }}
-            <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
-          </form>
+          <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+            <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+          <?php }
+          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+             <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+             <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Adjudicar</button></a>
+             <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
+              @csrf
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
+             </form>
+          <?php } ?>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
 
  <section class="jumbotron text-center">
     <div class="container">
-      <h1 class="jumbotron-heading">Home Switch Home</h1>
+      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         @if (Route::has('login'))

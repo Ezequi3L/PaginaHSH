@@ -62,8 +62,8 @@ if ($errors->any()) {
     <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
   </form>
-      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary" style="margin: 5px;" >Agregar foto</a>
-      <a href="{{ route('BajaFoto', [$id]) }}"class="btn btn-primary" style="margin: 5px;" >Borrar foto</a>
+      <a href="{{ route('upload', [$id]) }}"class="btn btn-primary" style="margin-top: 5px;" >Agregar foto</a>
+      <a href="{{ route('BajaFoto', [$id]) }}"class="btn btn-primary" style="margin-top: 5px;" >Borrar foto</a>
 </div>
 
 @endsection

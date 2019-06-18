@@ -15,14 +15,18 @@ if ($errors->any()) {
 
 <section class="jumbotron text-center">
     <div class="container">
-      <!-- iba acá xd -->
+      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
-        <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
+        <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
+          <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
+        <?php } ?>
+
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
-        <a href={{ route('listUsr')}} class="btn btn-secondary my-2">Listado de Usuarios</a>
-        <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
+        <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
+          <a href={{ route('listUsr')}} class="btn btn-primary my-2">Listado de Usuarios</a>
+        <?php } ?>
       </p>
     </div>
   </section>
@@ -59,7 +63,9 @@ if ($errors->any()) {
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                  <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                  <?php if (Auth::user()->tipo_de_usuario == 0) { ?>
+                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                  <?php } ?>
                 </div>
               </div>
             </div>
