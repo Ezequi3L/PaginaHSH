@@ -73,8 +73,8 @@ class SubastaController extends Controller
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
           
            $destinatario = User::find($oferta->usr_id)->id; 
-     
-           //$this->destroy($sub);
+           
+           $sub->update(['dada_de_baja' => true]);
         
            return redirect()->route('sendMail', [$destinatario]);
         }
@@ -93,7 +93,7 @@ class SubastaController extends Controller
             $destinatarios[$i] = $usr;
             $i++;
         }
-       $destinatarios = serialize($destinatarios);
+        $destinatarios = serialize($destinatarios);
         $subasta->delete();
         return redirect('/enviarSubElim/'.$destinatarios);
     }
