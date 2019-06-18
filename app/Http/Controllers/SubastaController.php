@@ -84,15 +84,18 @@ class SubastaController extends Controller
     }
 
      public function destroy(Subasta $subasta){
-
+        $destinatarios = array();
+        $i = 0;
         $ofertas = $subasta->ofertas;
         foreach ($ofertas as $oferta) { // primero deben borrarse todas las ofertas de esta subasta
-            $usr = $oferta->mail; //hay que notificar a este mail
+            $usr = $oferta->usr_id; //hay que notificar a este usuario
             $oferta->delete();
+            $destinatarios[$i] = $usr;
+            $i++;
         }
-
+       $destinatarios = serialize($destinatarios);
         $subasta->delete();
-        return redirect()->route('listarSubasta');
+        return redirect('/enviarSubElim/'.$destinatarios);
     }
 
 }

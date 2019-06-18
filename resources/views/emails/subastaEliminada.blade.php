@@ -1,0 +1,1 @@
+Le informamos que la subasta en la que usted estaba participando fue dada de baja.

@@ -84,6 +84,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/enviar/{destinatario}','MailController@sendMail')
 			->name('sendMail');
 
+		Route::get('/enviarSubElim/{destinatarios}','MailController@subElim')
+			->name('sendMailSubElim');
+
 	});
 
 	Route::group( ['middleware' => 'App\Http\Middleware\UserOrAdminMiddleware'], function() { // Un usuario solo puede

@@ -54,5 +54,22 @@ class OfertasSeeder extends Seeder
 
         ]);
 
+        Oferta::create(['monto' => 6523, 'usr_id' => '1', 'subasta_id' => 5
+
+        ]);
+
+        Oferta::create(['monto' => 1200, 'usr_id' => '2', 'subasta_id' => 5
+
+        ]);
+
+        Oferta::create(['monto' => 23, 'usr_id' => '5', 'subasta_id' => 5
+
+        ]);
+
+        Oferta::create(['monto' => 987, 'usr_id' => '7', 'subasta_id' => 5
+
+        ]);
+
+
     }
 }
