@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'WelcomeController@index')
 	->name('inicio');
 
@@ -104,3 +105,6 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
 });
+
+Route::get('/enviar/{destinatario}','MailController@sendMail')
+		->name('sendMail');
