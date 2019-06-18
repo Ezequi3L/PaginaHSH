@@ -45,7 +45,7 @@ if ($errors->any()) {
         <div class="card">
           <div class="card-header">{{ __('Modificar sus datos') }}</div>
           <div class="card-body">
-           
+
             <form method="post" action="{{ route('usrUpdateExitoso', [$id]) }}">
             {{ method_field('put') }}
             @csrf
@@ -54,12 +54,6 @@ if ($errors->any()) {
                 <div class="col-md-6">
                   <input class="form-control" type="text" name="name" value="{{ $usr->name }}" autofocus>
                 </div>
-              </div>
-              <div class="form-group row">
-               <label for="email" class="col-md-4 col-form-label text-md-right">E-mail </label>
-               <div class="col-md-6">
-                  <input class="form-control" type="text" name="email" value="{{ $usr->email }}">
-               </div>
               </div>
               <div class="form-group row">
                 <label for="direccion" class="col-md-4 col-form-label text-md-right">Domicilio </label>

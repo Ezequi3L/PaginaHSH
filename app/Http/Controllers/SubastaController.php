@@ -16,7 +16,7 @@ class SubastaController extends Controller
     }
 
       public function store(){
-      // dd(request());
+     
     	$data = request()->validate([
         'id' =>'required',
     		'fecha' => 'required',
@@ -25,20 +25,8 @@ class SubastaController extends Controller
     		'fecha.required' => 'El campo fecha es obligatorio',
     		'monto.required' => 'El campo monto es obligatorio'
       ]);
-        // dd($data);
+        
         $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
-        $fIni = $fecha->subMonth(6);
-        $fAct = Carbon::createFromDate('now');
-        if ($fAct > $fIni) {
-            return redirect()->route('crearSubasta')->withErrors('La fecha de reserva debe ser por lo menos dentro de seis meses');
-        }
-
-        $subastasConMismaFecha = Subasta::whereFecha_reserva($data['fecha'])->get();
-        foreach ($subastasConMismaFecha as $sub) {
-            if ($sub->residencia_id == $data['residencia']) {
-                return redirect()->route('crearSubasta')->withErrors('La residencia indicada ya posee una subasta para la fecha seleccionada');
-            }
-    	}
 
     	Subasta::create([
     		'residencia_id' => $data['id'],
@@ -81,8 +69,9 @@ class SubastaController extends Controller
         $data = request();
         $oferta = Oferta::find($data->oferta);
         $sub = Subasta::find($id);
-
+        //notificar al usuario que ganó
         if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
+          
            $destinatario = User::find($oferta->usr_id)->id; 
      
            //$this->destroy($sub);

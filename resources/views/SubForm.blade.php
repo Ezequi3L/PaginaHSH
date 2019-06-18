@@ -3,6 +3,7 @@
 <?php
 use  App\Residencia;
 use Carbon\Carbon;
+use App\Subasta;
 
 ?>
 
@@ -15,21 +16,26 @@ if ($errors->any()) {
 	}
 
 }
+$subastas=Subasta::select('fecha_reserva')->where('residencia_id',$id)->get();
+$fechas_subastas="[";
+foreach ($subastas as $subasta) {
+	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva)->format('d/m/Y');
+	$fechas_subastas=$fechas_subastas."'".$carbon."'".",";
+}
+$fechas_subastas=$fechas_subastas."]";
+// dd($fechas_subastas);
 ?>
+
 <div style="display:block; text-align:center; margin-top:100px; "> <! form >
 	<form method="post" action="{{ route('subAltaExitosa') }}">
 	@csrf
 	<input type="hidden" name="id" value=<?php echo'"';echo"$id";echo'"'?>>
 		<div class="form-group">
 			<label for="fecha">Seleccione una fecha de reserva</label>
-
 					<div class="content">
-
 							<div class="panel panel-default">
 									<div class="panel-body">
 											<div class="col-md-4 col-md-offset-4">
-
-
 															<div class="form-group">
 																	<label for="fecha">Fecha</label>
 																	<div class="input-group">
@@ -39,9 +45,6 @@ if ($errors->any()) {
 																			</div>
 																	</div>
 															</div>
-															<!-- <button type="submit" class="btn btn-default btn-primary">Guardar</button> -->
-
-
 											</div>
 									</div>
 							</div>
@@ -74,6 +77,7 @@ if ($errors->any()) {
 
 	</head>
 	</html>
+
 	<script>
 		$('.datepicker').datepicker({
 			format: "dd/mm/yyyy",
@@ -82,8 +86,10 @@ if ($errors->any()) {
 			endDate: '+12m',
 			daysOfWeekDisabled: "0,2,3,4,5,6",
 			daysOfWeekHighlighted: "1",
-			// datesDisabled: $diasOcupados,
+			datesDisabled: "<?php echo $fechas_subastas; ?>",
+			// datesDisabled: ['30/12/2019','23/12/2019'],
 			autoclose: true
 		});
 	</script>
+
 @endsection

@@ -8,7 +8,22 @@ use Hash;
 
 class UserController extends Controller
 {
-     public function ViewUsr($id){
+
+
+    public function listado(){
+      return view('UserList', ['title' => 'Listado de Usuarios']);
+
+    }
+
+    public function check($id){
+      $user=User::Find($id);
+      $user->tipo_de_usuario=2;
+      $user->update();
+      return redirect()->route('listUsr');
+    }
+
+
+    public function ViewUsr($id){
       return view('viewUsr', [
         'title' => 'Detalles del usuario',
         'id' => $id,
@@ -25,22 +40,16 @@ class UserController extends Controller
     public function update(User $user){
         $data = request()->validate([
             'name' => ['required','string','max:255'],
-            'email' => 'required|email|unique:users,email,'.$user->id,
             'direccion' => 'required',
-            'telefono' => ['required','numeric'],
-            'dni' => ['required','numeric','digits_between:8,8'],
+            'telefono' => 'required',
+            'dni' => ['required','numeric'],
             'fecha_nac' => 'required'
             ], [
             'name.required' => 'El campo nombre es obligatorio',
-            'email.required' => 'El campo e-mail es obligatorio',
-            'email.email' => 'La dirección de mail no es válida',
-            'email.unique' => 'Esa dirección de mail ya está en uso',
             'direccion.required' => 'El campo domicilio es obligatorio',
             'telefono.required' => 'El campo teléfono es obligatorio',
-            'telefono.numeric' => 'El teléfono ingresado es inválido',
             'dni.required' => 'El campo DNI es obligatorio',
             'dni.numeric' => 'El DNI ingresado es inválido',
-            'dni.digits_between' => 'El DNI ingresado es inválido',
             'fecha_nac.required' => 'El campo fecha de nacimiento es obligatorio'
             ]);
 
@@ -56,7 +65,7 @@ class UserController extends Controller
     }
 
      public function updatePass(User $user){
-     	
+
      	$data = request()->validate([
      		'actual' => 'required',
      		'password' => ['required', 'string', 'min:8', 'confirmed'],

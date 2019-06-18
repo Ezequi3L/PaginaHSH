@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Residencia;
-use App\Foto;
 
 class ResidenciasController extends Controller
 {
@@ -30,6 +29,7 @@ class ResidenciasController extends Controller
     		'ubicacion_id' => $data['ubicacion'],
     		//'foto_id' => $data['']
     		]);
+
     	return redirect()->route('home')->with('alert-success','La residencia ha sido creada con exito');
     }
 
@@ -64,39 +64,10 @@ class ResidenciasController extends Controller
     }
 
 
-    public function UploadFoto($id){
-      return view('uploadFoto',['title' => 'Subir Foto', 'id' => $id]);
 
 
-    }
 
-    public function fotoExitosa($id){
 
-      if (request()->hasFile('foto')) {
-
-        $extensiones = ["jpg","jpeg","png","gif","ico","bmp"];
-        $fileExt = request('foto')->getClientOriginalExtension();
-
-        if (in_array($fileExt, $extensiones)) {
-          request()->foto->store('public');
-          Foto::create(['src' => '/storage/app/'.request()->foto->store('public'), 'residencia_id' => $id]);
-          return redirect()->route('upload',[$id]);
-        }
-        else return redirect()->route('upload',[$id])->withErrors('El archivo seleccionado debe ser una imagen');
-      }
-      else return redirect()->route('upload',[$id])->withErrors('No hay ningún archivo seleccionado');
-    }
-
-    public function BajaFoto($id){
-      return view('BorrarFoto',['title' => 'Borrar foto', 'id' => $id]);
-    }
-
-    public function destroyfoto($id){
-      $foto=Foto::select()->where('id',request()->foto_id);
-      $foto->residencia_id=NULL;
-      return redirect()->route('viewRes',[$id]);
-
-    }
 
     function destroy(Residencia $residencia){
 

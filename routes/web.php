@@ -24,11 +24,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/result', 'resultController@index')
 		->name('resultados');
 
-	Route::get('/newRes','ResidenciasController@ResForm')
+		Route::get('/newRes','ResidenciasController@ResForm')
 		->name('crearResidencia');
 
 	Route::post('/newRes','ResidenciasController@store')
-		->name('altaExitosa');
+	->name('altaExitosa');
+
 
 	Route::get('/newSub/{id}','SubastaController@SubForm')
 		->name('crearSubasta');
@@ -69,11 +70,17 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::put('/residencias/edit/{residencia}','ResidenciasController@update')
 		->name('updateExitoso');
 
-	Route::get('/upload/{id}','ResidenciasController@UploadFoto')
+	Route::get('/upload/{id}','FotosController@UploadFoto')
 		->name('upload');
 
-	Route::post('/upload/{id}','ResidenciasController@fotoExitosa')
+	Route::post('/upload/{id}','FotosController@fotoExitosa')
 		->name('fotoexitosa');
+
+	Route::get('/bajaFoto/{id}', 'FotosController@BajaFoto')
+		->name('BajaFoto');
+
+	Route::delete('/bajaFoto/{id}','FotosController@destroy')
+		->name('BajaFotoOk');
 
 	Route::get('/lisRes','ResidenciasController@ResList')
 		->name('listarResidencias');
@@ -86,6 +93,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::post('/ubicacion/alta', 'UbicacionController@store')
 		->name('altaUbicacion');
+
+	Route::get('/usuarios/list','UserController@listado')
+		->name('listUsr');
+
+	Route::post('/usuario/verificar/{id}','UserController@check')
+		->name('check');
 
 	Route::get('/usuarios/{id}','UserController@ViewUsr')
 		->name('viewUsr');
@@ -101,6 +114,10 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::put('/usuarios/pass/{user}','UserController@updatePass')
 		->name('updatePass');
+
+	Route::post('/newReserva','ReservaController@store')
+		->name('reservaExitosa');
+
 });
 
 Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
