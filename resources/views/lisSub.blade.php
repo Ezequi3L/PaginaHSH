@@ -59,9 +59,9 @@
       <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
-          <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+          <center>
           <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
-            <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+              <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-primary">Ofertar</button></a>
           <?php }
           if (Auth::user()->tipo_de_usuario == 0) {  ?>
              <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
@@ -72,6 +72,7 @@
                 <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
              </form>
           <?php } ?>
+          </center>
         </div>
       </div>
     </div>

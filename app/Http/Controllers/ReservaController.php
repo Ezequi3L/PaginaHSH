@@ -55,10 +55,10 @@ class ReservaController extends Controller{
     $title = "Listado de Reservas";
     $id = $reserva->usr_id;
     $fecha_hoy= date('Y-m-d');
-    if($reserva->devolucion){
+    if($reserva->devolucion){//si no es "true" significa que es de una hotsale
       //dos meses = 61 días
       $dif=(strtotime($reserva->fecha)-strtotime($fecha_hoy))/86400;//no se de que chota es este nro, creo que es la cantidad de horas de un més o algo así, lo saqué de algún foro
-      if($dif>=61){
+      if($dif>=61){//para ver si hay que devolverle la semana de reserva o no al usuario
         $user=User::find($id);
         $user->semanas_disp++;
         $user->save();
