@@ -23,6 +23,7 @@ class CreateReservasTable extends Migration
             $table->boolean('devolucion')->default(false);
             $table->timestamps();
             $table->unique(['residencia_id','fecha']);
+            $table->unique(['fecha','usr_id']);
         });
     }
 
