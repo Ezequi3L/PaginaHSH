@@ -23,7 +23,7 @@
 @section('mainContent')
 
 
-	 <section class="jumbotron text-center">
+  <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Home Switch Home</h1>
       <p class="lead text-muted">Resultados de la búsqueda</p>
@@ -79,67 +79,75 @@
               }
           }
 
-          if ($_GET['fecha_reserva1'] != NULL){
+  if ($_GET['fecha_reserva1'] != NULL){
+    $_GET['fecha_reserva1']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva1'])->format('Y-m-d');
+    $dif1=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva1']);
+  }
+  if ($_GET['fecha_reserva2'] != NULL){
+    $_GET['fecha_reserva2']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva2'])->format('Y-m-d');
+    $dif2=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva2']);
+    $difweek=$dif1->diffInWeeks($dif2);
+  }
 
-          $_GET['fecha_reserva1']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva1'])->format('Y-m-d');
-              }
-          if ($_GET['fecha_reserva2'] != NULL){
-          $_GET['fecha_reserva2']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva2'])->format('Y-m-d');}
+  if (isset($_GET['subasta'])){
+    //imprimir subastas segun switch
+    switch ($accion) {
+      case 1:{
+        if ($_GET['fecha_reserva2'] != NULL) {
 
-          if (isset($_GET['subasta'])){
-            //imprimir subastas segun switch
-            switch ($accion) {
-              case 1:{
-                    if ($_GET['fecha_reserva2'] != NULL) {
+          $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+          ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+          ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+          ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+          ->get();
+        }
+        else {
+          $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+          $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+          ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+          ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+          ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
+          ->get();
+        }
 
-                    $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-                    ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                    ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                    ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
-                    else {
-                      $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
-                      $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-                      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                      ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                      ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
+        foreach ($resultado as $subasta) {
 
-                    foreach ($resultado as $subasta) {
-
-                      $residencia = Residencia::find($subasta->residencia_id);
-                      $descripcion = $residencia->descripcion;
-                      $ubicacion = $residencia->ubicacion;
-                      $src = $residencia->fotos()->first();
-                      if ($src != null)  $src = $src->first()->src;
-                      //imprimir resultado de nuevo si es que anda
-                      ?>
-                      <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                          <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
-                            <div class="card-body">
-                              <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
-                                <p class="card-text"> <?php echo "Reserva:" ; echo $subasta->fecha_reserva; ?> </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                    <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
-                                    <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-                                    <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
-                                    <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+          $residencia = Residencia::find($subasta->residencia_id);
+          $descripcion = $residencia->descripcion;
+          $ubicacion = $residencia->ubicacion;
+          $src = $residencia->fotos()->first();
+          if ($src != null)  $src = $src->first()->src;
+          //imprimir resultado de nuevo si es que anda
+          ?>
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                <div class="card-body">
+                  <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                    <p class="card-text"> <?php echo "Reserva:" ; echo $subasta->fecha_reserva; ?> </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                        <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                        <a href="{{ route('ofertar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ofertar</button></a>
+                        <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar subasta</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
          <?php
-       }
-                break;}
-              case 2:
-              $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
+        }
+       break;
+      }
+      case 2:
+        $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
         ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
         ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
 
-      foreach ($resultado as $subasta) {
+        foreach ($resultado as $subasta) {
 
         $residencia = Residencia::find($subasta->residencia_id);
         $descripcion = $residencia->descripcion;
@@ -411,12 +419,101 @@
 
           }
           else {
-            echo "Seleccione el tipo de busqueda que desea";
+            if (Auth::user()->tipo_de_usuario = 2){
+              echo "Seleccione el tipo de busqueda que desea";}
+                }
+
+
+
+          switch ($accion) {
+            case '1':
+              if ($_GET['fecha_reserva2'] != NULL) {
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->havingRaw('COUNT(*) <= '.$difweek)->get();
+                }
+            else {
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->havingRaw('COUNT(*) <= 8')->get();}
+              break;
+            case '2':{
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
+              break;}
+            case '3':{
+              if ($_GET['fecha_reserva2'] != NULL) {
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->havingRaw('COUNT(*) <= '.$difweek)->get();
+                }
+            else {
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->havingRaw('COUNT(*) <= 8')->get();}
+              break;}
+            case '4':{
+              if ($_GET['fecha_reserva2'] != NULL) {
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->havingRaw('COUNT(*) <= '.$difweek)->get();
+                }
+            else {
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->havingRaw('COUNT(*) <= 8')->get();}
+              break;}
+            case '5':{
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')->get();
+              break;}
+            case '6':{
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
+              break;}
+            case '7':{
+              if ($_GET['fecha_reserva2'] != NULL) {
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->havingRaw('COUNT(*) <= '.$difweek)->get();
+                }
+            else {
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->havingRaw('COUNT(*) <= 8')->get();}
+              break;}
+            case '8':{
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')->get();
+              break;}
+
+
+
+
+          }
+
+
           }
 
 
 
-        }
+
          ?>
       </div>
     </div>
