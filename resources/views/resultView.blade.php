@@ -37,6 +37,7 @@
         <?php
         use App\Subasta;
         use App\Residencia;
+        use Carbon\Carbon;
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
         if (isset($_GET['buscar'])){
@@ -75,8 +76,16 @@
                     }
                   }
                 }
-            }
+              }
           }
+
+          if ($_GET['fecha_reserva1'] != NULL){
+
+          $_GET['fecha_reserva1']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva1'])->format('Y-m-d');
+              }
+          if ($_GET['fecha_reserva2'] != NULL){
+          $_GET['fecha_reserva2']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva2'])->format('Y-m-d');}
+
           if (isset($_GET['subasta'])){
             //imprimir subastas segun switch
             switch ($accion) {
@@ -325,7 +334,7 @@
               $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
               ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();}
               else {
-                $carb=Carbon::create($_GET['fecha_reserva1'])->addMonth(2);
+                $carb=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva1'])->addMonth(2)->format('Y-m-d');
                 $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                 ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();}
 

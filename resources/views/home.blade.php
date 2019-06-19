@@ -116,6 +116,19 @@ if ($errors->any()) {
 
 @endsection
 
+
+
+
+
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Datepicker Files -->
+    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-datepicker3.css'}}">
+    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-standalone.css'}}">
+    <script src="{{'/public/datePicker/js/bootstrap-datepicker.js'}}"></script>
+    <!-- Languaje -->
+    <script src="{{'/public/datePicker/locales/bootstrap-datepicker.es.min.js'}}"></script>
+
 @section('buscador')
 
     <!DOCTYPE html>
@@ -200,11 +213,25 @@ body {
                 ?>
         </select>
         {{"Rango de fechas"}}
-      <input class="form-control" type="date" name="fecha_reserva1" id="fecha1" value="" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> max=<?php $hoy=Carbon::today()->addYear()->toDateString(); echo $hoy; ?>>
-      <input class="form-control" type="date" name="fecha_reserva2" id="fecha2" value="" min=<?php $hoy=Carbon::today()->addMonth(6)->toDateString(); echo $hoy; ?> max=<?php $hoy=Carbon::today()->addYear()->toDateString(); echo $hoy; ?>>
+      <input type="text" class="form-control datepicker" placeholder="INICIO" name="fecha_reserva1">
+      <input type="text" class="form-control datepicker" placeholder="FIN" name="fecha_reserva2">
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>
 </div>
+
+
+
+<script>
+  $('.datepicker').datepicker({
+    format: "dd/mm/yyyy",
+    language:"es",
+    startDate: '+1d',
+    endDate: '+12m',
+    daysOfWeekDisabled: "0,2,3,4,5,6",
+    daysOfWeekHighlighted: "1",
+    autoclose: true
+  });
+</script>
 
 @endsection
