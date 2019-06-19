@@ -21,7 +21,7 @@ class ReservaController extends Controller
     'usr_id' =>'El id del usuario es necesario',
   ]);
   $usuario=User::select()->where('id',$data['usr_id'])->first();
-  $reservas=Reserva::select()->where('id',$usuario->id)->get();
+  $reservas=Reserva::select()->where('usr_id',$usuario->id)->get();
   if(($usuario->semanas_disp)>=1){
     $fecha = Carbon::createFromFormat('d/m/Y', $data['fecha']);
     foreach ($reservas as $reserva){
