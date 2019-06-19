@@ -69,7 +69,7 @@
              <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
               @csrf
                 {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
              </form>
           <?php } ?>
         </div>

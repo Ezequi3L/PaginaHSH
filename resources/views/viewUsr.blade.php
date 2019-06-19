@@ -30,7 +30,7 @@
   use App\Foto;
   use App\Oferta;
 
-  $usr = User::find($id); 
+  $usr = User::find($id);
 
 ?>
 
@@ -40,11 +40,14 @@
   <li class="list-group-item">Domicilio: {{ $usr->direccion }}</li>
   <li class="list-group-item">Nro. de teléfono: {{ $usr->telefono }}</li>
   <li class="list-group-item">Semanas que tengo disponibles: {{ $usr->semanas_disp }}</li>
+</ul>
   <center>
-<a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a>
-<a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
-</center>
-  </ul>
+    <div class="btn-group" role="group" aria-label="Basic example">
+    <a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a>
+    <a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a>
+    <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
+    </div>
+  </center>
 
 
 @endsection

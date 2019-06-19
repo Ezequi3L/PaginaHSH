@@ -63,7 +63,7 @@
               <form action="{{ route('aniquilarResidencia', [$residencia]) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Eliminar</button>
+                <button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button>
               </form>
           <?php } ?>
         </div>

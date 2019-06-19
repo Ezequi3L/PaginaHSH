@@ -81,8 +81,8 @@ if ($errors->any()) {
               </div>
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-primary">Cancelar</a>
-                  <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
+                  <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-danger">Cancelar</a>
+                  <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-success">
                 </div>
               </div>
             </form>

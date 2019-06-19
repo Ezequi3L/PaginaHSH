@@ -92,7 +92,7 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::group( ['middleware' => 'App\Http\Middleware\UserOrAdminMiddleware'], function() { // Un usuario solo puede
 																							  // verse/modificarse
 		Route::get('/usuarios/{id}','UserController@ViewUsr')								  // a sí mismo.
-			->name('viewUsr');																			   		  
+			->name('viewUsr');
 
 		Route::get('/usuarios/edit/{id}','UserController@EditUsr')
 			->name('editUsr');
@@ -134,10 +134,16 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::post('/ofertaSub','OfertaController@store')
 			->name('subOfertaExitosa');
 
+		Route::get('/reservasList/{id}','ReservaController@listarReservas')
+			->name('listaReservasDeUsuario');
+
+		Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')
+			->name('deleteReserva');
+
 	});
 
 	Route::group( ['middleware' => 'App\Http\Middleware\PremiumMiddleware'], function() {  //	solo para premium
-		
+
 		Route::post('/newReserva','ReservaController@store')
 			->name('reservaExitosa');
 
@@ -147,5 +153,3 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 Route::get('/get_captcha/{config?}', function (\Mews\Captcha\Captcha $captcha, $config = 'default') {return $captcha->src($config);
 });
-
-

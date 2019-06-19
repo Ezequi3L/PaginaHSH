@@ -9,7 +9,7 @@ class Reserva extends Model
     protected $table = 'reservas';
     //
     protected $fillable = [
-        'residencia_id','usr_id','fecha',
+        'residencia_id','usr_id','fecha','devolucion',
     ];
 
     public function residencia()

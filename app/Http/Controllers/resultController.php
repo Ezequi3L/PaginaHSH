@@ -25,7 +25,5 @@ class resultController extends Controller
       $title = "HSH - Listado de Subastas";
       $resultado = Subasta::all();
       return view('lisSub', compact('title','resultado'));
-
-
     }
 }

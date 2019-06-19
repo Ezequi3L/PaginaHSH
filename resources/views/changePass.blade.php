@@ -32,7 +32,7 @@ if ($errors->any()) {
 
 use App\User;
 
-$usr = User::find($id); 
+$usr = User::find($id);
 
 ?>
 
@@ -52,8 +52,8 @@ $usr = User::find($id);
         <label for="password_confirmation">Repita la contraseña nueva: </label>
         <input class="form-control" type="password" name="password_confirmation">
     </div>
-    <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-primary">Cancelar</a>
-    <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">
+    <a href="{{ route('viewUsr', [$id]) }}"class="btn btn-danger">Cancelar</a>
+    <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-success">
   </form>
 </div>
 
