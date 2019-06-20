@@ -13,8 +13,7 @@ class ResidenciasController extends Controller
 
     public function ResList(){
       $title = "HSH - Listado de Residencias";
-      $resultado = Residencia::all();
-      return view('ResList', compact('title','resultado'));
+      return view('ResList', compact('title'));
     }
 
     public function store(){
@@ -63,17 +62,15 @@ class ResidenciasController extends Controller
         return redirect()->route('viewRes', [$residencia]);
     }
 
-
-
-
-
-
-
     function destroy(Residencia $residencia){
-
       $residencia->dada_de_baja = true;
       $residencia->update();
       return redirect()->route('listarResidencias');
     }
 
+    public function habilitarResidencia(Residencia $residencia){
+      $residencia->dada_de_baja = false;
+      $residencia->update();
+      return redirect()->route('listarResidencias');
+    }
 }

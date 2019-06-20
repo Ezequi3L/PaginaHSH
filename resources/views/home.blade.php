@@ -14,18 +14,19 @@ if ($errors->any()) {
 
 
 <section class="jumbotron text-center">
+
     <div class="container">
-      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 50%;" align=center >
+      <!-- <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" > -->
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
           <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <?php } ?>
-
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
-          <a href={{ route('listUsr')}} class="btn btn-primary my-2">Listado de Usuarios</a>
+          <a href={{ route('listUsr')}} class="btn btn-primary my-2">Usuarios</a>
+          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Usuarios para Upgradear</a>
         <?php } ?>
       </p>
     </div>
@@ -217,6 +218,7 @@ body {
     format: "dd/mm/yyyy",
     language:"es",
     startDate: '+6m',
+    // startDate: '+1d', quitar la de arriba y dejar ésta cuando tengamos las HotSales
     endDate: '+12m',
     daysOfWeekDisabled: "0,2,3,4,5,6",
     daysOfWeekHighlighted: "1",

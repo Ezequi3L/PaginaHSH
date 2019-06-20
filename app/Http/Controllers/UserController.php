@@ -15,6 +15,7 @@ class UserController extends Controller
 
     }
 
+
     public function check($id){
       $user=User::Find($id);
       $user->tipo_de_usuario=2;
@@ -22,6 +23,24 @@ class UserController extends Controller
       return redirect()->route('listUsr');
     }
 
+    public function listadoupg(){
+      return view('UserListUpg', ['title' => 'Listado de Usuarios que solicitaron un Upgrade']);
+
+    }
+
+    public function upgrade($id){
+      $user=User::Find($id);
+      $user->tipo_de_usuario=3;
+      $user->solicito_upgrade=true;//posiblemente no hace falta esto, pero así me ahorro un posible problema futuro
+      $user->update();
+      return redirect()->route('listUpgUsr');
+    }
+
+    public function solUpgrade(User $user){
+      $user->solicito_upgrade=true;
+      $user->update();
+      return redirect()->route('viewUsr',[$user->id]);
+    }
 
     public function ViewUsr($id){
       return view('viewUsr', [
