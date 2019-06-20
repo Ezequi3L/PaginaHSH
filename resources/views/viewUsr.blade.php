@@ -10,10 +10,8 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contáctenos</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">221 888-8888</a></li>
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
+            <li><a href="#" class="text-white">support@hsh.com</a></li>
+            <li><a href="{{ route('sucursales')}}">Sucursales</a></li>
           </ul>
         </div>
       </div>
@@ -43,7 +41,7 @@ if (Auth::user()->tipo_de_usuario == 2){
 <?php }
   else {
  ?>
-  <center><h3><small class="text-muted">Ya solicitó el upgrade, confirmelo realizando el pago en una de nuestras sucursales </small></h3></center>
+    <center><h3><small class="text-muted">Ya solicitó el upgrade, confirmelo realizando el pago en una de nuestras <a href="{{ route('sucursales')}}">sucursales</a></small></h3></center>
 <?php
   }
 }
@@ -59,12 +57,17 @@ if (Auth::user()->tipo_de_usuario == 2){
       switch ($usr->tipo_de_usuario) {
         case '0':?><b>Admin</b>
     <?php
+        break;
         case '1':?><b>Sin verificar</b>
     <?php
+        break;
         case '2':?><b>Estandar</b>
     <?php
+        break;
         case '3':?><b>Premium</b>
-    <?php } ?>
+    <?php
+        break;
+      }?>
   </li>
 </ul>
   <center>

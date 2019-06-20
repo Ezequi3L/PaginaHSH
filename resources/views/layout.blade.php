@@ -59,22 +59,22 @@
         <span class="glyphicon glyphicon-home" style="color:white;"></span>
         <strong>Inicio</strong>
       </a>
-  <?php  if ( \Auth::check()) { ?>
-    <!Link al perfil>
-        <a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
-          class="navbar-brand d-flex align-items-center">
-          <strong>Mi perfil</strong>
-        </a>
-    <!Botón de LogOut>
-         @if (Route::has('login'))
-          @auth
-            <form action="{{ route('logout') }}" method="POST">
-              @csrf
-              <button type="submit" class="navbar-brand d-flex align-items-center" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
-            </form>
-          @endauth
-         @endif
-  <?php }  ?>
+      <?php  if ( \Auth::check()) { ?>
+        <!Link al perfil>
+            <a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
+              class="navbar-brand d-flex align-items-center">
+              <strong>Mi perfil</strong>
+            </a>
+        <!Botón de LogOut>
+             @if (Route::has('login'))
+              @auth
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button type="submit" class="navbar-brand d-flex align-items-center" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
+                </form>
+              @endauth
+             @endif
+      <?php }  ?>
       <!Botón para desplegar la NavBar>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
