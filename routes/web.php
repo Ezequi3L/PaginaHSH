@@ -69,6 +69,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::delete('/residencias/{residencia}','ResidenciasController@destroy')
 			->name('aniquilarResidencia');
 
+		Route::post('/residencias/rehab/{residencia}','ResidenciasController@habilitarResidencia')
+			->name('habilitarResidencia');
+
 		Route::get('/ubicacion/alta', 'UbicacionController@UbicacionForm')
 			->name('altaUbicacion');
 
@@ -80,6 +83,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 		Route::post('/usuario/verificar/{id}','UserController@check')
 			->name('check');
+
+		Route::get('/usuarios/upglist','UserController@listadoupg')
+			->name('listUpgUsr');
+
+		Route::post('/usuario/upgradear/{id}','UserController@upgrade')
+			->name('upgrade');
 
 		Route::get('/enviar/{destinatario}','MailController@sendMail')
 			->name('sendMail');
@@ -139,6 +148,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 		Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')
 			->name('deleteReserva');
+
+		Route::post('/solicitarUpg/{user}','UserController@solUpgrade')
+			->name('solUpgrade');
 
 	});
 

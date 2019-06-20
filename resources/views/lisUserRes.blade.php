@@ -38,6 +38,8 @@
 
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
   $reservas = Reserva::select()->where('usr_id',$id)->get();
+
+  if (count($reservas) !=0){
   foreach ($reservas as $reserva) {
     $residencia = Residencia::find($reserva->residencia_id);
     $descripcion = $residencia->descripcion;
@@ -65,7 +67,16 @@
 <?php
 
   } //fin foreach
-
+}
+else{ ?>
+  <center>
+    <div class="col-md-auto">
+      <h1></h1>
+      <h1>Todavia no tiene ninguna reserva</h1>
+    </div>
+  </center>
+  <?php
+}
 ?>
 
 </div>

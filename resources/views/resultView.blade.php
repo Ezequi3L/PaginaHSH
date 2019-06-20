@@ -158,6 +158,7 @@
       ?>
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
+          <p>&nbsp;Subasta</p>
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -201,6 +202,7 @@
               ?>
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
+                  <p>&nbsp;Subasta</p>
                   <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                     <div class="card-body">
                       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -245,6 +247,7 @@
 
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
+          <p>&nbsp;Subasta</p>
           <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
           <div class="card-body">
             <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -281,6 +284,7 @@
 
                           <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
+                             <p>&nbsp;Subasta</p>
                               <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                               <div class="card-body">
                                 <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -317,6 +321,7 @@
 
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Subasta</p>
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
                   <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -358,6 +363,7 @@
 
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Subasta</p>
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
 
@@ -394,6 +400,7 @@
 
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Subasta</p>
                 <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
                 <div class="card-body">
                   <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
@@ -419,40 +426,107 @@
 
           }
           else {
-            if (Auth::user()->tipo_de_usuario = 2){
+            if (Auth::user()->tipo_de_usuario == 2){
               echo "Seleccione el tipo de busqueda que desea";}
                 }
 
 
 
           switch ($accion) {
-            case '1':
+            case '1':{
               if ($_GET['fecha_reserva2'] != NULL) {
-                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id')
                 ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->where('residencias.dada_de_baja','false')
+                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id')
                 ->havingRaw('COUNT(*) <= '.$difweek)->get();
+
                 }
             else {
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
               ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+              ->where('residencias.dada_de_baja','false')
               ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->havingRaw('COUNT(*) <= 8')->get();}
-              break;
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                     <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+
+            }
+              break;}
             case '2':{
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('residencias.dada_de_baja','false')
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+            }
               break;}
             case '3':{
               if ($_GET['fecha_reserva2'] != NULL) {
                 $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->where('residencias.dada_de_baja','false')
                 ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->havingRaw('COUNT(*) <= '.$difweek)->get();
                 }
@@ -460,47 +534,247 @@
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
               ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('residencias.dada_de_baja','false')
               ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->havingRaw('COUNT(*) <= 8')->get();}
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+            }
               break;}
             case '4':{
               if ($_GET['fecha_reserva2'] != NULL) {
                 $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
                 ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->where('residencias.dada_de_baja','false')
                 ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->havingRaw('COUNT(*) <= '.$difweek)->get();
+
                 }
             else {
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+              ->where('residencias.dada_de_baja','false')
               ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->havingRaw('COUNT(*) <= 8')->get();}
+
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+}
+
               break;}
             case '5':{
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')->get();
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->where('residencias.dada_de_baja','false')->get();
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+
+            }
               break;}
             case '6':{
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->where('residencias.ubicacion_id',$_GET['ubicacion'])->get();
+              ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+              ->where('residencias.dada_de_baja','false')->get();
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+            }
               break;}
             case '7':{
               if ($_GET['fecha_reserva2'] != NULL) {
                 $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->where('residencias.dada_de_baja','false')
                 ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                 ->havingRaw('COUNT(*) <= '.$difweek)->get();
                 }
             else {
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.dada_de_baja','false')
               ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
               ->havingRaw('COUNT(*) <= 8')->get();}
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+}
+
               break;}
             case '8':{
-              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')->get();
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->where('residencias.dada_de_baja','false')->get();
+
+
+
+
+
+              foreach ($resultado as $residencia) {
+
+                $res = Residencia::find($residencia->id);
+                $ubicacion = $residencia->ubicacion;
+                $src = $res->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+              //imprimir resultado de nuevo si es que anda
+              ?>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                   <p>&nbsp;Residencia</p>
+                  <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $residencia->descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", ";  ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                            <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <?php
+}
+
               break;}
 
 

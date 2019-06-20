@@ -2,7 +2,19 @@
 
 @section('mainContent')
 <?php
+
+
+
+
 use config\Session;
+use App\Residencia;
+use App\Ubiacion;
+use Carbon\Carbon;
+
+
+if(Auth::user()->tipo_de_usuario != 1){
+
+
 
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
@@ -10,23 +22,26 @@ if ($errors->any()) {
   }
 
 }
+
+
+
  ?>
 
 
 <section class="jumbotron text-center">
 
     <div class="container">
-      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
+      <!-- <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" > -->
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
           <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <?php } ?>
-
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
-          <a href={{ route('listUsr')}} class="btn btn-primary my-2">Listado de Usuarios</a>
+          <a href={{ route('listUsr')}} class="btn btn-primary my-2">Usuarios</a>
+          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Usuarios para Upgradear</a>
         <?php } ?>
       </p>
     </div>
@@ -39,9 +54,7 @@ if ($errors->any()) {
       <div class="row">
 
 <?php
-  use App\Residencia;
-  use App\Ubiacion;
-  use Carbon\Carbon;
+
 
 
 
@@ -76,7 +89,7 @@ if ($errors->any()) {
 <?php
 
  }  //end foreach
-
+}
 ?>
 
       </div>
@@ -103,10 +116,16 @@ if ($errors->any()) {
         </div>
       </div>
 
+
+
+
+
+
 @endsection
 
 @section('footer')
-
+<?php if(Auth::user()->tipo_de_usuario != 1){
+?>
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
@@ -114,6 +133,7 @@ if ($errors->any()) {
     </p>
   </div>
 </footer>
+
 
 @endsection
 
@@ -145,23 +165,32 @@ body {
 }
 
 .topnav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  float: right;
   overflow: hidden;
   background-color: #e9ecef;
 }
 
 .topnav .search-container {
+  display: inline-block;
   float: right;
+  font-size: 16px;
+  padding: 1px 10px;
+  text-decoration: none;
 }
 
 .topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none; 
+  padding: 4px;
+  margin-top: 4px;
+  font-size: 14px;
+  border:none;
 }
 
 .topnav .search-container button {
-  float: none;
+  float: right;
   padding: 6px 10px;
   margin-top: 8px;
   margin-right: 16px;
@@ -171,26 +200,7 @@ body {
   cursor: pointer;
 }
 
-.topnav .search-container button:hover {
-  background: #ccc;
-}
 
-@media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;
-  }
-}
 </style>
 </head>
 <body>
@@ -199,7 +209,7 @@ body {
   <div class="search-container">
     <form  method="GET" action={{ route('resultados') }}>
      @csrf
-      <input type="text" placeholder="Buscar.." name="search">
+      <input type="text" id="search" placeholder="Buscar.." name="search">
       <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
       <select class="form-control" name="ubicacion" id="ubicacion">
             <option value=""> {{"Seleccione una ubicacion"}} </option>
@@ -227,12 +237,26 @@ body {
   $('.datepicker').datepicker({
     format: "dd/mm/yyyy",
     language:"es",
-    startDate: '+1d',
+    startDate: '+6m',
+    // startDate: '+1d', quitar la de arriba y dejar ésta cuando tengamos las HotSales
     endDate: '+12m',
     daysOfWeekDisabled: "0,2,3,4,5,6",
     daysOfWeekHighlighted: "1",
     autoclose: true
   });
 </script>
+<?php
+}
+else{
+
+  ?>  <center>
+    <h1></h1>
+        <div class="col-md-auto"><b><?php echo "Por favor, espera a que tu cuenta sea verificada. Gracias"; ?></b>
+        </div>
+      </center> <?php
+}
+
+ ?>
+
 
 @endsection
