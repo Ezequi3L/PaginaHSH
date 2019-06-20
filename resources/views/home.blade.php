@@ -157,7 +157,7 @@ body {
   padding: 6px;
   margin-top: 8px;
   font-size: 17px;
-  border: none;
+  border: none; 
 }
 
 .topnav .search-container button {
