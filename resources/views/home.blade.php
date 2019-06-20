@@ -89,7 +89,7 @@ if ($errors->any()) {
 <?php
 
  }  //end foreach
-
+}
 ?>
 
       </div>
@@ -116,10 +116,16 @@ if ($errors->any()) {
         </div>
       </div>
 
+
+
+
+
+
 @endsection
 
 @section('footer')
-
+<?php if(Auth::user()->tipo_de_usuario != 1){
+?>
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
@@ -127,6 +133,7 @@ if ($errors->any()) {
     </p>
   </div>
 </footer>
+
 
 @endsection
 
