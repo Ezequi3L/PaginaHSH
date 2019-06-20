@@ -15,7 +15,7 @@ if ($errors->any()) {
 
 <section class="jumbotron text-center">
     <div class="container">
-      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 70%;" >
+      <img src= "/public/imagenes/logocompleto.png" style= "width: 70%; height: 50%;" align=center >
       <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
       <p>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
@@ -144,23 +144,32 @@ body {
 }
 
 .topnav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  float: right;
   overflow: hidden;
   background-color: #e9ecef;
 }
 
 .topnav .search-container {
+  display: inline-block;
   float: right;
+  font-size: 16px;
+  padding: 1px 10px;
+  text-decoration: none;
 }
 
 .topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
+  padding: 4px;
+  margin-top: 4px;
+  font-size: 14px;
+  border:none;
 }
 
 .topnav .search-container button {
-  float: none;
+  float: right;
   padding: 6px 10px;
   margin-top: 8px;
   margin-right: 16px;
@@ -170,26 +179,7 @@ body {
   cursor: pointer;
 }
 
-.topnav .search-container button:hover {
-  background: #ccc;
-}
 
-@media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;
-  }
-}
 </style>
 </head>
 <body>
@@ -198,7 +188,7 @@ body {
   <div class="search-container">
     <form  method="GET" action={{ route('resultados') }}>
      @csrf
-      <input type="text" placeholder="Buscar.." name="search">
+      <input type="text" id="search" placeholder="Buscar.." name="search">
       <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
       <select class="form-control" name="ubicacion" id="ubicacion">
             <option value=""> {{"Seleccione una ubicacion"}} </option>
@@ -226,7 +216,7 @@ body {
   $('.datepicker').datepicker({
     format: "dd/mm/yyyy",
     language:"es",
-    startDate: '+1d',
+    startDate: '+6m',
     endDate: '+12m',
     daysOfWeekDisabled: "0,2,3,4,5,6",
     daysOfWeekHighlighted: "1",
