@@ -2,7 +2,19 @@
 
 @section('mainContent')
 <?php
+
+
+
+
 use config\Session;
+use App\Residencia;
+use App\Ubiacion;
+use Carbon\Carbon;
+
+
+if(Auth::user()->tipo_de_usuario != 1){
+
+
 
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
@@ -10,6 +22,9 @@ if ($errors->any()) {
   }
 
 }
+
+
+
  ?>
 
 
@@ -39,9 +54,7 @@ if ($errors->any()) {
       <div class="row">
 
 <?php
-  use App\Residencia;
-  use App\Ubiacion;
-  use Carbon\Carbon;
+
 
 
 
@@ -76,7 +89,7 @@ if ($errors->any()) {
 <?php
 
  }  //end foreach
-
+}
 ?>
 
       </div>
@@ -101,10 +114,16 @@ if ($errors->any()) {
         </div>
       </div>
 
+
+
+
+
+
 @endsection
 
 @section('footer')
-
+<?php if(Auth::user()->tipo_de_usuario != 1){
+?>
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
@@ -112,6 +131,7 @@ if ($errors->any()) {
     </p>
   </div>
 </footer>
+
 
 @endsection
 
@@ -223,5 +243,18 @@ body {
     autoclose: true
   });
 </script>
+<?php
+}
+else{
+
+  ?>  <center>
+    <h1></h1>
+        <div class="col-md-auto"><b><?php echo "Por favor, espera a que tu cuenta sea verificada. Gracias"; ?></b>
+        </div>
+      </center> <?php
+}
+
+ ?>
+
 
 @endsection
