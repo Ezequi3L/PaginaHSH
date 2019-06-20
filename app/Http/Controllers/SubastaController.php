@@ -100,7 +100,7 @@ class SubastaController extends Controller
       }
       $destinatarios = serialize($destinatarios);
       $subasta->delete();
-      return redirect()->route('sendMailSubElim',[$destinatarios]);
+      return redirect('/enviarSubElim/'.$destinatarios);
   }
 
 }

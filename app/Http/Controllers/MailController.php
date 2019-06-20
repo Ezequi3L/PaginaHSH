@@ -14,7 +14,7 @@ class MailController extends Controller
 
     	$mail = User::find($destinatario)->email;
 
-    	Mail::to($mail)->send(new NotificarSubastaGanada()); 
+    	Mail::to($mail)->send(new NotificarSubastaGanada());
     	return redirect()->route('home');
 
     }
@@ -23,10 +23,11 @@ class MailController extends Controller
 
     	$destinatarios = unserialize($destinatarios);
     	$primero = array_shift($destinatarios);
-    	$mail = User::find($primero)->email;
+      if($primero!=null){
+    	$mail = User::find($primero)->select('email');
     	$destinatarios = serialize($destinatarios);
-
-    	Mail::to($mail)->send(new NotificarSubastaEliminada($destinatarios)); 
+    	Mail::to($mail)->send(new NotificarSubastaEliminada($destinatarios));
+      }
     	return redirect()->route('home');
 
     }

@@ -47,11 +47,14 @@ if (Auth::user()->tipo_de_usuario == 2){
 }
 ?>
 <ul class="list-group">
-  <li class="list-group-item">Nombre: {{ $usr->name }}</li>
   <li class="list-group-item">Correo electrónico: {{ $usr->email }}</li>
+  <?php if (Auth::user()->tipo_de_usuario != 0){ ?>
+  <li class="list-group-item">Nombre: {{ $usr->name }}</li>
   <li class="list-group-item">Domicilio: {{ $usr->direccion }}</li>
   <li class="list-group-item">Nro. de teléfono: {{ $usr->telefono }}</li>
+  <?php if (Auth::user()->tipo_de_usuario != 1){?>
   <li class="list-group-item">Semanas que tengo disponibles: {{ $usr->semanas_disp }}</li>
+  <?php } }?>
   <li class="list-group-item">Tipo de usuario:
     <?php
       switch ($usr->tipo_de_usuario) {
@@ -72,7 +75,7 @@ if (Auth::user()->tipo_de_usuario == 2){
 </ul>
   <center>
     <div class="btn-group" role="group" aria-label="Basic example">
-    <a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a>
+    <?php if ((Auth::user()->tipo_de_usuario == 2) or (Auth::user()->tipo_de_usuario == 3)){ ?><a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a><?php } ?>
     <a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a>
     <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
     </div>

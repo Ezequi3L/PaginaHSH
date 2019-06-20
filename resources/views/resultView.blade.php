@@ -10,10 +10,20 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contáctenos</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">221 888-8888</a></li>
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
+            <li><a href="#" class="text-white">support@hsh.com</a></li>
+            <li><a href="{{ route('sucursales')}}">Sucursales</a></li>
+            <li><a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
+              class="btn btn-primary" style="background-color: transparent; border: none;">
+              <strong>Mi perfil</strong>
+            </a></li>
+            <li>@if (Route::has('login'))
+                  @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                      @csrf
+                      <button type="submit" class="btn btn-primary" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
+                    </form>
+                  @endauth
+                 @endif</li>
           </ul>
         </div>
       </div>
