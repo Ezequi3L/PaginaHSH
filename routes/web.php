@@ -69,6 +69,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::delete('/residencias/{residencia}','ResidenciasController@destroy')
 			->name('aniquilarResidencia');
 
+		Route::post('/residencias/rehab/{residencia}','ResidenciasController@habilitarResidencia')
+			->name('habilitarResidencia');
+
 		Route::get('/ubicacion/alta', 'UbicacionController@UbicacionForm')
 			->name('altaUbicacion');
 

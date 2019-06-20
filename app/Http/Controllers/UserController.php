@@ -39,7 +39,6 @@ class UserController extends Controller
     public function solUpgrade(User $user){
       $user->solicito_upgrade=true;
       $user->update();
-      // dd($user);
       return redirect()->route('viewUsr',[$user->id]);
     }
 
