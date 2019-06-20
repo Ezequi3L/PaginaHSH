@@ -12,21 +12,6 @@
           <ul class="list-unstyled">
             <li><a href="#" class="text-white">support@hsh.com</a></li>
             <li><a href="{{ route('sucursales')}}">Sucursales</a></li>
-            <?php  if ( \Auth::check()) { ?>
-              <!Link al perfil>
-            <li><a href="{{ route('viewUsr',[ Auth::user()->id]) }}"
-              class="btn btn-primary" style="background-color: transparent; border: none;">
-              <strong>Mi perfil</strong>
-            </a></li>
-            <li>@if (Route::has('login'))
-                  @auth
-                    <form action="{{ route('logout') }}" method="POST">
-                      @csrf
-                      <button type="submit" class="btn btn-primary" style="background-color: transparent; border: none;"><strong>LogOut</strong></button>
-                    </form>
-                  @endauth
-                 @endif</li>
-            <?php }  ?>
           </ul>
         </div>
       </div>
