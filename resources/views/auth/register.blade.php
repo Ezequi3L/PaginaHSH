@@ -96,7 +96,7 @@
                             <label for="fecha_nac" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de nacimiento') }}</label>
 
                             <div class="col-md-6">
-                                <input id="fecha_nac" type="date" class="form-control{{ $errors->has('fecha_nac') ? ' is-invalid' : '' }}" name="fecha_nac" value="{{ old('fecha_nac') }}" required>
+                                <input id="fecha_nac" type="date" class="form-control{{ $errors->has('fecha_nac') ? ' is-invalid' : '' }}" name="fecha_nac" max="<?php echo(date('d/m/Y')) ?>" value="{{ old('fecha_nac') }}" required>
 
                                 @if ($errors->has('fecha_nac'))
                                     <span class="invalid-feedback" role="alert">
