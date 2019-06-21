@@ -39,6 +39,7 @@ if ($errors->any()) {
   <li class="list-group-item"><h3>{{$text}}</h3></li>
 
   <?php
+  $mostrar = true;
 
   foreach ($ofertas as $oferta) { 
   	$mail = User::find($oferta->usr_id)->email;
@@ -46,7 +47,8 @@ if ($errors->any()) {
 
   ?> 
 
-  	<li class="list-group-item">Mail: {{ $mail }} | Monto: {{ $oferta->monto }} <?php  if($oferta->usr_id == $ganador->id) {
+  	<li class="list-group-item">Mail: {{ $mail }} | Monto: {{ $oferta->monto }} <?php  if(($oferta->usr_id == $ganador->id)&&($mostrar)) {
+  		$mostrar = false;
   		?>
   		<form method="POST" action="{{ route('saveAdj', [$id]) }}">
   		 	@csrf
