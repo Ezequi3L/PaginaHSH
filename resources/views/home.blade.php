@@ -30,22 +30,27 @@ if ($errors->any()) {
 
 <section class="jumbotron text-center">
   <img src= "/public/imagenes/logocompleto.png" style= "width: 50%; height: 50%; position: relative; left: 140px;">
-    <div class="container"  style="">
+    <div class="btn-group" role="group"  style="">
       <p>
         <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
-          <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
+        <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <?php } ?>
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
         <?php if ((Auth::user()->tipo_de_usuario == 3) or (Auth::user()->tipo_de_usuario == 0)) {?>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
+      </p>
+    </div>
+        <p></p>
         <?php }
           if (Auth::user()->tipo_de_usuario == 0) {  ?>
+          <div class="btn-group" role="group"  style="position: relative; top: -42.5px;">
+          <p>
           <a href={{ route('listUsr')}} class="btn btn-primary my-2">Usuarios</a>
-          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Usuarios para Upgradear</a>
+          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Usuarios que desean ser premium</a>
+          </div>
+        </p>
         <?php } ?>
-      </p>
-      <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
-    </div>
+    <p class="lead text-muted">Bienvenido. Aquí abajo le mostramos algunas de nuestras mejores residencias</p>
   </section>
 
 

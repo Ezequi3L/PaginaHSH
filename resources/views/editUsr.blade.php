@@ -33,6 +33,7 @@ if ($errors->any()) {
   use App\Ubicacion;
   use App\Foto;
   use App\Oferta;
+  use Carbon\Carbon;
 
   $usr = User::find($id);
 
@@ -74,7 +75,7 @@ if ($errors->any()) {
               <div class="form-group row">
                 <label for="fecha_nac" class="col-md-4 col-form-label text-md-right">Fecha de nacimiento </label>
                 <div class="col-md-6">
-                  <input class="form-control" type="date" name="fecha_nac" value="{{ $usr->fecha_nac }}">
+                  <input class="form-control" type="date" name="fecha_nac" value="{{ $usr->fecha_nac }}" max="<?php echo(Carbon::now()->subYear('18')->format('Y-m-d'));?>">
                 </div>
               </div>
               <div class="form-group row mb-0">

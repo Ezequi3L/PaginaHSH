@@ -36,7 +36,8 @@ if (Auth::user()->tipo_de_usuario == 2){
   if (Auth::user()->solicito_upgrade == false){ ?>
     <form method="POST" action="{{ route('solUpgrade', [$usr]) }}">
       @csrf
-      <button type="submit" class="btn btn-success btn-lg btn-block">¡Se Premium!</button>
+      <button type="submit" onclick="return confirm('Al volverte premium podrás ver el listado de todas nuestras residencias y realizar una reserva directa, todo por un único pago');" class="btn btn-success btn-lg btn-block">¡Se Premium!</button>
+      <!-- <button type="submit" onclick="return confirm('Al volverte premium podrás ver el listado de todas nuestras residencias y realizar una reserva directa, todo por un único pago');" class="btn btn-success btn-lg btn-block">¡Se Premium!</button> -->
     </form>
 <?php }
   else {
@@ -81,6 +82,15 @@ if (Auth::user()->tipo_de_usuario == 2){
     </div>
   </center>
 
+  <script type="text/javascript">
+      function clicked() {
+         if (confirm('Do you want to submit?')) {
+             yourformelement.submit();
+         } else {
+             return false;
+         }
+      }
 
+  </script>
 
 @endsection
