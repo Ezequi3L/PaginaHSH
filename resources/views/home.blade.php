@@ -76,7 +76,9 @@ if ($errors->any()) {
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                  <?php if (Auth::user()->tipo_de_usuario == 3) { ?>
                   <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
+                  <?php } ?>
                   <?php if (Auth::user()->tipo_de_usuario == 0) { ?>
                     <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
                   <?php } ?>
