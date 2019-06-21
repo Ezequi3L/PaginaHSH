@@ -441,7 +441,7 @@
                 }
 
 
-
+          if (isset($_GET['residencia'])){
           switch ($accion) {
             case '1':{
               if ($_GET['fecha_reserva2'] != NULL) {
@@ -791,7 +791,10 @@
 
 
           }
-
+        }else{
+          if (Auth::user()->tipo_de_usuario != 2){
+            echo "Seleccione el tipo de busqueda que desea";}
+        }
 
           }
 
