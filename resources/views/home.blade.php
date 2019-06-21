@@ -36,6 +36,7 @@ if ($errors->any()) {
         <a href= {{ route('crearResidencia') }} class="btn btn-primary my-2">Agregar residencia</a>
         <?php } ?>
         <a href={{ route('listarSubasta') }} class="btn btn-secondary my-2">Listar subastas</a>
+        <a href={{ route('listarHotSale') }} class="btn btn-secondary my-2">Listar HotSales</a>
         <?php if ((Auth::user()->tipo_de_usuario == 3) or (Auth::user()->tipo_de_usuario == 0)) {?>
         <a href={{ route('listarResidencias') }} class="btn btn-secondary my-2">Listar residencias</a>
       </p>
@@ -208,6 +209,9 @@ body {
 
 </style>
 </head>
+
+<!¡¡PELIGRO, DEBAJO DE ÉSTA LINEA ESTÁ EL BUSCADOR. NO SE RECOMIENDA TOCAR A NO SER QUE SEAS MANKIWI, ESTÁS BAJO AVISO!!>
+
 <body>
 
 <div class="topnav">

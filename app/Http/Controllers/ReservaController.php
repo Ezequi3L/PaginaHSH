@@ -32,11 +32,15 @@ class ReservaController extends Controller{
         'usr_id' => $data['usr_id'],
         'residencia_id' => $data['residencia_id'],
         'fecha' => $fecha,
-        'devolucion' => true,
+        'hotsale' => false,
         ]);
       $subasta_a_eliminar=Subasta::select()->where('residencia_id',$data['residencia_id'])->where('fecha_reserva',$fecha->format('Y/m/d'))->first();
+      $hotsales_a_eliminar=Subasta::select()->where('residencia_id',$data['residencia_id'])->where('fecha_reserva',$fecha->format('Y/m/d'))->first();
       if($subasta_a_eliminar!=null){
         $subasta_a_eliminar->delete();
+      }
+      if($hotsales_a_eliminar!=null){
+        $hotsales_a_elimina->delete();
       }
       $usuario->semanas_disp--;
       $usuario->update();
@@ -55,7 +59,7 @@ class ReservaController extends Controller{
     $title = "Listado de Reservas";
     $id = $reserva->usr_id;
     $fecha_hoy= date('Y-m-d');
-    if($reserva->devolucion){//si no es "true" significa que es de una hotsale
+    if(!$reserva->hotsale){
       //dos meses = 61 días
       $dif=(strtotime($reserva->fecha)-strtotime($fecha_hoy))/86400;//no se de que chota es este nro, creo que es la cantidad de horas de un més o algo así, lo saqué de algún foro
       if($dif>=61){//para ver si hay que devolverle la semana de reserva o no al usuario

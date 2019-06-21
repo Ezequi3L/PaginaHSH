@@ -20,7 +20,8 @@ class CreateReservasTable extends Migration
             $table->integer('residencia_id')->unsigned();
             $table->foreign('residencia_id')->references('id')->on('residencias');
             $table->date('fecha');
-            $table->boolean('devolucion')->default(false);
+            $table->boolean('hotsale');
+            $table->integer('monto')->unsigned()->nullable();
             $table->timestamps();
             $table->unique(['residencia_id','fecha']);
             $table->unique(['fecha','usr_id']);
