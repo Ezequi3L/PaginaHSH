@@ -36,7 +36,7 @@ if (Auth::user()->tipo_de_usuario == 2){
   if (Auth::user()->solicito_upgrade == false){ ?>
     <form method="POST" action="{{ route('solUpgrade', [$usr]) }}">
       @csrf
-      <button type="submit" class="btn btn-success btn-lg btn-block">Solicitar Upgrade</button>
+      <button type="submit" class="btn btn-success btn-lg btn-block">¡Se Premium!</button>
     </form>
 <?php }
   else {

@@ -30,9 +30,9 @@ if ($errors->any()) {
 		$ofertaMaxima = $ofertas->first();
 		$ganador = User::find($ofertaMaxima->usr_id);
 		$text = "Ofertas para esta subasta";
-	} 
+	}
 	else $text = "No hay ninguna oferta para esta subasta";
-	
+
 ?>
 
 <ul class="list-group">
@@ -41,11 +41,11 @@ if ($errors->any()) {
   <?php
   $mostrar = true;
 
-  foreach ($ofertas as $oferta) { 
+  foreach ($ofertas as $oferta) {
   	$mail = User::find($oferta->usr_id)->email;
- 
 
-  ?> 
+
+  ?>
 
   	<li class="list-group-item">Mail: {{ $mail }} | Monto: {{ $oferta->monto }} <?php  if(($oferta->usr_id == $ganador->id)&&($mostrar)) {
   		$mostrar = false;
@@ -54,14 +54,14 @@ if ($errors->any()) {
   		 	@csrf
 		<input type="hidden" name="oferta" value="{{ $ofertaMaxima->id }}">
   		<button type="submit" class="btn btn-sm btn-outline-secondary">¡Ganador! - Adjudicar</button>
-  		</form> 
+  		</form>
   		<?php } ?>
   	</li>
 
 <?php
 
 	} //end foreach
-	echo "</ul>"; 
+	echo "</ul>";
 
 /* } //endif
   else {
