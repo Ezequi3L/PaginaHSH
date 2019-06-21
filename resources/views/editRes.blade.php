@@ -34,6 +34,7 @@ if ($errors->any()) {
   $res = Residencia::find($id);
   $desc = $res->descripcion;
   $loc = $res->ubicacion;
+  $ubic_pre = $res->ubicacion_precisa;
 
 ?>
 
@@ -42,6 +43,8 @@ if ($errors->any()) {
   {{ method_field('put') }}
   @csrf
     <div class="form-group">
+      <label for="ubicacion_precisa">Descripción:</label>
+      <p></p>
      <textarea name="descripcion" rows="7" cols="30" placeholder="{{ $desc }}" autofocus></textarea>
     </div>
     <div class="form-group">
@@ -56,6 +59,8 @@ if ($errors->any()) {
             } //end foreach
             ?>
         </select>
+        <p></p><label for="ubicacion_precisa">Ubicación precisa (oculta):</label><p></p>
+         <textarea name="ubicacion_precisa" rows="1" cols="40" style="height: 42px;" placeholder="{{ $ubic_pre }}" autofocus></textarea>
     </div>
     <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Guardar cambios" class="btn btn-primary">

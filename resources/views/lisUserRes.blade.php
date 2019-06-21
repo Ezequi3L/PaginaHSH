@@ -42,6 +42,7 @@
     $residencia = Residencia::find($reserva->residencia_id);
     $descripcion = $residencia->descripcion;
     $ubicacion = $residencia->ubicacion->ubicacion;
+    $ubicacion_precisa = $residencia->ubicacion_precisa;
     $foto = $residencia->fotos()->first();
 
 ?>
@@ -50,7 +51,7 @@
       <div class="card mb-4 shadow-sm">
        <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
         <div class="card-body">
-          <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+          <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; echo "</br>"; echo $ubicacion_precisa;  ?> </p>
           <p class="card-text"> <?php echo "Fecha de Reserva: "; echo $reserva->fecha; ?> </p>
           <center> <form action="{{ route('deleteReserva', [$reserva]) }}" method="POST">
               {{ csrf_field() }}
