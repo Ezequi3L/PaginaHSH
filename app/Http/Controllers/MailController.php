@@ -24,7 +24,7 @@ class MailController extends Controller
     	$destinatarios = unserialize($destinatarios);
     	$primero = array_shift($destinatarios);
       if($primero!=null){
-    	$mail = User::find($primero)->select('email');
+    	$mail = User::find($primero)->email;
     	$destinatarios = serialize($destinatarios);
     	Mail::to($mail)->send(new NotificarSubastaEliminada($destinatarios));
       }

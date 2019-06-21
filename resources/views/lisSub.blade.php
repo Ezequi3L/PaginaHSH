@@ -50,7 +50,6 @@
 
 <div class="col-md-4">
   <div class="card mb-4 shadow-sm">
-   <p>&nbsp;Subasta</p>
    <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
     <div class="card-body">
       <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
