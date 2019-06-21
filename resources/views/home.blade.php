@@ -209,9 +209,9 @@ body {
      @csrf
      <input type="text" id="search" placeholder="Buscar.." name="search">
      <?php if (Auth::user()->tipo_de_usuario != 2){?>
-      <input type="checkbox" name="residencia" value="residencia"> {{"Residencias"}}
+      <input type="checkbox" name="residencia" value="residencia" checked> {{"Residencias"}}
       <?php  }  ?>
-      <input type="checkbox" name="subasta" value="subasta"> {{"Subastas"}}
+      <input type="checkbox" name="subasta" value="subasta" checked> {{"Subastas"}}
       <select class="form-control" name="ubicacion" id="ubicacion">
             <option value=""> {{"Seleccione una ubicacion"}} </option>
         <?php
