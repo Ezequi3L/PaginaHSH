@@ -30,6 +30,7 @@ $factory->define(User::class, function (Faker $faker) {
         'pago_numero' => $faker->creditCardNumber,
         'pago_cvv' => $faker->randomNumber(3,true),
         'pago_vencimiento' => $faker->creditCardExpirationDateString,
+        'tipo_de_usuario' => 2,
         'solicito_upgrade' => false,
         'remember_token' => Str::random(10),
     ];
