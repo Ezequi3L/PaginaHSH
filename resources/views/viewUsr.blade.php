@@ -76,7 +76,7 @@ if (Auth::user()->tipo_de_usuario == 2){
   <center>
     <div class="btn-group" role="group" aria-label="Basic example">
     <?php if ((Auth::user()->tipo_de_usuario == 2) or (Auth::user()->tipo_de_usuario == 3)){ ?><a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a><?php } ?>
-    <a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a>
+    <?php if (Auth::user()->tipo_de_usuario != 0){ ?><a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a><?php } ?>
     <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
     </div>
   </center>
