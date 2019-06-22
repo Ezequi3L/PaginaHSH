@@ -97,7 +97,6 @@
     $_GET['fecha_reserva2']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva2'])->format('Y-m-d');
     $dif2=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva2']);
     $difweek=$dif1->diffInWeeks($dif2);
-    $difweek++;
   }
 
   if (isset($_GET['subasta'])){
@@ -792,7 +791,7 @@
 
           }
 
-  if (!isset('subasta') and !isset('residencia')){
+  if (!(((isset($_GET['subasta'])) or (isset($_GET['residencia']))))){
     echo "Seleccione el tipo de busqueda que desea";
   }
 
