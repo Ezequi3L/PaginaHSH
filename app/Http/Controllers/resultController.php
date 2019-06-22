@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subasta;
+use App\HotSale;
 use Carbon\Carbon;
 
 class resultController extends Controller
@@ -36,5 +37,11 @@ class resultController extends Controller
       $title = "HSH - Listado de Subastas";
       $resultado = Subasta::all();
       return view('lisSub', compact('title','resultado'));
+    }
+
+    public function listarHotSale(){
+      $title = "HSH - Listado de HotSales";
+      $resultado = HotSale::all();
+      return view('lisHS', compact('title','resultado'));
     }
 }

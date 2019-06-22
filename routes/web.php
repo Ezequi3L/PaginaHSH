@@ -36,11 +36,23 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::post('/newSub','SubastaController@store')
 			->name('subAltaExitosa');
 
+		Route::get('/newHS/{id}','HotSaleController@HSForm')
+			->name('crearHotSale');
+
+		Route::post('/newHS','HotSaleController@store')
+			->name('hotsaleAltaExitosa');
+
 		Route::get('/subastas/{id}','SubastaController@EditSub')
 			->name('editSub');
 
+		Route::get('/hotsales/{id}','HotSaleController@EditHS')
+			->name('editHS');
+
 		Route::put('/subasta/{id}','SubastaController@update')
 			->name('subUpdateExitoso');
+
+		Route::put('/hotsale/{id}','HotSaleController@update')
+			->name('hsUpdateExitoso');
 
 		Route::get('/subastas/adjudicar/{id}','SubastaController@Adjudicar')
 			->name('adjudicar');
@@ -50,6 +62,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 		Route::delete('/subastas/{subasta}','SubastaController@destroy')
 			->name('deleteSub');
+
+		Route::delete('/hotsales/{hotsale}','HotSaleController@destroy')
+			->name('deleteHS');
 
 		Route::get('/residencias/edit/{id}','ResidenciasController@EditRes')
 			->name('editRes');
@@ -99,7 +114,13 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/enviarSubElim/{destinatarios}','MailController@subElim')
 			->name('sendMailSubElim');
 
-	});
+		Route::delete('/usuarios/altf4/{id}','UserController@destroy')
+			->name('deleteUsr');
+
+		Route::post('/usuarios/rehab/{usr}','UserController@habilitarUsr')
+			->name('habilitarUsr');
+
+});
 
 	Route::group( ['middleware' => 'App\Http\Middleware\UserOrAdminMiddleware'], function() { // Un usuario solo puede
 																							  // verse/modificarse
@@ -132,6 +153,9 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 	Route::get('/lisSub','resultController@listarSubasta')
 		->name('listarSubasta');
 
+	Route::get('/lisHS','resultController@listarHotSale')
+		->name('listarHotSale');
+
 	Route::get('/lisRes','ResidenciasController@ResList')
 		->name('listarResidencias');
 
@@ -144,7 +168,10 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 			->name('ofertar');
 
 		Route::post('/ofertaSub','OfertaController@store')
-			->name('subOfertaExitosa');
+		->name('subOfertaExitosa');
+
+		Route::get('/compraHS/{hotsale}','HotSaleController@CompraHS')
+		->name('comprarHS');
 
 		Route::get('/reservasList/{id}','ReservaController@listarReservas')
 			->name('listaReservasDeUsuario');

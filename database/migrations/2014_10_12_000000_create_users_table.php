@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->integer('pago_cvv')->nullable();
             $table->string('pago_vencimiento')->nullable();
             $table->boolean('solicito_upgrade')->nullable()->default(null);
+            $table->boolean('eliminado')->default(false);
             //
             $table->rememberToken();
             $table->timestamps();

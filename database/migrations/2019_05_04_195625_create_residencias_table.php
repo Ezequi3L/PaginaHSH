@@ -19,6 +19,7 @@ class CreateResidenciasTable extends Migration
             $table->integer('ubicacion_id')->unsigned();
             $table->foreign('ubicacion_id')->references('id')->on('ubicaciones')->nullable();
             $table->boolean('dada_de_baja')->default(false);
+            $table->string('ubicacion_precisa')->default("no tengo");
             $table->timestamps();
         });
     }

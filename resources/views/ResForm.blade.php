@@ -22,6 +22,8 @@ if ($errors->any()) {
 	<form method="post" action="{{ route('altaExitosa') }}">
 	@csrf
 	<div class="form-group">
+		<label for="ubicacion_precisa">Descripción:</label>
+		<p></p>
 	  <textarea name="descripcion" rows="7" cols="30" placeholder="Ingrese una descripcion" required autofocus></textarea>
 	</div>
 	<div class="form-group">
@@ -36,6 +38,8 @@ if ($errors->any()) {
 	 			} //end foreach
 	 		?>
 	  </select>
+		<p></p><label for="ubicacion_precisa">Ubicación precisa (oculta):</label><p></p>
+		 <textarea name="ubicacion_precisa" rows="1" cols="40" style="height: 42px;" placeholder="Ingrese una ubicación precisa"required autofocus></textarea>
 	</div>
 	   <input type="submit" value="Crear Residencia" class="btn btn-primary">
 	</form>
