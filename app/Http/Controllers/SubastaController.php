@@ -72,6 +72,7 @@ class SubastaController extends Controller
    public function GuardarAdjudicacion($id){
 
       $data = request();
+      dd($data);
       $oferta = Oferta::find($data->oferta);
       $sub = Subasta::find($id);
       //notificar al usuario que ganó

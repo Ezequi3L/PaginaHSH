@@ -114,12 +114,12 @@ class UserController extends Controller
       $usr=User::find($id);
       $usr->eliminado=true;
       $usr->update();
-      return redirect()->route('viewUsr', [$usr->id])->with('alert-success', 'El usuario ha sido eliminado con éxito');
+      return redirect()->route('listUsr', [$usr->id])->with('alert-success', 'El usuario ha sido eliminado con éxito');
     }
 
     public function habilitarUsr(User $usr){
       $usr->eliminado=false;
       $usr->update();
-      return redirect()->route('viewUsr', [$usr->id])->with('alert-success', 'El usuario ha sido habilitado con éxito');
+      return redirect()->route('listUsr', [$usr->id])->with('alert-success', 'El usuario ha sido habilitado con éxito');
     }
 }
