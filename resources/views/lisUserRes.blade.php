@@ -49,9 +49,19 @@
 
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
+        <center>
+          <?php
+            if($reserva->hotsale){echo 'HotSale';}
+            else{
+              if($reserva->monto!=null){echo 'Subasta';}
+              else{echo 'Reserva directa';}
+            }
+          ?>
+        </center>
        <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
         <div class="card-body">
           <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; echo "</br>"; echo $ubicacion_precisa;  ?> </p>
+          <?php if ($reserva->monto!=null) {?><p class="card-text"> <?php echo "Costo: "; echo $reserva->monto; ?> </p> <?php } ?>
           <p class="card-text"> <?php echo "Fecha de Reserva: "; echo $reserva->fecha; ?> </p>
           <center> <form action="{{ route('deleteReserva', [$reserva]) }}" method="POST">
               {{ csrf_field() }}
