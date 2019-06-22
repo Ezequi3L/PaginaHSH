@@ -22,13 +22,9 @@
 
 <?php
 
-  use App\User;
-  use App\Residencia;
-  use App\Ubicacion;
-  use App\Foto;
-  use App\Oferta;
+use App\User;
 
-  $usr = User::find($id);
+$usr = User::find($id);
 
 ?>
 <?php
@@ -80,17 +76,20 @@ if (Auth::user()->tipo_de_usuario == 2){
     <?php if (Auth::user()->tipo_de_usuario != 0){ ?><a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a><?php } ?>
     <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
     </div>
+    <?php if (Auth::user()->tipo_de_usuario == 0) {
+        if (!$usr->eliminado){?>
+         <form action="{{ route('deleteUsr', [$id]) }}" method="POST">
+          @csrf
+            {{ method_field('DELETE') }}
+            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+         </form>
+    <?php }
+        else { ?>
+          <form method="POST" action="{{ route('habilitarUsr', [$usr]) }}">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-success" >Habilitar</button>
+          </form>
+    <?php  }} ?>
   </center>
-
-  <script type="text/javascript">
-      function clicked() {
-         if (confirm('Do you want to submit?')) {
-             yourformelement.submit();
-         } else {
-             return false;
-         }
-      }
-
-  </script>
 
 @endsection

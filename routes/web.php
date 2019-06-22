@@ -114,7 +114,13 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/enviarSubElim/{destinatarios}','MailController@subElim')
 			->name('sendMailSubElim');
 
-	});
+		Route::delete('/usuarios/altf4/{id}','UserController@destroy')
+			->name('deleteUsr');
+
+		Route::post('/usuarios/rehab/{usr}','UserController@habilitarUsr')
+			->name('habilitarUsr');
+
+});
 
 	Route::group( ['middleware' => 'App\Http\Middleware\UserOrAdminMiddleware'], function() { // Un usuario solo puede
 																							  // verse/modificarse

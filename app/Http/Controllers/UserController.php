@@ -108,4 +108,18 @@ class UserController extends Controller
         return redirect()->route('viewUsr', [$user]);
      	}
 
+    public function destroy($id){
+      //¿que eliminar de un usuario que es "eliminado"?
+      //falta poner que si usuario->eliminado==true no pueda loguear o no pueda hacer nada como si fuera un usuario no verificado
+      $usr=User::find($id);
+      $usr->eliminado=true;
+      $usr->update();
+      return redirect()->route('viewUsr', [$usr->id])->with('alert-success', 'El usuario ha sido eliminado con éxito');
+    }
+
+    public function habilitarUsr(User $usr){
+      $usr->eliminado=false;
+      $usr->update();
+      return redirect()->route('viewUsr', [$usr->id])->with('alert-success', 'El usuario ha sido habilitado con éxito');
+    }
 }
