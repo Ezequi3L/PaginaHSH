@@ -45,7 +45,11 @@ if (Auth::user()->tipo_de_usuario == 2){
 ?>
 <ul class="list-group">
   <li class="list-group-item">Correo electrónico: {{ $usr->email }}</li>
-  <?php if (Auth::user()->tipo_de_usuario != 0){ ?>
+  <!--El único problema con este parche, es que un admin podría modificar la información de otro admin,
+      incluso la que no es relevante en un admin, a no ser que se verifique que el perfil de admin en el que
+      entra otro admin sea el suyo, o mejor dicho que directamente no pueda entrar al perfil de otro admin
+      sabiendo su ID, ya que en los listados no aparecen los admin-->
+  <?php if ((Auth::user()->tipo_de_usuario != 0) or ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id))){ ?>
   <li class="list-group-item">Nombre: {{ $usr->name }}</li>
   <li class="list-group-item">Domicilio: {{ $usr->direccion }}</li>
   <li class="list-group-item">Nro. de teléfono: {{ $usr->telefono }}</li>
@@ -73,10 +77,10 @@ if (Auth::user()->tipo_de_usuario == 2){
   <center>
     <div class="btn-group" role="group" aria-label="Basic example">
     <?php if ((Auth::user()->tipo_de_usuario == 2) or (Auth::user()->tipo_de_usuario == 3)){ ?><a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a><?php } ?>
-    <?php if (Auth::user()->tipo_de_usuario != 0){ ?><a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a><?php } ?>
+    <?php if ((Auth::user()->tipo_de_usuario != 0) or ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id))){ ?><a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a><?php } ?>
     <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
     </div>
-    <?php if (Auth::user()->tipo_de_usuario == 0) {
+    <?php if ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id)){
         if (!$usr->eliminado){?>
          <form action="{{ route('deleteUsr', [$id]) }}" method="POST">
           @csrf
@@ -87,7 +91,7 @@ if (Auth::user()->tipo_de_usuario == 2){
         else { ?>
           <form method="POST" action="{{ route('habilitarUsr', [$usr]) }}">
             @csrf
-            <button type="submit" class="btn btn-sm btn-outline-success" >Habilitar</button>
+            <button type="submit" class="btn btn-sm btn-success" >Habilitar</button>
           </form>
     <?php  }} ?>
   </center>
