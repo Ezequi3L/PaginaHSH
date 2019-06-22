@@ -70,25 +70,6 @@ class SubastaController extends Controller
       ]);
   }
 
-   public function GuardarAdjudicacion($id){
-
-      $data = request();
-      dd($data);
-      $oferta = Oferta::find($data->oferta);
-      $sub = Subasta::find($id);
-      //notificar al usuario que ganó
-      if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-
-         $destinatario = User::find($oferta->usr_id)->id;
-
-         $sub->update(['dada_de_baja' => true]);
-
-         return redirect()->route('sendMail', [$destinatario]);
-      }
-      else {
-          return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
-      }
-  }
 
    public function destroy(Subasta $subasta){
      $ofertas = $subasta->ofertas;
