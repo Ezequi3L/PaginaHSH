@@ -8,6 +8,7 @@ use App\Residencia;
 use Carbon\Carbon;
 use App\Oferta;
 use App\User;
+use App\Reserva;
 
 class SubastaController extends Controller
 {
@@ -90,9 +91,10 @@ class SubastaController extends Controller
   }
 
    public function destroy(Subasta $subasta){
+     $ofertas = $subasta->ofertas;
+     if(!$subasta->ganada){//si no está ganada, hace lo de siempre
       $destinatarios = array();
       $i = 0;
-      $ofertas = $subasta->ofertas;
       foreach ($ofertas as $oferta) { // primero deben borrarse todas las ofertas de esta subasta
           $usr = $oferta->usr_id; //hay que notificar a este usuario
           $oferta->delete();
@@ -102,6 +104,43 @@ class SubastaController extends Controller
       $destinatarios = serialize($destinatarios);
       $subasta->delete();
       return redirect('/enviarSubElim/'.$destinatarios);
+      }
+      //FALTA VER DESDE DONDE LLAMO A ESTE METODO CON EL SUBASTA->GANADA, QUE NO SEA DESDE EL "ELIMINAR SUBASTA", AUNQUE FUNCIONARÍA, LA IDEA SERÍA QUE SE ELIMINE DE UNA AL ADJUDICARLA
+      //*
+      //*
+      //*
+    else{//si está ganada, significa que ya envió el mail al ganador y no debería notificar a los pujantes de que fue eliminada
+      foreach ($ofertas as $oferta){
+          $oferta->delete();
+        }
+      $subata->delete();
+      return redirect('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
+      }
   }
 
+  public function GuardarAdjudicacion($id){
+
+    $data = request();
+    $oferta = Oferta::find($data->oferta);
+    $sub = Subasta::find($id);
+    //notificar al usuario que ganó
+    if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
+      $destinatario = User::find($oferta->usr_id)->id;
+      //crear reserva, guardar monto de esa oferta, marcar subasta como ganada.
+      // dd($oferta->monto);
+      Reserva::create([
+        'usr_id' => $oferta->usr_id,
+        'residencia_id' => $sub->residencia_id,
+        'fecha' => $sub->fecha_reserva,
+        'hotsale' => false,
+        'monto' => $oferta->monto,
+        ]);
+      $sub->ganada=true;
+      $sub->update();
+      return redirect()->route('sendMail', [$destinatario]);
+    }
+    else {
+      return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
+    }
+  }
 }

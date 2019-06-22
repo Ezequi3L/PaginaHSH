@@ -24,6 +24,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 	Route::group( ['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {  // rutas solo para admins
 
+		Route::get('/newAdmin','UserController@AdmForm')
+			->name('crearAdmin');
+
+		Route::post('/newAdmin','UserController@AdmStore')
+			->name('registerAdmin');
+
 		Route::get('/newRes','ResidenciasController@ResForm')
 			->name('crearResidencia');
 

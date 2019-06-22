@@ -10,7 +10,7 @@ class Subasta extends Model
 	protected $table = 'subastas';
 
 	 protected $fillable = [
-        'residencia_id','fecha_reserva','monto_minimo','dada_de_baja'
+        'residencia_id','fecha_reserva','monto_minimo','dada_de_baja','ganada'
     ];
 
 		public function residencia(){

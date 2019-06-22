@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Hash;
 
+
 class UserController extends Controller
 {
 
@@ -15,6 +16,22 @@ class UserController extends Controller
 
     }
 
+    public function AdmForm(){
+      return view('AdmForm', ['title' => "Agregar un admin"]);
+    }
+
+    public function AdmStore(){
+      $data = request()->validate([
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    		 'password' => ['required', 'string', 'min:8', 'confirmed'],
+    		]);
+      User::create([
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+        'tipo_de_usuario' => 0,
+      ]);
+      return redirect()->route('home')->with('alert-success','Se ha creado una nueva cuenta de administrador con éxito');
+    }
 
     public function check($id){
       $user=User::Find($id);
@@ -122,4 +139,15 @@ class UserController extends Controller
       $usr->update();
       return redirect()->route('listUsr', [$usr->id])->with('alert-success', 'El usuario ha sido habilitado con éxito');
     }
+
+
+
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+    // }
+
 }
