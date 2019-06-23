@@ -20,7 +20,6 @@ if ($errors->any()) {
   foreach ($errors->all() as $error) {
     echo "<p class='alert alert-danger'>*".$error."</p>";
   }
-
 }
 
 

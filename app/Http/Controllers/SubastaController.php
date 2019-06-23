@@ -86,16 +86,13 @@ class SubastaController extends Controller
       $subasta->delete();
       return redirect('/enviarSubElim/'.$destinatarios);
       }
-      //FALTA VER DESDE DONDE LLAMO A ESTE METODO CON EL SUBASTA->GANADA, QUE NO SEA DESDE EL "ELIMINAR SUBASTA", AUNQUE FUNCIONARÍA, LA IDEA SERÍA QUE SE ELIMINE DE UNA AL ADJUDICARLA
-      //*
-      //*
-      //*
     else{//si está ganada, significa que ya envió el mail al ganador y no debería notificar a los pujantes de que fue eliminada
       foreach ($ofertas as $oferta){
           $oferta->delete();
         }
-      $subata->delete();
-      return redirect('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
+      $subasta->delete();
+      // dd("xd");
+      return redirect()->route('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
       }
   }
 
@@ -106,19 +103,42 @@ class SubastaController extends Controller
     $sub = Subasta::find($id);
     //notificar al usuario que ganó
     if ($oferta->monto >= $sub->monto_minimo) {  // Comprobar que la oferta alcance el monto mínimo.
-      $destinatario = User::find($oferta->usr_id)->id;
+      $user = User::find($oferta->usr_id);
+      $destinatario = $user->id;
+      $user_ofertas=Oferta::where('usr_id',$user->id)->where('subasta_id',$id)->get();//todas las ofertas de este usuario para esta subasta
       //crear reserva, guardar monto de esa oferta, marcar subasta como ganada.
-      // dd($oferta->monto);
-      Reserva::create([
-        'usr_id' => $oferta->usr_id,
-        'residencia_id' => $sub->residencia_id,
-        'fecha' => $sub->fecha_reserva,
-        'hotsale' => false,
-        'monto' => $oferta->monto,
-        ]);
-      $sub->ganada=true;
-      $sub->update();
-      return redirect()->route('sendMail', [$destinatario]);
+      //a ver como hago esto ahora...
+      if($user->semanas_disp==0){//revisa que el usuario tenga semanas disponibles
+        foreach ($user_ofertas as $user_oferta) {
+          $user_oferta->delete();
+          }
+        return redirect()->route('adjudicar',[$sub])->with('alert-success', 'No se ha podido adjudicar la subasta debido a que el usuario no cuenta con semanas disponibles. Se han borrado las ofertas de este usuario para esta subasta.');
+      }
+      else{
+        $user_reservas=Reserva::where('usr_id',$user->id)->get();
+        foreach ($user_reservas as $reserva) {//revisa las fechas de reserva del usuario
+          if($reserva->fecha==$sub->fecha_reserva){
+            foreach ($user_ofertas as $user_oferta) {
+              $user_oferta->delete();
+              }
+          return redirect()->route('adjudicar',[$sub])->with('alert-success', 'No se ha podido adjudicar debido a que el usuario ya cuenta con una reserva para esa semana. Se han borrado las ofertas de este usuario para esta subasta.');
+          }
+        }
+        //
+        //si llegó hasta acá, significa que el usuario tiene al menos una semana diponible y la semana de la subasta disponible
+        //
+        Reserva::create([
+          'usr_id' => $oferta->usr_id,
+          'residencia_id' => $sub->residencia_id,
+          'fecha' => $sub->fecha_reserva,
+          'hotsale' => false,
+          'monto' => $oferta->monto,
+          ]);
+        $sub->ganada=true;
+        $sub->update();
+        $this->destroy($sub);
+        return redirect()->route('sendMail', [$destinatario]);
+      }
     }
     else {
       return redirect()->route('adjudicar',[$id])->withErrors('El monto mínimo no ha sido alcanzado. ¿Desea borrar esta subasta?');
