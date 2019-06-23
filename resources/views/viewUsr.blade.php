@@ -76,7 +76,7 @@ if (Auth::user()->tipo_de_usuario == 2){
 </ul>
   <center>
     <div class="btn-group" role="group" aria-label="Basic example">
-    <?php if ((Auth::user()->tipo_de_usuario != 1) and ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id))){ ?><a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a><?php } ?>
+    <?php if (((Auth::user()->tipo_de_usuario == 2) or (Auth::user()->tipo_de_usuario == 3)) or ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id))){ ?><a href="{{ route('listaReservasDeUsuario', [$usr->id]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Ver reservas</button></a><?php } ?>
     <?php if ((Auth::user()->tipo_de_usuario != 0) or ((Auth::user()->tipo_de_usuario == 0) and (Auth::user()->id!=$id))){ ?><a href="{{ route('editUsr', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Modificar información</button></a><?php } ?>
     <a href="{{ route('changePass', [$usr]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Cambiar contraseña</button></a>
     </div>

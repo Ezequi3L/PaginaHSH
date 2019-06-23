@@ -66,7 +66,7 @@
           <center> <form action="{{ route('deleteReserva', [$reserva]) }}" method="POST">
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
-              <button type="submit" class="btn btn-sm btn-outline-danger">Cancerlar Reserva</button>
+              <button type="submit" onclick="return confirm('Al cancelar una reserva, solo se te devolverá una de tus semanas disponibles por año si es que faltan menos de dos meses para la reserva');" class="btn btn-sm btn-outline-danger">Cancerlar Reserva</button>
            </form>
           </center>
         </div>
