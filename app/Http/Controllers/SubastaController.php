@@ -91,7 +91,7 @@ class SubastaController extends Controller
           $oferta->delete();
         }
       $subasta->delete();
-      // dd("xd");
+      //este redirect no anda y no tengo idea de porqué***
       return redirect()->route('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
       }
   }
