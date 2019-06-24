@@ -20,6 +20,7 @@ class CreateHotsalesTable extends Migration
             $table->date('fecha_reserva'); //la fecha de inicio es 6 meses y 3 días antes
             $table->unique(['residencia_id','fecha_reserva']);
             $table->integer('monto')->unsigned();
+            $table->boolean('dada_de_baja')->default(false);
             $table->timestamps();
         });
     }
