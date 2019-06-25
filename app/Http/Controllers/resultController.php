@@ -19,15 +19,16 @@ class resultController extends Controller
 
         $fecha2 = Carbon::createFromFormat('d/m/Y', $data['fecha_reserva2']);
 
-      if ($data['fecha_reserva1'] > $data['fecha_reserva2']){
-        return redirect()->route('home')->withErrors('La fecha de inicio debe ser menor a la de fin');
-      }
 }
       if ($data['fecha_reserva1'] != NULL and $data['fecha_reserva2'] != NULL and $fecha2->gte($fecha)){
           return redirect()->route('home')->withErrors('La diferencia entre fechas debe ser menor a 2 meses');
 
       }
-
+      if (isset($fecha2))
+      $fecha2->addMonth(2);
+      if (isset($fecha1) and isset($fecha2) and $fecha->gt($fecha2)){
+        return redirect()->route('home')->withErrors('La fecha de inicio debe ser menor a la de fin');
+      }
 
       $title = "HSH - Resultados de Busqueda";
     	return view('resultView', compact('title','data'));
