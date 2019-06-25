@@ -73,26 +73,26 @@ class SubastaController extends Controller
 
    public function destroy(Subasta $subasta){
      $ofertas = $subasta->ofertas;
-     if(!$subasta->ganada){//si no está ganada, hace lo de siempre
-      $destinatarios = array();
-      $i = 0;
-      foreach ($ofertas as $oferta) { // primero deben borrarse todas las ofertas de esta subasta
-          $usr = $oferta->usr_id; //hay que notificar a este usuario
-          $oferta->delete();
-          $destinatarios[$i] = $usr;
-          $i++;
+      if(!$subasta->ganada){//si no está ganada, hace lo de siempre
+        $destinatarios = array();
+        $i = 0;
+        foreach ($ofertas as $oferta) { // primero deben borrarse todas las ofertas de esta subasta
+            $usr = $oferta->usr_id; //hay que notificar a este usuario
+            $oferta->delete();
+            $destinatarios[$i] = $usr;
+            $i++;
+        }
+        $destinatarios = serialize($destinatarios);
+        $subasta->delete();
+        return redirect('/enviarSubElim/'.$destinatarios);
       }
-      $destinatarios = serialize($destinatarios);
-      $subasta->delete();
-      return redirect('/enviarSubElim/'.$destinatarios);
-      }
-    else{//si está ganada, significa que ya envió el mail al ganador y no debería notificar a los pujantes de que fue eliminada
+      else{//si está ganada, significa que ya envió el mail al ganador y no debería notificar a los pujantes de que fue eliminada
       foreach ($ofertas as $oferta){
           $oferta->delete();
         }
       $subasta->delete();
-      //este redirect no anda y no tengo idea de porqué***
-      return redirect()->route('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
+      //este redirect no anda y no tengo idea de porqué*** edit: ya se porqué xd
+      // return redirect()->route('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');
       }
   }
 
@@ -134,6 +134,8 @@ class SubastaController extends Controller
           'hotsale' => false,
           'monto' => $oferta->monto,
           ]);
+        $user->semanas_disp--;
+        $user->update();
         $sub->ganada=true;
         $sub->update();
         $this->destroy($sub);

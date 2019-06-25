@@ -23,7 +23,7 @@ class UserController extends Controller
     public function AdmStore(){
       $data = request()->validate([
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    		 'password' => ['required', 'string', 'min:8', 'confirmed'],
+    	  'password' => ['required', 'string', 'min:8', 'confirmed'],
     		]);
       User::create([
         'email' => $data['email'],
@@ -139,15 +139,5 @@ class UserController extends Controller
       $usr->update();
       return redirect()->route('listUsr', [$usr->id])->with('alert-success', 'El usuario ha sido habilitado con éxito');
     }
-
-
-
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
-    //     ]);
-    // }
 
 }

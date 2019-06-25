@@ -9,9 +9,6 @@ if ($errors->any()) {
   }
 }
 ?>
-@if (session()->has('alert-success'))
- <script> alert("{{session()->get('alert-success')}}")</script>
-@endif
 
 <div style="text-align:center; margin-top:100px; "> <! form >
   <form method="post" action="{{ route('fotoexitosa', [$id]) }}"
@@ -20,7 +17,7 @@ if ($errors->any()) {
 
     <input type="file" name="foto" accept="image/*">
     <p>
-    <a href="{{ route('viewRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
+    <a href="{{ route('editRes', [$id]) }}"class="btn btn-primary">Cancelar</a>
     <input type="submit" name="guardar" value="Agregar" class="btn btn-primary" >
   </p>
     </div>
