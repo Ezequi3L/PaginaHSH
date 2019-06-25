@@ -15,7 +15,7 @@ class MailController extends Controller
     	$mail = User::find($destinatario)->email;
 
     	Mail::to($mail)->send(new NotificarSubastaGanada());
-    	return redirect()->route('home');
+    	return redirect()->route('listarSubasta')->with('alert-success', 'Subasta adjudicada y eliminada con exito');;
 
     }
 
@@ -28,7 +28,7 @@ class MailController extends Controller
     	$destinatarios = serialize($destinatarios);
     	Mail::to($mail)->send(new NotificarSubastaEliminada($destinatarios));
       }
-    	return redirect()->route('home');
+    	return redirect()->route('listarSubasta')->with('alert-success', 'Subasta eliminada con éxito, los ofertantes han sido notificados');
 
     }
 

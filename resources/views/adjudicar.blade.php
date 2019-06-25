@@ -53,7 +53,7 @@ if ($errors->any()) {
   		<form method="POST" action="{{ route('saveAdj', [$id]) }}">
   		 	@csrf
 		<input type="hidden" name="oferta" value="{{ $ofertaMaxima->id }}">
-  		<button type="submit" class="btn btn-sm btn-outline-secondary">¡Ganador! - Adjudicar</button>
+  		<button type="submit" class="btn btn-sm btn-outline-success">¡Ganador! - Adjudicar</button>
   		</form>
   		<?php } ?>
   	</li>

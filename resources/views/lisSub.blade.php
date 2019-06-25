@@ -60,7 +60,7 @@
           <?php }
           if (Auth::user()->tipo_de_usuario == 0) {  ?>
              <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-             <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Adjudicar</button></a>
+             <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-success">Adjudicar</button></a>
              <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
               @csrf
                 {{ method_field('DELETE') }}
