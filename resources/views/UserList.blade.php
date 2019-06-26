@@ -88,13 +88,21 @@ foreach ($users as $user) {
                     <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                   </form>
                 </span>
+                <?php if($user->tipo_de_usuario==1){ ?>
+                <span class="fa-stack">
+                  <form method="POST" action="{{ route('check', [$user->id]) }}">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-secondary" style="margin-left: 41px;" >Verificar</button>
+                  </form>
+                </span>
+              <?php } ?>
         </td>
     </tr>
 </tbody>
 <?php } }?>
 <tbody>
     <tr>
-      <th>Usuarios dados de baja</center>
+      <th>Usuarios dados de baja</th>
     </tr>
 </tbody>
 <?php
@@ -168,7 +176,6 @@ if(count($users_eliminados)>0){
 
 
 @endsection
-<!-- hasta acá -->
 
 
 <style media="screen">
