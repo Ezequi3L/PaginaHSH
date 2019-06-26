@@ -21,6 +21,7 @@ class CreateSubastasTable extends Migration
             $table->unique(['residencia_id','fecha_reserva']);
             $table->double('monto_minimo');
             $table->boolean('ganada')->default(false);
+            $table->boolean('activa')->default(false);
             $table->boolean('finalizada')->default(false);
             $table->timestamps();
         });

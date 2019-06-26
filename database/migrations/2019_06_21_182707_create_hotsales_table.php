@@ -21,6 +21,7 @@ class CreateHotsalesTable extends Migration
             $table->unique(['residencia_id','fecha_reserva']);
             $table->integer('monto')->unsigned();
             $table->boolean('finalizada')->default(false);
+            $table->boolean('activa')->default(false);
             $table->timestamps();
         });
     }
