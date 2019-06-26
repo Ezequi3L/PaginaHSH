@@ -9,7 +9,7 @@ class hotsale extends Model
   protected $table = 'hotsales';
 
   protected $fillable = [
-      'residencia_id','monto','fecha_reserva','dada_de_baja'
+      'residencia_id','monto','fecha_reserva','finalizada'
   ];
 
   public function residencia(){
