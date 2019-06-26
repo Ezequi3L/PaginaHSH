@@ -99,6 +99,8 @@
     $difweek=$dif1->diffInWeeks($dif2);
   }
 
+  dd()
+
   if (isset($_GET['subasta'])){
     //imprimir subastas segun switch
     switch ($accion) {
