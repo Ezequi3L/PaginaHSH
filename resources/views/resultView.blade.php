@@ -213,7 +213,68 @@
                     </div>
 
                     <?php
+                  }
             }
+            if (isset($_GET['hot_sale'])){
+              if ($_GET['fecha_reserva2'] != NULL) {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+                ->get();
+              }
+              else {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
+                ->get();
+              }
+
+              foreach ($resultado as $hotsale) {
+
+                $residencia = Residencia::find($hotsale->residencia_id);
+                $descripcion = $residencia->descripcion;
+                $ubicacion = $residencia->ubicacion;
+                $src = $residencia->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+                //imprimir resultado de nuevo si es que anda
+                ?>
+                <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <p>&nbsp;Hot Sale</p>
+                   <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                      <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                      <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                              <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                          <?php }
+                          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                             <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                             <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                              @csrf
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                             </form>
+                          <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <?php
+
+
+              }
             }
             break;
           }
@@ -288,6 +349,65 @@
 
                 <?php
               }
+              }
+              if (isset($_GET['hot_sale'])){
+                if ($_GET['fecha_reserva2'] != NULL) {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                  ->get();
+                }
+                else {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                  ->get();
+                }
+
+                foreach ($resultado as $hotsale) {
+
+                  $residencia = Residencia::find($hotsale->residencia_id);
+                  $descripcion = $residencia->descripcion;
+                  $ubicacion = $residencia->ubicacion;
+                  $src = $residencia->fotos()->first();
+                  if ($src != null)  $src = $src->first()->src;
+                  //imprimir resultado de nuevo si es que anda
+                  ?>
+                  <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                      <p>&nbsp;Hot Sale</p>
+                     <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                      <div class="card-body">
+                        <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                                <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                            <?php }
+                            if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                               <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                               <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                                @csrf
+                                  {{ method_field('DELETE') }}
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                               </form>
+                            <?php } ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <?php
+
+
+                }
               }
             break;
           }
@@ -390,6 +510,65 @@
 
               <?php
             }
+            }
+            if (isset($_GET['hot_sale'])){
+              if ($_GET['fecha_reserva2'] != NULL) {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+                ->get();
+              }
+              else {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
+                ->get();
+              }
+
+              foreach ($resultado as $hotsale) {
+
+                $residencia = Residencia::find($hotsale->residencia_id);
+                $descripcion = $residencia->descripcion;
+                $ubicacion = $residencia->ubicacion;
+                $src = $residencia->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+                //imprimir resultado de nuevo si es que anda
+                ?>
+                <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <p>&nbsp;Hot Sale</p>
+                    <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                      <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                      <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                              <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                          <?php }
+                          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                             <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                             <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                              @csrf
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                             </form>
+                          <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <?php
+
+
+              }
             }
             break;
           }
@@ -496,6 +675,66 @@
               <?php
             }
             }
+            if (isset($_GET['hot_sale'])){
+              if ($_GET['fecha_reserva2'] != NULL) {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+                ->get();
+              }
+              else {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
+                ->get();
+              }
+
+              foreach ($resultado as $hotsale) {
+
+                $residencia = Residencia::find($hotsale->residencia_id);
+                $descripcion = $residencia->descripcion;
+                $ubicacion = $residencia->ubicacion;
+                $src = $residencia->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+                //imprimir resultado de nuevo si es que anda
+                ?>
+                <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <p>&nbsp;Hot Sale</p>
+                    <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                      <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                      <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                              <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                          <?php }
+                          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                             <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                             <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                              @csrf
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                             </form>
+                          <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <?php
+
+
+              }
+            }
             break;
           }
           case 5:{
@@ -568,6 +807,65 @@
               <?php
             }
             }
+            if (isset($_GET['hot_sale'])){
+              if ($_GET['fecha_reserva2'] != NULL) {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+
+                ->get();
+              }
+              else {
+
+                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+
+                ->get();
+              }
+
+              foreach ($resultado as $hotsale) {
+
+                $residencia = Residencia::find($hotsale->residencia_id);
+                $descripcion = $residencia->descripcion;
+                $ubicacion = $residencia->ubicacion;
+                $src = $residencia->fotos()->first();
+                if ($src != null)  $src = $src->first()->src;
+                //imprimir resultado de nuevo si es que anda
+                ?>
+                <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <p>&nbsp;Hot Sale</p>
+                    <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                    <div class="card-body">
+                      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                      <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                      <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                              <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                          <?php }
+                          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                             <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                             <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                              @csrf
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                             </form>
+                          <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <?php
+
+
+              }
+            }
             break;
           }
           case 6:{
@@ -639,6 +937,64 @@
 
                 <?php
               }
+              }
+              if (isset($_GET['hot_sale'])){
+                if ($_GET['fecha_reserva2'] != NULL) {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+
+                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                  ->get();
+                }
+                else {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
+                  ->get();
+                }
+
+                foreach ($resultado as $hotsale) {
+
+                  $residencia = Residencia::find($hotsale->residencia_id);
+                  $descripcion = $residencia->descripcion;
+                  $ubicacion = $residencia->ubicacion;
+                  $src = $residencia->fotos()->first();
+                  if ($src != null)  $src = $src->first()->src;
+                  //imprimir resultado de nuevo si es que anda
+                  ?>
+                  <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                      <p>&nbsp;Hot Sale</p>
+                    <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                      <div class="card-body">
+                        <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                                <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                            <?php }
+                            if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                               <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                               <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                                @csrf
+                                  {{ method_field('DELETE') }}
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                               </form>
+                            <?php } ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <?php
+
+
+                }
               }
               break;
             }
@@ -741,6 +1097,63 @@
                   <?php
                 }
                 }
+                if (isset($_GET['hot_sale'])){
+                  if ($_GET['fecha_reserva2'] != NULL) {
+
+                    $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                    ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+                    ->get();
+                  }
+                  else {
+
+                    $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                    ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
+                    ->get();
+                  }
+
+                  foreach ($resultado as $hotsale) {
+
+                    $residencia = Residencia::find($hotsale->residencia_id);
+                    $descripcion = $residencia->descripcion;
+                    $ubicacion = $residencia->ubicacion;
+                    $src = $residencia->fotos()->first();
+                    if ($src != null)  $src = $src->first()->src;
+                    //imprimir resultado de nuevo si es que anda
+                    ?>
+                    <div class="col-md-4">
+                      <div class="card mb-4 shadow-sm">
+                        <p>&nbsp;Hot Sale</p>
+                        <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                        <div class="card-body">
+                          <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                          <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                          <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                              <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                                  <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                              <?php }
+                              if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                                 <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                                 <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                                  @csrf
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                 </form>
+                              <?php } ?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <?php
+
+
+                  }
+                }
                 break;
               }
           case 8:{
@@ -811,12 +1224,67 @@
                 <?php
               }
               }
+              if (isset($_GET['hot_sale'])){
+                if ($_GET['fecha_reserva2'] != NULL) {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                  ->get();
+                }
+                else {
+
+                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
+                  ->get();
+                }
+
+                foreach ($resultado as $hotsale) {
+
+                  $residencia = Residencia::find($hotsale->residencia_id);
+                  $descripcion = $residencia->descripcion;
+                  $ubicacion = $residencia->ubicacion;
+                  $src = $residencia->fotos()->first();
+                  if ($src != null)  $src = $src->first()->src;
+                  //imprimir resultado de nuevo si es que anda
+                  ?>
+                  <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                      <p>&nbsp;Hot Sale</p>
+                      <img src= <?php if ($src != null){ echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+                      <div class="card-body">
+                        <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+                        <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
+                        <p class="card-text"> <?php echo "Precio: "; echo $hotsale->monto; ?> </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <?php if ((Auth::user()->tipo_de_usuario == 2)||(Auth::user()->tipo_de_usuario == 3)) {  ?>
+                                <a href="{{ route('comprarHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-primary">Comprar</button></a>
+                            <?php }
+                            if (Auth::user()->tipo_de_usuario == 0) {  ?>
+                               <a href="{{ route('editHS', [$hotsale]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+                               <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
+                                @csrf
+                                  {{ method_field('DELETE') }}
+                                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                               </form>
+                            <?php } ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <?php
+
+
+                }
+              }
               break;
 
             }
         }
 
-            if (!(((isset($_GET['subasta'])) or (isset($_GET['residencia']))))){
+            if (!(((isset($_GET['subasta'])) or (isset($_GET['residencia'])) or isset($_GET['hot_sale'])))){
               echo "Seleccione el tipo de busqueda que desea";
             }
 

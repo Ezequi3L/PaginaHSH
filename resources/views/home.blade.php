@@ -218,11 +218,24 @@ body {
   <div class="search-container">
     <form  method="GET" action={{ route('resultados') }}>
      @csrf
-     <input type="text" id="search" placeholder="Buscar.." name="search">
-     <?php if (Auth::user()->tipo_de_usuario != 2){?>
-      <input type="checkbox" name="residencia" value="residencia" checked> {{"Residencias"}}
-      <?php  }  ?>
-      <input type="checkbox" name="subasta" value="subasta" checked> {{"Subastas"}}
+     <div class="checkbox">
+       <label class="checkbox-inline">
+         <?php if (Auth::user()->tipo_de_usuario != 2){?>
+           <input type="checkbox" name="residencia" value="residencia" checked> {{"Residencias"}}
+         </label>
+       <?php  }  ?>
+       <label class="checkbox-inline">
+         <input type="checkbox" name="subasta" value="subasta" checked> {{"Subastas"}}
+       </label>
+       <label class="checkbox-inline">
+         <input type="checkbox" name="hot_sale" value="hot_sale" checked> {{"Hot Sales"}}
+       </label>
+     </div>
+     <div class="texto">
+      <input type="text" id="search" placeholder="Buscar.." name="search">
+    </div>
+    <div class="select">
+
       <select class="form-control" name="ubicacion" id="ubicacion">
             <option value=""> {{"Seleccione una ubicacion"}} </option>
         <?php
@@ -235,9 +248,13 @@ body {
                 } //end foreach
                 ?>
         </select>
+      </div>
+      <div class="fechas">
+
         {{"Rango de fechas"}}
       <input type="text" class="form-control datepicker" placeholder="INICIO" name="fecha_reserva1">
       <input type="text" class="form-control datepicker" placeholder="FIN" name="fecha_reserva2">
+    </div>
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>
