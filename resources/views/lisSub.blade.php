@@ -38,7 +38,7 @@
 
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
-  foreach ($resultado as $subasta) {
+  foreach ($subastas_activas as $subasta) {
 
     $residencia = Residencia::find($subasta->residencia_id);
     $descripcion = $residencia->descripcion;
