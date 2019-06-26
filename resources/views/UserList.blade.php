@@ -102,7 +102,7 @@ foreach ($users as $user) {
 <?php } }?>
 <tbody>
     <tr>
-      <th>Usuarios dados de baja</th>
+      <th style="color:red;text-align:center;">Usuarios dados de baja</th>
     </tr>
 </tbody>
 <?php
