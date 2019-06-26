@@ -665,10 +665,10 @@
                   $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja','reservas.fecha')
                   ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
                   ->where('residencias.dada_de_baja',0)
-                  ->whereBetween('reservas.fecha', ['2020-12-12', '2020-12-12'])
+                  ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
                   ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja', 'reservas.fecha')
                   ->havingRaw('COUNT(*) <= '.$difweek)
-                  ->orHaving('reservas.fecha','==',NULL)
+                  ->orHaving('reservas.fecha','==', NULL)
                   ->get();
                 }
                 else {
