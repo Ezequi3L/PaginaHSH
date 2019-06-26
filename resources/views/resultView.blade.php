@@ -46,6 +46,7 @@
       <?php
       use App\Subasta;
       use App\Residencia;
+      use App\Reserva;
       use Carbon\Carbon;
       $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
@@ -98,7 +99,8 @@
           $dif2=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva2']);
           $difweek=$dif1->diffInWeeks($dif2);
         }
-
+//LAS CONSULTAS PARA LA FECHA TIENEN QUE SER DEL ESTILO DE "MOSTRAME TODAS LAS
+//RESIDENCIAS QUE NO ESTEN EN ESTA OTRA CONSULTA(CONSULTA QUE BUSCA TODAS LAS RESIDENCIAS SIN SEMANAS DISPONIBLES)"
 
     //imprimir subastas segun switch
         switch ($accion) {
@@ -154,29 +156,37 @@
 
               }
             }
-            if (isset($_GET['residencias'])){
+            if (isset($_GET['residencia'])){
               if ($_GET['fecha_reserva2'] != NULL) {
-                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id')
-                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                $notin=Reserva::select('reservas.residencia_id')
+                ->join('residencias','residencias.id','=','reservas.residencia_id')
+                ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+                ->groupBy('reservas.residencia_id')
+                ->havingRaw('COUNT(*) = '.++$difweek)
+                ->get();
+
+                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                ->where('residencias.dada_de_baja',0)
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                ->where('residencias.dada_de_baja','false')
-                ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id')
-                ->havingRaw('COUNT(*) <= '.$difweek)
-                ->orHaving('reservas.fecha', '==', null)->get();
+                ->whereNotIn('residencias.id', $notin)
+                ->get();
 
               }
               else {
+                $notin=Reserva::select('reservas.residencia_id')
+                ->join('residencias','residencias.id','=','reservas.residencia_id')
+                ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $carb])
+                ->groupBy('reservas.residencia_id')
+                ->havingRaw('COUNT(*) = '.++$difweek)
+                ->get();
+
                 $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                ->where('residencias.dada_de_baja',0)
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                ->where('residencias.dada_de_baja','false')
-                ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $carb])
-                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                ->havingRaw('COUNT(*) <= 8')
-                ->orHaving('reservas.fecha', '==', null)->get();
+                ->whereNotIn('residencias.id', $notin)
+                ->get();
               }
                 foreach ($resultado as $residencia) {
 
@@ -326,26 +336,33 @@
               <?php
             }
             }
-            if (isset($_GET['residencias'])){
+            if (isset($_GET['residencia'])){
             if ($_GET['fecha_reserva2'] != NULL) {
-                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
-                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                ->where('residencias.dada_de_baja','false')
-                ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                ->havingRaw('COUNT(*) <= '.$difweek)
-                ->orHaving('reservas.fecha', '==', null)->get();
+              $notin=Reserva::select('reservas.residencia_id')
+              ->join('residencias','residencias.id','=','reservas.residencia_id')
+              ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+              ->groupBy('reservas.residencia_id')
+              ->havingRaw('COUNT(*) = '.++$difweek)
+              ->get();
+              $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+              ->where('residencias.dada_de_baja',0)
+              ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
+              ->whereNotIn('residencias.id', $notin)
+              ->get();
                 }
             else {
+              $notin=Reserva::select('reservas.residencia_id')
+              ->join('residencias','residencias.id','=','reservas.residencia_id')
+              ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $carb])
+              ->groupBy('reservas.residencia_id')
+              ->havingRaw('COUNT(*) = '.++$difweek)
+              ->get();
+
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.dada_de_baja',0)
               ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-              ->where('residencias.dada_de_baja','false')
-              ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $carb])
-              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->havingRaw('COUNT(*) <= 8')
-              ->orHaving('reservas.fecha', '==', null)->get();
+              ->whereNotIn('residencias.id', $notin)
+              ->get();
             }
             foreach ($resultado as $residencia) {
 
@@ -422,27 +439,35 @@
               <?php
             }
             }
-            if (isset($_GET['residencias'])){
+            if (isset($_GET['residencia'])){
             if ($_GET['fecha_reserva2'] != NULL) {
+              $notin=Reserva::select('reservas.residencia_id')
+              ->join('residencias','residencias.id','=','reservas.residencia_id')
+              ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
+              ->groupBy('reservas.residencia_id')
+              ->havingRaw('COUNT(*) = '.++$difweek)
+              ->get();
+
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.dada_de_baja',0)
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-              ->where('residencias.dada_de_baja','false')
-              ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->havingRaw('COUNT(*) <= '.$difweek)
-              ->orHaving('reservas.fecha', '==', null)->get();
+              ->whereNotIn('residencias.id', $notin)
+              ->get();
 
             }
             else {
+              $notin=Reserva::select('reservas.residencia_id')
+              ->join('residencias','residencias.id','=','reservas.residencia_id')
+              ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'],$carb])
+              ->groupBy('reservas.residencia_id')
+              ->havingRaw('COUNT(*) = '.++$difweek)
+              ->get();
+
               $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+              ->where('residencias.dada_de_baja',0)
               ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-              ->where('residencias.dada_de_baja','false')
-              ->whereBetween('reservas.fecha',[$_GET['fecha_reserva1'], $carb])
-              ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-              ->havingRaw('COUNT(*) <= 8')
-              ->orHaving('reservas.fecha', '==', null)->get();
+              ->whereNotIn('residencias.id', $notin)
+              ->get();
             }
             foreach ($resultado as $residencia) {
 
@@ -661,25 +686,32 @@
                 }
                 }
                 if(isset($_GET['residencia'])){
-                if ($_GET['fecha_reserva2'] != NULL and $_GET['fecha_reserva1'] != $_GET['fecha_reserva2']) {
-                  $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja','reservas.fecha')
-                  ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
-                  ->where('residencias.dada_de_baja',0)
+                if ($_GET['fecha_reserva2'] != NULL) {
+                  $notin=Reserva::select('reservas.residencia_id')
+                  ->join('residencias','residencias.id','=','reservas.residencia_id')
                   ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                  ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja', 'reservas.fecha')
-                  ->havingRaw('COUNT(*) <= '.$difweek)
-                  ->orHaving('reservas.fecha','==', NULL)
+                  ->groupBy('reservas.residencia_id')
+                  ->havingRaw('COUNT(*) = '.++$difweek)
                   ->get();
+
+                  $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
+                  ->where('residencias.dada_de_baja',0)
+                  ->whereNotIn('residencias.id', $notin)
+                  ->get();
+
                 }
                 else {
 
-                  $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja','reservas.fecha')
-                  ->leftjoin('reservas','residencias.id', '=', 'reservas.residencia_id')
+                  $notin=Reserva::select('reservas.residencia_id')
+                  ->join('residencias','residencias.id','=','reservas.residencia_id')
+                  ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'],$carb])
+                  ->groupBy('reservas.residencia_id')
+                  ->havingRaw('COUNT(*) = '.++$difweek)
+                  ->get();
+
+                  $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
                   ->where('residencias.dada_de_baja',0)
-                  ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $carb])
-                  ->groupBy('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja','reservas.fecha')
-                  ->havingRaw('COUNT(*) <= 8')
-                  ->orHaving('reservas.fecha','==',NULL)
+                  ->whereNotIn('residencias.id', $notin)
                   ->get();
                 }
                 foreach ($resultado as $residencia) {
