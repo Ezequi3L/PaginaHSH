@@ -39,7 +39,7 @@
 
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
 
-  foreach ($resultado as $hotsale) {
+  foreach ($hotsales_activas as $hotsale) {
 
     $residencia = Residencia::find($hotsale->residencia_id);
     $descripcion = $residencia->descripcion;

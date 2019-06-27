@@ -36,13 +36,17 @@ class resultController extends Controller
 
     public function listarSubasta(){
       $title = "HSH - Listado de Subastas";
-      $resultado = Subasta::all();
-      return view('lisSub', compact('title','resultado'));
+      $subastas_activas = Subasta::select()->where('activa',1)->get();
+      $subastas_proximas = Subasta::select()->where('finalizada',0)->where('activa',1)->get();
+      $subastas_finalizadas = Subasta::select()->where('finalizada',1)->get();
+      return view('lisSub', compact('title','subastas_activas','subastas_proximas','subastas_finalizadas'));
     }
 
     public function listarHotSale(){
       $title = "HSH - Listado de HotSales";
-      $resultado = HotSale::all();
-      return view('lisHS', compact('title','resultado'));
+      $hotsales_activas = HotSale::select()->where('activa',1)->get();
+      $hotsales_proximas = HotSale::select()->where('finalizada',0)->where('activa',1)->get();
+      $hotsales_finalizadas = HotSale::select()->where('finalizada',1)->get();
+      return view('lisHS', compact('title','hotsales_activas','hotsales_proximas','hotsales_finalizadas'));
     }
 }
