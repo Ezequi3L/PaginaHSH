@@ -36,17 +36,44 @@ class resultController extends Controller
 
     public function listarSubasta(){
       $title = "HSH - Listado de Subastas";
-      $subastas_activas = Subasta::select()->where('activa',1)->get();
-      $subastas_proximas = Subasta::select()->where('finalizada',0)->where('activa',1)->get();
-      $subastas_finalizadas = Subasta::select()->where('finalizada',1)->get();
-      return view('lisSub', compact('title','subastas_activas','subastas_proximas','subastas_finalizadas'));
+      // $subastas_programadas = Subasta::select()->where('activa',1)->get();
+      $subastas_activas = Subasta::all();
+      foreach ($subastas_activas as $key => $sub) {
+        if(!($sub->activa())){
+          unset($subastas_activas[$key]);
+        }
+      }
+      // $subastas_programadas = Subasta::select()->where('finalizada',0)->where('activa',0)->get();
+      $subastas_programadas = Subasta::all();
+      foreach ($subastas_programadas as $key => $sub) {
+        if(!($sub->programada())){
+          unset($subastas_programadas[$key]);
+        }
+      }
+      // $subastas_finalizadas = Subasta::select()->where('finalizada',1)->get();
+      $subastas_finalizadas = Subasta::all();
+      foreach ($subastas_finalizadas as $key => $sub) {
+        if(!($sub->finalizada())){
+          unset($subastas_finalizadas[$key]);
+        }
+      }
+      return view('lisSub', compact('title','subastas_activas','subastas_programadas','subastas_finalizadas'));
     }
 
     public function listarHotSale(){
       $title = "HSH - Listado de HotSales";
-      $hotsales_activas = HotSale::select()->where('activa',1)->get();
-      $hotsales_proximas = HotSale::select()->where('finalizada',0)->where('activa',1)->get();
-      $hotsales_finalizadas = HotSale::select()->where('finalizada',1)->get();
-      return view('lisHS', compact('title','hotsales_activas','hotsales_proximas','hotsales_finalizadas'));
+      // $hotsales_activas = HotSale::select()->where('activa',1)->get();
+      // $hotsales_finalizadas = HotSale::select()->where('finalizada',1)->get();
+      $hotsales_activas = HotSale::all();
+      $hotsales_finalizadas = HotSale::all();
+      foreach ($hotsales_activas as $key => $hotsale) {
+        if(!($hotsale->activa())){
+          unset($hotsales_activas[$key]);
+        }
+        else{
+          unset($hotsales_finalizadas[$key]);
+        }
+      }
+      return view('lisHS', compact('title','hotsales_activas','hotsales_finalizadas'));
     }
 }

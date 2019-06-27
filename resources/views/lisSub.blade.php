@@ -27,16 +27,99 @@
     </div>
   </section>
 
+<?php
+use App\Subasta;
+use App\Residencia;
 
-  <div class="album py-5 bg-light">
+$imgnodisp = '/public/imagenes/img-nodisponible.jpg';
+?>
+<!-- Subastas finalizadas (admins) -->
+<?php
+if(Auth::user()->tipo_de_usuario==0){
+  ?>
+  <section class="text-center">
+   <div class="container">
+     <p class="lead text-danger">Subastas finalizadas</p>
+   </div>
+  </section>
+  <?php
+  if(count($subastas_finalizadas)==0){
+    ?>
+    <div class="album py-5 bg-light">
+    <h5 class="text-muted" style="text-align:center">No hay subastas finalizadas</h5>
+    </div>
+    <?php
+  }
+  else{
+    ?>
+    <div class="album py-5 bg-light">
     <div class="container">
-      <div class="row">
+    <div class="row">
+    <?php
+  foreach ($subastas_finalizadas as $subasta) {
+
+    $residencia = Residencia::find($subasta->residencia_id);
+    $descripcion = $residencia->descripcion;
+    $ubicacion = $residencia->ubicacion->ubicacion;
+    $foto = $residencia->fotos()->first();
+
+?>
+
+<div class="col-md-4">
+  <div class="card mb-4 shadow-sm">
+   <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+    <div class="card-body">
+      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+      <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <?php
+          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+             <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-success">Adjudicar</button></a>
+             <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
+              @csrf
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+             </form>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php
 
-  use App\Subasta;
-  use App\Residencia;
+  } //fin foreach
+  ?>
+  </div>
+  </div>
+  </div>
+  <?php
+} //fin del else
+} //fin if
+?>
+<!-- Subastas activas -->
+<section class="text-center">
+ <div class="container">
+   <p class="lead text-success">Subastas activas</p>
+ </div>
+</section>
 
-  $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
+<?php
+if(count($subastas_activas)==0){
+  ?>
+  <div class="album py-5 bg-light">
+  <h5 class="text-muted" style="text-align:center">No hay subastas activas</h5>
+  </div>
+  <?php
+}
+else{
+  ?>
+  <div class="album py-5 bg-light">
+  <div class="container">
+  <div class="row">
+  <?php
 
   foreach ($subastas_activas as $subasta) {
 
@@ -60,7 +143,6 @@
           <?php }
           if (Auth::user()->tipo_de_usuario == 0) {  ?>
              <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
-             <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-success">Adjudicar</button></a>
              <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
               @csrf
                 {{ method_field('DELETE') }}
@@ -76,12 +158,77 @@
 <?php
 
   } //fin foreach
+  ?>
+  </div>
+  </div>
+  </div>
+  <?php
+} //fin del else
+?>
+<!-- Subastas programadas -->
+<section class="text-center">
+ <div class="container">
+   <p class="lead text-primary">Subastas programadas</p>
+ </div>
+</section>
+
+<?php
+if(count($subastas_programadas)==0){
+  ?>
+  <div class="album py-5 bg-light">
+  <h5 class="text-muted" style="text-align:center">No hay subastas programadas</h5>
+  </div>
+  <?php
+}
+else{
+  ?>
+  <div class="album py-5 bg-light">
+  <div class="container">
+  <div class="row">
+  <?php
+
+  foreach ($subastas_programadas as $subasta) {
+
+    $residencia = Residencia::find($subasta->residencia_id);
+    $descripcion = $residencia->descripcion;
+    $ubicacion = $residencia->ubicacion->ubicacion;
+    $foto = $residencia->fotos()->first();
 
 ?>
 
+<div class="col-md-4">
+  <div class="card mb-4 shadow-sm">
+   <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+    <div class="card-body">
+      <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
+      <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <?php
+          if (Auth::user()->tipo_de_usuario == 0) {  ?>
+             <a href="{{ route('editSub', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
+             <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
+              @csrf
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+             </form>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+
+<?php
+
+  } //fin foreach
+  ?>
+  </div>
+  </div>
+  </div>
+  <?php
+} //fin del else
+?>
 
 @endsection
 

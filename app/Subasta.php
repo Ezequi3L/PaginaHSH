@@ -10,15 +10,15 @@ class Subasta extends Model
 	protected $table = 'subastas';
 
 	 protected $fillable = [
-        'residencia_id','fecha_reserva','monto_minimo','finalizada','ganada','activa'
+        'residencia_id','fecha_reserva','monto_minimo','ganada'
     ];
 
 		public function residencia(){
 			return $this->belongsTo(Residencia::class);
 		}
 
-    public function fecha_inicio(){  //se invoca así $varSubasta->fecha_inicio();
-    	return (Carbon::createFromDate($this->fecha_reserva))->subMonth(6);
+    public function fecha_inicio(){
+    	return (Carbon::createFromDate($this->fecha_reserva))->subMonths(6);
     }
 
 
@@ -27,11 +27,23 @@ class Subasta extends Model
     }
 
     public function oferta_maxima(){
-        $ret = $this->ofertas->max('monto');
+      $ret = $this->ofertas->max('monto');
     	if ( $ret != null) {
             return $ret;
         }
         else return 0;
     }
+
+		public function activa(){
+			return (((Carbon::now())>=($this->fecha_inicio()))and((Carbon::now())<=($this->fecha_inicio()->addDays(3))));
+		}
+
+		public function programada(){
+			return ((Carbon::now())<=($this->fecha_inicio()));
+		}
+
+		public function finalizada(){
+			return ((Carbon::now())>=($this->fecha_inicio()->addDays(3)));
+		}
 
 }
