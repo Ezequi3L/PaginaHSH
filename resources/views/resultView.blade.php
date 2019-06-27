@@ -1,7 +1,7 @@
   @extends('layout')
 
   @section('headerContent')
-  
+
   <div class="row">
     <div class="col-sm-8 col-md-7 py-4">
       <h4 class="text-white">About
@@ -104,7 +104,6 @@
               }
             }
           }
-
           if ($_GET['fecha_reserva1'] != NULL){
             $_GET['fecha_reserva1']=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva1'])->format('Y-m-d');
             $dif1=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva1']);
@@ -116,27 +115,25 @@
             $dif2=Carbon::createFromFormat('Y-m-d',$_GET['fecha_reserva2']);
             $difweek=$dif1->diffInWeeks($dif2);
           }
+          else {
+            if ($_GET['fecha_reserva1'] != NULL) {
+            $carb=Carbon::createFromFormat('d/m/Y',$_GET['fecha_reserva1'])->addMonth(2)->format('Y-m-d');
+            $difweek=8;
+            }
+          }
 
           //imprimir subastas segun switch
           switch ($accion) {
             case 1:{
               if (isset($_GET['subasta'])){
-                if ($_GET['fecha_reserva2'] != NULL) {
 
-                  $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                  ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                  ->get();
-                }
-                else {
 
                   $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                   ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                   ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                   ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
                   ->get();
-                }
+
 
                 foreach ($resultado as $subasta) {
 
@@ -188,23 +185,7 @@
                 }
               }
               if (isset($_GET['residencia'])){
-                if ($_GET['fecha_reserva2'] != NULL) {
-                  $notin=Reserva::select('reservas.residencia_id')
-                  ->join('residencias','residencias.id','=','reservas.residencia_id')
-                  ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                  ->groupBy('reservas.residencia_id')
-                  ->havingRaw('COUNT(*) = '.++$difweek)
-                  ->get();
 
-                  $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                  ->where('residencias.dada_de_baja',0)
-                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                  ->whereNotIn('residencias.id', $notin)
-                  ->get();
-
-                }
-                else {
                   $notin=Reserva::select('reservas.residencia_id')
                   ->join('residencias','residencias.id','=','reservas.residencia_id')
                   ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $carb])
@@ -218,7 +199,7 @@
                   ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                   ->whereNotIn('residencias.id', $notin)
                   ->get();
-                }
+
                 foreach ($resultado as $residencia) {
 
                   $res = Residencia::find($residencia->id);
@@ -255,22 +236,13 @@
                 }
               }
               if (isset($_GET['hot_sale'])){
-                if ($_GET['fecha_reserva2'] != NULL) {
-
-                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                  ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                  ->get();
-                }
-                else {
 
                   $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
                   ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                   ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                   ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
                   ->get();
-                }
+
 
                 foreach ($resultado as $hotsale) {
 
@@ -427,20 +399,11 @@
                 }
               }
               if (isset($_GET['hot_sale'])){
-                if ($_GET['fecha_reserva2'] != NULL) {
 
                   $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
                   ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                   ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                   ->get();
-                }
-                else {
-
-                  $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-                  ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                  ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                  ->get();
-                }
 
                 foreach ($resultado as $hotsale) {
 
@@ -502,16 +465,11 @@
           }
           case 3:{
             if (isset($_GET['subasta'])){
-              if ($_GET['fecha_reserva2'] != NULL) {
-                $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();
-              }
-              else {
+
                 $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();
-              }
+
 
               foreach ($resultado as $subasta) {
 
@@ -561,20 +519,7 @@
               }
             }
             if (isset($_GET['residencia'])){
-              if ($_GET['fecha_reserva2'] != NULL) {
-                $notin=Reserva::select('reservas.residencia_id')
-                ->join('residencias','residencias.id','=','reservas.residencia_id')
-                ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                ->groupBy('reservas.residencia_id')
-                ->havingRaw('COUNT(*) = '.++$difweek)
-                ->get();
-                $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-                ->where('residencias.dada_de_baja',0)
-                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                ->whereNotIn('residencias.id', $notin)
-                ->get();
-              }
-              else {
+
                 $notin=Reserva::select('reservas.residencia_id')
                 ->join('residencias','residencias.id','=','reservas.residencia_id')
                 ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $carb])
@@ -587,7 +532,7 @@
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->whereNotIn('residencias.id', $notin)
                 ->get();
-              }
+
               foreach ($resultado as $residencia) {
 
                 $res = Residencia::find($residencia->id);
@@ -624,20 +569,12 @@
               }
             }
             if (isset($_GET['hot_sale'])){
-              if ($_GET['fecha_reserva2'] != NULL) {
-
-                $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-                ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-                ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-                ->get();
-              }
-              else {
 
                 $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
                 ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
                 ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
                 ->get();
-              }
+
 
               foreach ($resultado as $hotsale) {
 
@@ -697,16 +634,11 @@
           }
           case 4:{
             if (isset($_GET['subasta'])){
-              if ($_GET['fecha_reserva2'] != NULL) {
-                $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-                ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-                ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();
-              }
-              else {
+
                 $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
                 ->where('residencias.ubicacion_id',$_GET['ubicacion'])
                 ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();
-              }
+
 
               foreach ($resultado as $subasta) {
 
@@ -753,22 +685,7 @@
       }
     }
     if (isset($_GET['residencia'])){
-      if ($_GET['fecha_reserva2'] != NULL) {
-        $notin=Reserva::select('reservas.residencia_id')
-        ->join('residencias','residencias.id','=','reservas.residencia_id')
-        ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-        ->groupBy('reservas.residencia_id')
-        ->havingRaw('COUNT(*) = '.++$difweek)
-        ->get();
 
-        $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-        ->where('residencias.dada_de_baja',0)
-        ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-        ->whereNotIn('residencias.id', $notin)
-        ->get();
-
-      }
-      else {
         $notin=Reserva::select('reservas.residencia_id')
         ->join('residencias','residencias.id','=','reservas.residencia_id')
         ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'],$carb])
@@ -781,7 +698,7 @@
         ->where('residencias.ubicacion_id',$_GET['ubicacion'])
         ->whereNotIn('residencias.id', $notin)
         ->get();
-      }
+
       foreach ($resultado as $residencia) {
 
         $res = Residencia::find($residencia->id);
@@ -816,21 +733,12 @@
     }
   }
   if (isset($_GET['hot_sale'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
-
-      $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-      ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-      ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-      ->get();
-    }
-    else {
 
       $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
       ->where('residencias.ubicacion_id',$_GET['ubicacion'])
       ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
       ->get();
-    }
+
 
     foreach ($resultado as $hotsale) {
 
@@ -978,20 +886,11 @@
   }
   }
   if (isset($_GET['hot_sale'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
 
       $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
       ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
 
       ->get();
-    }
-    else {
-
-      $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-      ->where('residencias.descripcion','like','%'.$_GET['search'].'%')
-
-      ->get();
-    }
 
     foreach ($resultado as $hotsale) {
 
@@ -1138,19 +1037,11 @@
   }
   }
   if (isset($_GET['hot_sale'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
-
-      $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-
-      ->where('residencias.ubicacion_id',$_GET['ubicacion'])
-      ->get();
-    }
-    else {
 
       $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
       ->where('residencias.ubicacion_id',$_GET['ubicacion'])
       ->get();
-    }
+
 
     foreach ($resultado as $hotsale) {
 
@@ -1211,14 +1102,10 @@
   }
   case 7:{
     if (isset($_GET['subasta'])){
-      if ($_GET['fecha_reserva2'] != NULL) {
-        $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
-        ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])->get();
-      }
-      else {
+
         $resultado = Residencia::select()->join('subastas','residencias.id','=','subastas.residencia_id')
         ->whereBetween('subastas.fecha_reserva', [$_GET['fecha_reserva1'], $carb])->get();
-      }
+
 
       foreach ($resultado as $subasta) {
 
@@ -1266,21 +1153,6 @@
   }
   }
   if(isset($_GET['residencia'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
-      $notin=Reserva::select('reservas.residencia_id')
-      ->join('residencias','residencias.id','=','reservas.residencia_id')
-      ->whereBetween('reservas.fecha', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-      ->groupBy('reservas.residencia_id')
-      ->havingRaw('COUNT(*) = '.++$difweek)
-      ->get();
-
-      $resultado = Residencia::select('residencias.id','residencias.descripcion','residencias.ubicacion_id','residencias.dada_de_baja')
-      ->where('residencias.dada_de_baja',0)
-      ->whereNotIn('residencias.id', $notin)
-      ->get();
-
-    }
-    else {
 
       $notin=Reserva::select('reservas.residencia_id')
       ->join('residencias','residencias.id','=','reservas.residencia_id')
@@ -1293,7 +1165,7 @@
       ->where('residencias.dada_de_baja',0)
       ->whereNotIn('residencias.id', $notin)
       ->get();
-    }
+
     foreach ($resultado as $residencia) {
 
       $res = Residencia::find($residencia->id);
@@ -1328,18 +1200,10 @@
   }
   }
   if (isset($_GET['hot_sale'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
-
-      $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-      ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $_GET['fecha_reserva2']])
-      ->get();
-    }
-    else {
 
       $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
       ->whereBetween('hotsales.fecha_reserva', [$_GET['fecha_reserva1'], $carb])
       ->get();
-    }
 
     foreach ($resultado as $hotsale) {
 
@@ -1480,16 +1344,9 @@
   }
   }
   if (isset($_GET['hot_sale'])){
-    if ($_GET['fecha_reserva2'] != NULL) {
 
       $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
       ->get();
-    }
-    else {
-
-      $resultado = Residencia::select()->join('hotsales','residencias.id','=','hotsales.residencia_id')
-      ->get();
-    }
 
     foreach ($resultado as $hotsale) {
 
