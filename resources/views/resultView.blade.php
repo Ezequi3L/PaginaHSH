@@ -57,9 +57,7 @@
   </section>
 
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
+
         <?php
 
         $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
@@ -69,7 +67,6 @@
 
         <?php
         use App\Residencia;
-      //  dd($subastas_programadas);
 
 
         if(isset($resultado3)){
@@ -167,6 +164,13 @@
           <?php
         }
         else {
+          ?>
+
+          <div class="album py-5 bg-light">
+            <div class="container">
+              <div class="row">
+
+              <?php
 
         foreach ($resultado2 as $residencia) {
           $descripcion = $residencia->descripcion;
