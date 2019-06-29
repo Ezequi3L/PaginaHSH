@@ -76,7 +76,7 @@ else{ ?>
   <center>
     <div class="col-md-auto">
       <h1></h1>
-      <h1>Todavia no tiene ninguna reserva</h1>
+      <h1>Todavía no tiene ninguna reserva.</h1>
     </div>
   </center>
   <?php

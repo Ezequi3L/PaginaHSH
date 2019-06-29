@@ -136,6 +136,12 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/usuarios/edit/{id}','UserController@EditUsr')
 			->name('editUsr');
 
+		Route::get('/reservasList/{id}','ReservaController@listarReservas')
+			->name('listaReservasDeUsuario');
+
+		Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')
+			->name('deleteReserva');
+
 	});
 
 	Route::put('/usuarios/edit/{user}','UserController@update') // no importa porque no es GET
@@ -178,12 +184,6 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 
 		Route::get('/compraHS/{hotsale}','HotSaleController@CompraHS')
 		->name('comprarHS');
-
-		Route::get('/reservasList/{id}','ReservaController@listarReservas')
-			->name('listaReservasDeUsuario');
-
-		Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')
-			->name('deleteReserva');
 
 		Route::post('/solicitarUpg/{user}','UserController@solUpgrade')
 			->name('solUpgrade');
