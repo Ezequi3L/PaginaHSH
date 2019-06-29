@@ -36,16 +36,29 @@ if ($errors->any()) {
 ?>
 
 <ul class="list-group">
-  <li class="list-group-item"><h3>{{$text}}</h3>
+  <li class="list-group-item" style="text-align: center; margin-top: 50px;"><h3>{{$text}}</h3>
 	<?php if($vacio){
 		?><form action="{{ route('deleteSub', [$sub]) }}" method="POST">
 		 @csrf
 			 {{ method_field('DELETE') }}
-			 <button type="submit" onclick="return confirm('¿Está seguro que desea eliminar la subasta?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
-		</form><?php
+			 <button type="submit" onclick="return confirm('¿Está seguro de que desea eliminar la subasta?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
+		</form>
+		<?php
 		}
+		else {
 	 ?>
  </li>
+</ul>
+
+<table class="table">
+	<thead class="thead-light">
+	   <tr>
+		 <th>Mail</th>
+		 <th>Monto</th>
+		 <th></th>
+	   </tr>
+	</thead>
+	<tbody>
 
   <?php
   $mostrar = true;
@@ -55,27 +68,28 @@ if ($errors->any()) {
 
 
   ?>
-
-  	<li class="list-group-item">Mail: {{ $mail }} | Monto: {{ $oferta->monto }} <?php  if(($oferta->usr_id == $ganador->id)&&($mostrar)) {
-  		$mostrar = false;
-  		?>
-  		<form method="POST" action="{{ route('saveAdj', [$id]) }}">
-  		 	@csrf
-		<input type="hidden" name="oferta" value="{{ $ofertaMaxima->id }}">
-  		<button type="submit" class="btn btn-sm btn-outline-success">¡Ganador! - Adjudicar</button>
-  		</form>
+  	<tr>
+        <td>{{ $mail }}</td>
+        <td>{{ $oferta->monto }}</td>
+        <td>
+        <?php
+	        if(($oferta->usr_id == $ganador->id)&&($mostrar)) {
+	  		$mostrar = false;
+	  	?>
+	  		<form method="POST" action="{{ route('saveAdj', [$id]) }}">
+	  		 	@csrf
+			<input type="hidden" name="oferta" value="{{ $ofertaMaxima->id }}">
+	  		<button type="submit" class="btn btn-sm btn-outline-success">¡Ganador! - Adjudicar</button>
+	  		</form>
   		<?php } ?>
-  	</li>
-
+  		</td>
+    </tr>
 <?php
 
 	} //end foreach
-	echo "</ul>";
-
-/* } //endif
-  else {
-	echo '<p class="list-group-item" >Ninguna oferta ha alcanzado el monto mínimo para esta subasta</p>';
- 	}
-*/
+	echo "</tbody>";
+ 	echo "</table>";
+ } //end else
 ?>
+
 @endsection
