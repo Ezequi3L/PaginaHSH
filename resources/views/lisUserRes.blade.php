@@ -20,12 +20,6 @@
 
 @section('mainContent')
 
-	 <!-- <section class="jumbotron text-center">
-    <div class="container">
-      <h2 class="jumbotron-heading">Listado de Reservas</h2>
-    </div>
-  </section> -->
-
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="row">
@@ -33,6 +27,7 @@
 
   use App\Residencia;
   use App\Reserva;
+  use Carbon\Carbon;
 
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
   $reservas = Reserva::select()->where('usr_id',$id)->get();
@@ -66,7 +61,7 @@
           <center> <form action="{{ route('deleteReserva', [$reserva]) }}" method="POST">
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
-              <button type="submit" onclick="return confirm('Al cancelar una reserva, solo se te devolverá una de tus semanas disponibles por año si es que faltan menos de dos meses para la reserva');" class="btn btn-sm btn-outline-danger">Cancerlar Reserva</button>
+              <button type="submit" onclick=<?php if((Carbon::now())>(Carbon::createFromDate($reserva->fecha)->subMonths(2))) {?> "return confirm('No se te devolverá la semana al cancelar esta reserva ¿Estás seguro que deseas cancelarla?');"<?php } else {?>"return confirm('¿Estás seguro que deseas cancelar esta reserva?')"<?php } ?> class="btn btn-sm btn-outline-danger">Cancerlar Reserva</button>
            </form>
           </center>
         </div>
