@@ -55,8 +55,9 @@ class resultController extends Controller
       }
       return view('lisHS', compact('title','hotsales_activas','hotsales_finalizadas'));
     }
-
-
+//
+//DESDE ACÁ, ESTA EL BUSCADOR
+//
     public function index(){
       $subastas_activas=NULL;
       $subastas_programadas=NULL;
