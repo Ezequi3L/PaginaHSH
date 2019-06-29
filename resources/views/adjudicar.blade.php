@@ -23,9 +23,9 @@ if ($errors->any()) {
 	$sub = Subasta::find($id);
 
 	$ofertas = $sub->ofertas->sortBy('monto');
-
+	$vacio= true;
 	if ($ofertas->first() != null) {
-
+		$vacio=false;
 		$ofertas = $ofertas->reverse();
 		$ofertaMaxima = $ofertas->first();
 		$ganador = User::find($ofertaMaxima->usr_id);
@@ -36,7 +36,16 @@ if ($errors->any()) {
 ?>
 
 <ul class="list-group">
-  <li class="list-group-item"><h3>{{$text}}</h3></li>
+  <li class="list-group-item"><h3>{{$text}}</h3>
+	<?php if($vacio){
+		?><form action="{{ route('deleteSub', [$sub]) }}" method="POST">
+		 @csrf
+			 {{ method_field('DELETE') }}
+			 <button type="submit" onclick="return confirm('¿Está seguro que desea eliminar la subasta?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
+		</form><?php
+		}
+	 ?>
+ </li>
 
   <?php
   $mostrar = true;
