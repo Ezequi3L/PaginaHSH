@@ -74,7 +74,7 @@
         ?>
 
         <!-- HotSales activas -->
-        <?php if(Auth::user()->tipo_de_usuario==0){ ?>
+        <?php if(Auth::user()->tipo_de_usuario!=1){ ?>
         <section class="text-center">
           <div class="container">
             <p class="lead text-success">HotSales</p>
