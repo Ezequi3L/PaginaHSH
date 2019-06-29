@@ -40,7 +40,7 @@ foreach ($users as $user) {
   <a href="{{ route('viewUsr',[ $user->id]) }}" class="btn btn-sm btn-outline-primary">Ver Perfil</a>
   <form method="POST" action="{{ route('upgrade', [$user->id]) }}">
     @csrf
-    <button type="submit" class="btn btn-sm btn-outline-success">Upgradear</button>
+    <button type="submit" class="btn btn-sm btn-outline-success">Convertir en Premium</button>
   </form>
   </div>
 <?php } } }
@@ -49,7 +49,7 @@ else{
 <center>
   <div class="col-md-auto">
     <h1></h1>
-    <h1>No hay usuarios que hayan solicitado un upgrade</h1>
+    <h1>No hay usuarios que hayan solicitado ser premium</h1>
   </div>
 </center>
 <?php

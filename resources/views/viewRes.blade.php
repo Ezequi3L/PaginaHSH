@@ -51,7 +51,7 @@
     <div class="carousel-item active">
       <!-- <img class="d-block w-100" src="{{ $primera }}"> -->
       <!-- parche para ver el botón xd -->
-      <img class="d-block w-50" src="{{ $primera }}">
+      <img class="d-block w-50" src="{{ $primera }}" style="margin:auto; margin-bottom:5px;">
     </div>
 
 <?php
@@ -62,7 +62,7 @@
   <! Resto de las fotos >
     <div class="carousel-item">
       <!-- lo mismo de arriba -->
-      <img class="d-block w-50" src="{{ $foto->src }}">
+      <img class="d-block w-50" src="{{ $foto->src }}" style="margin:auto; margin-bottom:5px;">
     </div>
 
 <?php

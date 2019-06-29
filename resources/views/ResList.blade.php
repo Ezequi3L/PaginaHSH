@@ -59,7 +59,7 @@
               <?php if (Auth::user()->tipo_de_usuario == 0) {  ?>
                   <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
                   <a href="{{ route('crearSubasta', [$residencia->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Subastar</button></a>
-                  <a href="{{ route('crearHotSale', [$residencia->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">HotSalear</button></a>
+                  <a href="{{ route('crearHotSale', [$residencia->id]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">HotSale</button></a>
                   <form action="{{ route('aniquilarResidencia', [$residencia]) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}

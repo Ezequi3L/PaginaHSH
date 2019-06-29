@@ -49,7 +49,7 @@ if ($errors->any()) {
           <div class="btn-group" role="group"  style="position: relative; top: -42.5px;">
           <p>
           <a href={{ route('listUsr')}} class="btn btn-primary my-2">Usuarios</a>
-          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Usuarios que desean ser premium</a>
+          <a href={{ route('listUpgUsr')}} class="btn btn-primary my-2">Solicitudes premium</a>
           <a href= {{ route('crearAdmin') }} class="btn btn-primary my-2">Agregar administrador</a>
           </p>
           </div>
