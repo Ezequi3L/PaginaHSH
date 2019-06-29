@@ -63,7 +63,7 @@
                   <form action="{{ route('aniquilarResidencia', [$residencia]) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                    <button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Está seguro que desea eliminar la residencia?');" type="submit">Eliminar</button>
                   </form>
               <?php } ?>
             </div>
@@ -114,7 +114,7 @@ if(count($residencias_dadas_de_baja)>0){
                   <a href="{{ route('editRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Editar</button></a>
                   <form method="POST" action="{{ route('habilitarResidencia', [$residencia]) }}">
                     @csrf
-                    <button type="submit" class="btn btn-sm btn-outline-success" >Habilitar Residencia</button>
+                    <button type="submit"  onclick="return confirm('¿Está seguro que desea habilitar la residencia?');" class="btn btn-sm btn-outline-success" >Habilitar Residencia</button>
                   </form>
               <?php } ?>
             </div>

@@ -85,13 +85,13 @@ if (Auth::user()->tipo_de_usuario == 2){
          <form action="{{ route('deleteUsr', [$id]) }}" method="POST">
           @csrf
             {{ method_field('DELETE') }}
-            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+            <button type="submit" onclick="return confirm('¿Está seguro que desea desahabilitar al usuario?');" class="btn btn-sm btn-danger">Eliminar</button>
          </form>
     <?php }
         else { ?>
           <form method="POST" action="{{ route('habilitarUsr', [$usr]) }}">
             @csrf
-            <button type="submit" class="btn btn-sm btn-success" >Habilitar</button>
+            <button type="submit" onclick="return confirm('¿Está seguro que desea habilitar al usuario?');" class="btn btn-sm btn-success" >Habilitar</button>
           </form>
     <?php  }} ?>
   </center>

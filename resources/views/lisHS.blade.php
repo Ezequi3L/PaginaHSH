@@ -146,7 +146,7 @@ foreach ($hotsales_activas as $hotsale) {
            <form action="{{ route('deleteHS', [$hotsale]) }}" method="POST">
             @csrf
               {{ method_field('DELETE') }}
-              <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+              <button type="submit" onclick="return confirm('¿Está seguro que desea eliminar la HotSale?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
            </form>
         <?php } ?>
       </div>

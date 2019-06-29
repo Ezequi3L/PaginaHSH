@@ -85,7 +85,7 @@ foreach ($users as $user) {
                   <form action="{{ route('deleteUsr', [$user->id]) }}" method="POST">
                     @csrf
                     {{ method_field('DELETE') }}
-                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    <button type="submit" onclick="return confirm('¿Está seguro que desea desahabilitar al usuario?');" class="btn btn-sm btn-danger">Eliminar</button>
                   </form>
                 </span>
                 <?php if($user->tipo_de_usuario==1){ ?>
@@ -161,7 +161,7 @@ if(count($users_eliminados)>0){
                   <span class="fa-stack">
                     <form method="POST" action="{{ route('habilitarUsr', [$user->id]) }}">
                       @csrf
-                      <button type="submit" class="btn btn-sm btn-success" >Habilitar</button>
+                      <button type="submit" onclick="return confirm('¿Está seguro que desea habilitar al usuario?');" class="btn btn-sm btn-success" >Habilitar</button>
                     </form>
                   </span>
                 </td>

@@ -76,11 +76,6 @@ if(Auth::user()->tipo_de_usuario==0){
           <?php
           if (Auth::user()->tipo_de_usuario == 0) {  ?>
              <a href="{{ route('adjudicar', [$subasta]) }}"><button type="button" class="btn btn-sm btn-outline-success">Adjudicar</button></a>
-             <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
-              @csrf
-                {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-             </form>
           <?php } ?>
         </div>
       </div>
@@ -146,7 +141,7 @@ else{
              <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
               @csrf
                 {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                <button type="submit" onclick="return confirm('¿Está seguro que desea eliminar la subasta?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
              </form>
           <?php } ?>
         </div>
@@ -210,7 +205,7 @@ else{
              <form action="{{ route('deleteSub', [$subasta]) }}" method="POST">
               @csrf
                 {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                <button type="submit" onclick="return confirm('¿Está seguro que desea eliminar la subasta?');" class="btn btn-sm btn-outline-danger">Eliminar</button>
              </form>
           <?php } ?>
         </div>
