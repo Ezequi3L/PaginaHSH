@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
+use Auth;
 
 
 class UserController extends Controller
@@ -61,6 +62,9 @@ class UserController extends Controller
     }
 
     public function ViewUsr($id){
+      if ((User::find($id)->tipo_de_usuario == 0 ) && (Auth::user()->id != $id)) {
+        return redirect()->route('home');
+      }
       return view('viewUsr', [
         'title' => 'Detalles del usuario',
         'id' => $id,
