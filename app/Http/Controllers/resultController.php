@@ -80,7 +80,7 @@ class resultController extends Controller
 
       }
       if (isset($fecha2)) {$fecha2->addMonth(2);}
-      if (isset($fecha1) and isset($fecha2) and $fecha->gt($fecha2)){
+      if (isset($fecha) and isset($fecha2) and $fecha->gt($fecha2)){
         return redirect()->route('home')->withErrors('La fecha de inicio debe ser menor a la de fin');
       }
       $title = "HSH - Resultados de Busqueda";
