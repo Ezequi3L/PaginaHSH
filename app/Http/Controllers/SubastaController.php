@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Oferta;
 use App\User;
 use App\Reserva;
+use App\HotSale;
 
 class SubastaController extends Controller
 {
@@ -134,6 +135,11 @@ class SubastaController extends Controller
           'hotsale' => false,
           'monto' => $oferta->monto,
           ]);
+        //Elimino la hotsale, de esa residencia y semana, si existe
+        $hotsale=HotSale::select()->where('residencia_id',$sub->residencia_id)->where('fecha_reserva',$sub->fecha_reserva)->first();
+        if($hotsale!=null){
+          $hotsale->delete();
+        }//ver como puedo informar que se elimino la hotsale
         $user->semanas_disp--;
         $user->update();
         $sub->ganada=true;

@@ -82,8 +82,7 @@ $fechas_hotsales=$fechas_hotsales."]";
 		$('.datepicker').datepicker({
 			format: "dd/mm/yyyy",
 			language:"es",
-			startDate: '+6m',
-			endDate: '+12m',
+			endDate: '+6m',
 			daysOfWeekDisabled: "0,2,3,4,5,6",
 			daysOfWeekHighlighted: "1",
 			datesDisabled: "<?php echo $fechas_hotsales; ?>",
