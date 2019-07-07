@@ -28,9 +28,11 @@
   use App\Residencia;
   use App\Reserva;
   use Carbon\Carbon;
-
+  use config\Session;
+  Auth::user()->semanasDisp();
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
   $reservas = Reserva::select()->where('usr_id',$id)->get();
+
 
   if (count($reservas) !=0){
   foreach ($reservas as $reserva) {
