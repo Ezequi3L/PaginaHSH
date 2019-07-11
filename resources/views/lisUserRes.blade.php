@@ -29,7 +29,7 @@
   use App\Reserva;
   use Carbon\Carbon;
   use config\Session;
-  Auth::user()->semanasDisp();
+  Auth::user()->semanasDisp;
   $imgnodisp = '/public/imagenes/img-nodisponible.jpg';
   $reservas = Reserva::select()->where('usr_id',$id)->get();
 
