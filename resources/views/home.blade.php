@@ -187,13 +187,23 @@ body {
   margin-top: 4px;
   font-size: 14px;
   border:none;
+  width: -moz-available;
+}
+
+.boton {
+  width: -moz-available; 
+  float: none; 
+ }
+
+.checkbox {
+  text-align: center;
+  margin-top: 10px;
 }
 
 .topnav .search-container button {
   float: right;
   padding: 6px 10px;
   margin-top: 8px;
-  margin-right: 16px;
   background: #ddd;
   font-size: 17px;
   border: none;
@@ -249,7 +259,9 @@ body {
         <input type="text" class="form-control datepicker" placeholder="Fecha de Fin" name="fecha_reserva2"
         style="padding: 4px; margin-top: 4px; font-size: 14px; border:none; display: inline;">
       </div>
-      <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
+      <div>
+        <button class="boton" type="submit" name="buscar"><i class="fa fa-search"></i></button>
+      </div>
     </form>
   </div>
 </div>
