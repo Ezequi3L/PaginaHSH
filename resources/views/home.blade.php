@@ -155,6 +155,7 @@ if ($errors->any()) {
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 * {box-sizing: border-box;}
 
@@ -181,7 +182,7 @@ body {
   text-decoration: none;
 }
 
-.topnav input[type=text] {
+.input {
   padding: 4px;
   margin-top: 4px;
   font-size: 14px;
@@ -225,11 +226,11 @@ body {
        </label>
      </div>
      <div class="texto">
-      <input type="text" id="search" placeholder="Buscar.." name="search">
+      <input class="input" type="text" id="search" placeholder="Buscar.." name="search">
     </div>
     <div class="select">
 
-      <select class="form-control" name="ubicacion" id="ubicacion">
+      <select class="input" name="ubicacion" id="ubicacion">
             <option value=""> {{"Seleccione una ubicacion"}} </option>
         <?php
 
@@ -243,11 +244,11 @@ body {
         </select>
       </div>
       <div class="fechas">
-
-        {{"Rango de fechas"}}
-      <input type="text" class="form-control datepicker" placeholder="INICIO" name="fecha_reserva1">
-      <input type="text" class="form-control datepicker" placeholder="FIN" name="fecha_reserva2">
-    </div>
+        <input type="text" class="form-control datepicker" placeholder="Fecha de Inicio" name="fecha_reserva1"
+        style="padding: 4px; margin-top: 4px; font-size: 14px; border:none; display: inline;">
+        <input type="text" class="form-control datepicker" placeholder="Fecha de Fin" name="fecha_reserva2"
+        style="padding: 4px; margin-top: 4px; font-size: 14px; border:none; display: inline;">
+      </div>
       <button type="submit" name="buscar"><i class="fa fa-search"></i></button>
     </form>
   </div>
