@@ -125,11 +125,6 @@ if ($errors->any()) {
         </div>
       </div>
 
-
-
-
-
-
 @endsection
 
 @section('footer')
@@ -143,21 +138,16 @@ if ($errors->any()) {
   </div>
 </footer>
 
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Datepicker Files -->
+<link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-datepicker3.css'}}">
+<link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-standalone.css'}}">
+<script src="{{'/public/datePicker/js/bootstrap-datepicker.js'}}"></script>
+<!-- Languaje -->
+<script src="{{'/public/datePicker/locales/bootstrap-datepicker.es.min.js'}}"></script>
 
 @endsection
 
-
-
-
-
-
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <!-- Datepicker Files -->
-    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-datepicker3.css'}}">
-    <link rel="stylesheet" href="{{'/public/datePicker/css/bootstrap-standalone.css'}}">
-    <script src="{{'/public/datePicker/js/bootstrap-datepicker.js'}}"></script>
-    <!-- Languaje -->
-    <script src="{{'/public/datePicker/locales/bootstrap-datepicker.es.min.js'}}"></script>
 
 @section('buscador')
 
