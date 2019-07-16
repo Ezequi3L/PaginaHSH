@@ -83,7 +83,7 @@ class ResidenciasSeeder extends Seeder
 ' ]);
 
         Residencia::create([
-          'descripcion' => 'Departamento en zona turistica, Tokio, Japon' => 7,  'ubicacion_precisa' => 'Calle Arranen malparlaven perduraries sagratines, 295 2ºE
+          'descripcion' => 'Departamento en zona turistica, Tokio, Japon', 'ubicacion_id' => 7,  'ubicacion_precisa' => 'Calle Arranen malparlaven perduraries sagratines, 295 2ºE
 ' ]);
 
         Residencia::create([
@@ -115,7 +115,7 @@ class ResidenciasSeeder extends Seeder
 ' ]);
 
         Residencia::create([
-          'descripcion' => 'Residencia en Centro de Monaco', 'ubicacion_id' => 8'ubicacion_precisa' => 'Camino Bastitans sil·logitzis pree neulassis, 166
+          'descripcion' => 'Residencia en Centro de Monaco', 'ubicacion_id' => 8, 'ubicacion_precisa' => 'Camino Bastitans sil·logitzis pree neulassis, 166
 ' ]);
 
         Residencia::create([
@@ -139,7 +139,7 @@ class ResidenciasSeeder extends Seeder
 ' ]);
 
         Residencia::create([
-          'descripcion' => 'Casa cercana a Torre Eiffel', 'ubicacion_id' => 4  'ubicacion_precisa' => 'Paseo Aixerriéssim emboniquí, 27B
+          'descripcion' => 'Casa cercana a Torre Eiffel', 'ubicacion_id' => 4, 'ubicacion_precisa' => 'Paseo Aixerriéssim emboniquí, 27B
 ' ]);
 
         Residencia::create([
