@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        DB::table('reservas')->truncate();
         DB::table('residencias')->truncate();
         DB::table('fotos')->truncate();
         DB::table('subastas')->truncate();
@@ -25,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FotosSeeder::class);
         $this->call(SubastasSeeder::class);
         $this->call(OfertasSeeder::class);
+        $this->call(ReservasSeeder::class);
     }
 }
