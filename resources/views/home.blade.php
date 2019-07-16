@@ -222,19 +222,6 @@ body {
   <div class="search-container">
     <form  method="GET" action={{ route('resultados') }}>
      @csrf
-     <div class="checkbox">
-       <label class="checkbox-inline">
-         <?php if (Auth::user()->tipo_de_usuario != 2){?>
-           <input type="checkbox" name="residencia" value="residencia" checked> {{"Residencias"}}
-         </label>
-       <?php  }  ?>
-       <label class="checkbox-inline">
-         <input type="checkbox" name="subasta" value="subasta" checked> {{"Subastas"}}
-       </label>
-       <label class="checkbox-inline">
-         <input type="checkbox" name="hot_sale" value="hot_sale" checked> {{"Hot Sales"}}
-       </label>
-     </div>
      <div class="texto">
       <input class="input" type="text" id="search" placeholder="Buscar.." name="search">
     </div>
@@ -258,6 +245,19 @@ body {
         style="padding: 4px; margin-top: 4px; font-size: 14px; border:none; display: inline;">
         <input type="text" class="form-control datepicker" placeholder="Fecha de Fin" name="fecha_reserva2"
         style="padding: 4px; margin-top: 4px; font-size: 14px; border:none; display: inline;">
+      </div>
+      <div class="checkbox">
+        <label class="checkbox-inline">
+          <?php if (Auth::user()->tipo_de_usuario != 2){?>
+            <input type="checkbox" name="residencia" value="residencia" checked> {{"Residencias"}}
+          </label>
+        <?php  }  ?>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="subasta" value="subasta" checked> {{"Subastas"}}
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="hot_sale" value="hot_sale" checked> {{"Hot Sales"}}
+        </label>
       </div>
       <div>
         <button class="boton" type="submit" name="buscar"><i class="fa fa-search"></i></button>
