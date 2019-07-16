@@ -63,7 +63,7 @@
           <center> <form action="{{ route('deleteReserva', [$reserva]) }}" method="POST">
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
-              <button type="submit" onclick=<?php if((Carbon::now())>(Carbon::createFromDate($reserva->fecha)->subMonths(2))) {?> "return confirm('No se te devolverá la semana al cancelar esta reserva ¿Estás seguro que deseas cancelarla?');"<?php } else {?>"return confirm('¿Estás seguro que deseas cancelar esta reserva?')"<?php } ?> class="btn btn-sm btn-outline-danger">Cancelar Reserva</button>
+              <button type="submit" onclick=<?php if(((Carbon::now())>(Carbon::createFromDate($reserva->fecha)->subMonths(2)))&&(!$reserva->hotsale)) {?> "return confirm('No se te devolverá la semana al cancelar esta reserva ¿Estás seguro que deseas cancelarla?');"<?php } else {?>"return confirm('¿Estás seguro que deseas cancelar esta reserva?')"<?php } ?> class="btn btn-sm btn-outline-danger">Cancelar Reserva</button>
            </form>
           </center>
         </div>

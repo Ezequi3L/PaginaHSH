@@ -142,10 +142,10 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/reservasList/{id}','ReservaController@listarReservas')
 			->name('listaReservasDeUsuario');
 
-		Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')
-			->name('deleteReserva');
-
 	});
+
+	Route::delete('/reservas/{reserva}','ReservaController@cancelarReserva')	//Esto no debería ir acá pero
+			->name('deleteReserva');											//si no no anda
 
 	Route::put('/usuarios/edit/{user}','UserController@update') // no importa porque no es GET
 			->name('usrUpdateExitoso');
