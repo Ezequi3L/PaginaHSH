@@ -84,7 +84,7 @@ foreach ($users as $user) {
                 <span class="fa-stack">
                   <form action="{{ route('deleteUsr', [$user->id]) }}" method="POST">
                     @csrf
-                    {{ method_field('DELETE') }}
+                    {{ method_field('PUT') }}
                     <button type="submit" onclick="return confirm('¿Está seguro que desea desahabilitar al usuario?');" class="btn btn-sm btn-danger">Eliminar</button>
                   </form>
                 </span>
@@ -92,6 +92,7 @@ foreach ($users as $user) {
                 <span class="fa-stack">
                   <form method="POST" action="{{ route('check', [$user->id]) }}">
                     @csrf
+                    {{ method_field('PUT') }}
                     <button type="submit" class="btn btn-sm btn-secondary" style="margin-left: 41px;" >Verificar</button>
                   </form>
                 </span>
@@ -103,6 +104,11 @@ foreach ($users as $user) {
 <tbody>
     <tr>
       <th style="color:red;text-align:center;">Usuarios dados de baja</th>
+        <?php
+        if(count($users_eliminados)==0){
+          ?>
+            <th style="color:grey;text-align:center;">No hay usuarios dados de baja</th
+        <?php }?>
     </tr>
 </tbody>
 <?php
@@ -167,12 +173,14 @@ if(count($users_eliminados)>0){
                 </td>
               </tr>
   </tbody>
-<?php } } }?>
+<?php } } }
+?>
 </table>
 </div>
 </div>
 </div>
 </div>
+
 
 
 @endsection

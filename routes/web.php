@@ -105,13 +105,13 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/usuarios/list','UserController@listado')
 			->name('listUsr');
 
-		Route::post('/usuario/verificar/{id}','UserController@check')
+		Route::put('/usuario/verificar/{id}','UserController@check')
 			->name('check');
 
 		Route::get('/usuarios/upglist','UserController@listadoupg')
 			->name('listUpgUsr');
 
-		Route::post('/usuario/upgradear/{id}','UserController@upgrade')
+		Route::put('/usuario/upgradear/{id}','UserController@upgrade')
 			->name('upgrade');
 
 		Route::get('/enviar/{destinatario}','MailController@sendMail')
@@ -120,8 +120,11 @@ Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales 
 		Route::get('/enviarSubElim/{destinatarios}','MailController@subElim')
 			->name('sendMailSubElim');
 
-		Route::delete('/usuarios/altf4/{id}','UserController@destroy')
+		Route::put('/usuarios/altf4/{id}','UserController@destroy')
 			->name('deleteUsr');
+
+		Route::put('/usuarios/sol/altf4/{id}','UserController@solDelete')
+			->name('deleteUsrSolUpg');
 
 		Route::post('/usuarios/rehab/{usr}','UserController@habilitarUsr')
 			->name('habilitarUsr');

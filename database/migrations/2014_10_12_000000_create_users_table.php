@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('dni')->nullable();
             $table->date('fecha_nac')->nullable();
-            //tipo de usuario: 0:admin,1:sin verificar,2: estandar,3:premium
+            //tipo de usuario: 0:admin,1:sin verificar,2:estandar,3:premium
             $table->integer('tipo_de_usuario')->default(1);
             //reservas-ofertas-hotsales
             $table->integer('semanas_disp')->nullable()->default(null);

@@ -51,7 +51,7 @@ class UserController extends Controller
       $user->tipo_de_usuario=3;
       $user->solicito_upgrade=true;//posiblemente no hace falta esto, pero así me ahorro un posible problema futuro
       $user->update();
-      return redirect()->route('listUpgUsr');
+      return redirect()->route('listUpgUsr')->withErrors('El usuario se ha vuelto premium con éxito');
     }
 
     public function solUpgrade(User $user){
@@ -136,6 +136,13 @@ class UserController extends Controller
       $usr->eliminado=true;
       $usr->update();
       return redirect()->route('listUsr', [$usr->id])->with('alert-success', 'El usuario ha sido eliminado con éxito');
+    }
+
+    public function solDelete($id){
+      $usr=User::find($id);
+      $usr->solicito_upgrade=false;
+      $usr->update();
+      return redirect()->route('listUpgUsr', [$usr->id])->with('alert-success', 'La solicitud del usuario ha sido cancelada con éxito');
     }
 
     public function habilitarUsr(User $usr){
