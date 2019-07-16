@@ -76,7 +76,7 @@ class resultController extends Controller
         $fecha2 = Carbon::createFromFormat('d/m/Y', $data['fecha_reserva2']);
 
       }
-      if ($data['fecha_reserva1'] != NULL and $data['fecha_reserva2'] != NULL and $fecha2->gte($fecha)){
+      if (($data['fecha_reserva1'] != NULL and $data['fecha_reserva2'] != NULL and $fecha2->gte($fecha)) or ($data['fecha_reserva2'] != NULL) and ($fecha2->gte(Carbon::now()->addMonth(2)))){
         return redirect()->route('home')->withErrors('La diferencia entre fechas debe ser menor a 2 meses');
 
       }
@@ -126,6 +126,8 @@ class resultController extends Controller
           $dif1=Carbon::createFromFormat('Y-m-d',$data['fecha_reserva1']);
           $carb=Carbon::createFromFormat('Y-m-d',$data['fecha_reserva1'])->addMonth(2)->format('Y-m-d');
           $difweek=8;
+        } else {
+          $dif1=Carbon::now();
         }
         if ($data['fecha_reserva2'] != NULL){
           $carb=Carbon::create($data['fecha_reserva1'])->addMonth(2)->format('Y-m-d');

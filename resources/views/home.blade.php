@@ -191,8 +191,8 @@ body {
 }
 
 .boton {
-  width: -moz-available; 
-  float: none; 
+  width: -moz-available;
+  float: none;
  }
 
 .checkbox {
@@ -272,7 +272,7 @@ body {
   $('.datepicker').datepicker({
     format: "dd/mm/yyyy",
     language:"es",
-    startDate: '+6m',
+    startDate: '+1d',
     // startDate: '+1d', quitar la de arriba y dejar ésta cuando tengamos las HotSales
     endDate: '+12m',
     daysOfWeekDisabled: "0,2,3,4,5,6",
