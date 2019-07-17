@@ -4,6 +4,7 @@
 use  App\Residencia;
 use Carbon\Carbon;
 use App\HotSale;
+use App\Reserva;
 
 ?>
 
@@ -20,6 +21,11 @@ $hotsales=HotSale::select('fecha_reserva')->where('residencia_id',$id)->get();
 $fechas_hotsales="[";
 foreach ($hotsales as $hotsale) {
 	$carbon=Carbon::createFromFormat('Y-m-d',$hotsale->fecha_reserva)->format('d/m/Y');
+	$fechas_hotsales=$fechas_hotsales."'".$carbon."'".",";
+}
+$reservas=Reserva::select('fecha')->where('residencia_id',$id)->get();
+foreach($reservas as $reserva) {
+	$carbon=Carbon::createFromFormat('Y-m-d',$reserva->fecha)->format('d/m/Y');
 	$fechas_hotsales=$fechas_hotsales."'".$carbon."'".",";
 }
 $fechas_hotsales=$fechas_hotsales."]";
