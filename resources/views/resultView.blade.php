@@ -171,7 +171,7 @@
               <div class="row">
 
               <?php
-
+              $i=0;
         foreach ($resultado2 as $residencia) {
           $descripcion = $residencia->descripcion;
           $ubicacion = $residencia->ubicacion;
@@ -187,6 +187,9 @@
               <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
               <div class="card-body">
                 <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
+                <?php if (Auth::user()->tipo_de_usuario == 3) {  ?>
+                <p class="card-text"> <?php echo $resultado2fechas[$i] ?></p>
+              <?php } ?>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <a href="{{ route('viewRes', [$residencia]) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Ver</button></a>
@@ -207,7 +210,7 @@
           </div>
 
         <?php
-
+        $i++;
         } //fin foreach
 
         ?>

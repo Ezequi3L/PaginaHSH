@@ -85,7 +85,7 @@ class resultController extends Controller
         return redirect()->route('home')->withErrors('La fecha de inicio debe ser menor a la de fin');
       }
       $title = "HSH - Resultados de Busqueda";
-        if (($data['search'] != NULL) and ($data['ubicacion'] != NULL) and (($data['fecha_reserva1']) !=NULL)) {
+        if (($data['search'] != NULL) and ($data['ubicacion'] != NULL) and ((($data['fecha_reserva1']) !=NULL) or ($data['fecha_reserva2'] != NULL))) {
           $accion =1;
         }
         else{
@@ -93,11 +93,11 @@ class resultController extends Controller
             $accion =2;
           }
           else{
-            if (($data['search'] != NULL) and (($data['fecha_reserva1']) != NULL)){
+            if (($data['search'] != NULL) and ((($data['fecha_reserva1']) != NULL) or ($data['fecha_reserva2'] != NULL))){
               $accion =3;
             }
             else{
-              if(($data['ubicacion'] != NULL) and (($data['fecha_reserva1']) !=NULL)){
+              if(($data['ubicacion'] != NULL) and ((($data['fecha_reserva1']) !=NULL) or ($data['fecha_reserva2'] != NULL))){
                 $accion =4;
               }
               else{
@@ -109,7 +109,7 @@ class resultController extends Controller
                     $accion=6;
                   }
                   else{
-                    if(($data['fecha_reserva1']) !=NULL){
+                    if((($data['fecha_reserva1']) !=NULL) or ($data['fecha_reserva2'] != NULL)){
                       $accion=7;
                     }
                     else{
@@ -135,8 +135,11 @@ class resultController extends Controller
           $dif2=Carbon::createFromFormat('Y-m-d',$data['fecha_reserva2']);
         //  $difweek=$dif1->diffInWeeks($dif2);
         }
+        else {
+          $dif2=Carbon::create($dif1->year,$dif1->month,$dif1->day)->addMonth(2);
+        }
 
-        if ($data['fecha_reserva2'] != NULL) {
+        if (($data['fecha_reserva1'] != NULL) or ($data['fecha_reserva2'] != NULL))
           if (((Carbon::now()->addMonth(6)) > ($dif1)) and ((Carbon::now()->addMonth(6)) > ($dif2))){
             $fechainvalida= true;
           }
@@ -149,9 +152,6 @@ class resultController extends Controller
             $dif2->format('Y-m-d');
             $fechainvalida=false;
           }
-
-      }
-
         switch ($accion) {
           case 1:{
             if (isset($data['subasta'])){
@@ -372,6 +372,7 @@ class resultController extends Controller
               ->get();
             }
             else{
+
               $resultado2 = Residencia::select('residencias.id')->where('residencias.id','-1')->get();
             }
             }
@@ -436,6 +437,23 @@ class resultController extends Controller
       }
     }
 
-      return view('resultView', compact('title','subastas_activas','subastas_programadas','resultado2','resultado3'));
+
+    $resultado2fechas = array();
+    $i=0;
+    foreach ($resultado2 as $residencia) {
+      $resultado2fechas[$i]="Semanas disponibles: <br>";
+      $difaux1=Carbon::create($dif1->year,$dif1->month,$dif1->day);
+      $difaux2=Carbon::create($dif2->year,$dif2->month,$dif2->day);
+      while ($difaux2->gte($difaux1)){
+        if ((COUNT(Reserva::select('id')->where('residencia_id',$residencia->id)->where('fecha',$difaux1)->get())) == 0){
+          $resultado2fechas[$i]=$resultado2fechas[$i].$difaux1->year."-".$difaux1->month."-".$difaux1->day. "<br>";
+        }
+        $difaux1->addWeek();
+      }
+      $i++;
+
+    }
+
+      return view('resultView', compact('title','subastas_activas','subastas_programadas','resultado2','resultado3','resultado2fechas'));
     }
 }
