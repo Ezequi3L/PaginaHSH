@@ -18,7 +18,13 @@ if(Auth::user()->tipo_de_usuario != 1){
 
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
-    echo "<p class='alert alert-danger'>*".$error."</p>";
+    echo
+    '<div class="alert alert-danger alert-dismissible fade show" role="alert">*'
+      .$error.
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>';
   }
 }
 
