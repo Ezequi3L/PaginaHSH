@@ -133,8 +133,24 @@ class resultController extends Controller
           $carb=Carbon::create($data['fecha_reserva1'])->addMonth(2)->format('Y-m-d');
           $data['fecha_reserva2']=Carbon::createFromFormat('d/m/Y',$data['fecha_reserva2'])->format('Y-m-d');
           $dif2=Carbon::createFromFormat('Y-m-d',$data['fecha_reserva2']);
-          $difweek=$dif1->diffInWeeks($dif2);
+        //  $difweek=$dif1->diffInWeeks($dif2);
         }
+
+        if ($data['fecha_reserva2'] != NULL) {
+          if ((Carbon::now()->addMonth(6)) > ($dif1)) and ((Carbon::now()->addMonth(6)) > ($dif2)){
+            $fechainvalida= true;
+          }
+          else{
+            while ($dif1 < Carbon::now()->addMonth(6)) {
+              $dif1->addWeek();
+            }
+            $difweek=$dif1->diffInWeeks($dif2);
+            $dif1->format('Y-m-d');
+            $dif2->format('Y-m-d');
+          }
+
+      }
+
         switch ($accion) {
           case 1:{
             if (isset($data['subasta'])){
