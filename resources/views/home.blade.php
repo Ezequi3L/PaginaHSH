@@ -86,7 +86,7 @@ if ($errors->any()) {
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+            <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
