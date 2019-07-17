@@ -76,7 +76,7 @@ class resultController extends Controller
         $fecha2 = Carbon::createFromFormat('d/m/Y', $data['fecha_reserva2']);
 
       }
-      if (($data['fecha_reserva1'] != NULL and $data['fecha_reserva2'] != NULL and $fecha2->gte($fecha)) or ($data['fecha_reserva2'] != NULL) and ($fecha2->gte(Carbon::now()->addMonth(2)))){
+      if ((($data['fecha_reserva1'] != NULL) and ($data['fecha_reserva2'] != NULL) and ($fecha2->gte($fecha))) or (($data['fecha_reserva1'] == NULL) and ($data['fecha_reserva2'] != NULL) and ($fecha2->gte(Carbon::now()->addMonth(2))))){
         return redirect()->route('home')->withErrors('La diferencia entre fechas debe ser menor a 2 meses');
 
       }
@@ -137,7 +137,7 @@ class resultController extends Controller
         }
 
         if ($data['fecha_reserva2'] != NULL) {
-          if ((Carbon::now()->addMonth(6)) > ($dif1)) and ((Carbon::now()->addMonth(6)) > ($dif2)){
+          if (((Carbon::now()->addMonth(6)) > ($dif1)) and ((Carbon::now()->addMonth(6)) > ($dif2))){
             $fechainvalida= true;
           }
           else{
@@ -147,6 +147,7 @@ class resultController extends Controller
             $difweek=$dif1->diffInWeeks($dif2);
             $dif1->format('Y-m-d');
             $dif2->format('Y-m-d');
+            $fechainvalida=false;
           }
 
       }
@@ -168,10 +169,10 @@ class resultController extends Controller
               ->get();
             }
             if (isset($data['residencia'])){
-
+              if (!$fechainvalida){
               $notin=Reserva::select('reservas.residencia_id')
               ->join('residencias','residencias.id','=','reservas.residencia_id')
-              ->whereBetween('reservas.fecha', [$data['fecha_reserva1'], $carb])
+              ->whereBetween('reservas.fecha', [$dif1, $dif2])
               ->groupBy('reservas.residencia_id')
               ->havingRaw('COUNT(*) = '.++$difweek)
               ->get();
@@ -182,6 +183,10 @@ class resultController extends Controller
               ->where('residencias.ubicacion_id',$data['ubicacion'])
               ->whereNotIn('residencias.id', $notin)
               ->get();
+            }
+            else{
+              $resultado2 = Residencia::select('residencias.id')->where('residencias.id','-1')->get();
+            }
             }
             if (isset($data['hot_sale'])){
 
@@ -230,10 +235,10 @@ class resultController extends Controller
                 ->whereBetween('subastas.fecha_reserva', [$data['fecha_reserva1'], $carb])->get();
               }
             if (isset($data['residencia'])){
-
+              if (!$fechainvalida){
               $notin=Reserva::select('reservas.residencia_id')
               ->join('residencias','residencias.id','=','reservas.residencia_id')
-              ->whereBetween('reservas.fecha', [$data['fecha_reserva1'], $carb])
+              ->whereBetween('reservas.fecha', [$dif1, $dif2])
               ->groupBy('reservas.residencia_id')
               ->havingRaw('COUNT(*) = '.++$difweek)
               ->get();
@@ -243,6 +248,10 @@ class resultController extends Controller
               ->where('residencias.descripcion','like','%'.$data['search'].'%')
               ->whereNotIn('residencias.id', $notin)
               ->get();
+            }
+            else{
+              $resultado2 = Residencia::select('residencias.id')->where('residencias.id','-1')->get();
+            }
             }
             if (isset($data['hot_sale'])){
 
@@ -265,10 +274,10 @@ class resultController extends Controller
                 ->whereBetween('subastas.fecha_reserva', [$data['fecha_reserva1'], $carb])->get();
               }
             if (isset($data['residencia'])){
-
+              if (!$fechainvalida){
                 $notin=Reserva::select('reservas.residencia_id')
                 ->join('residencias','residencias.id','=','reservas.residencia_id')
-                ->whereBetween('reservas.fecha', [$data['fecha_reserva1'],$carb])
+                ->whereBetween('reservas.fecha', [$dif1,$dif2])
                 ->groupBy('reservas.residencia_id')
                 ->havingRaw('COUNT(*) = '.++$difweek)
                 ->get();
@@ -279,6 +288,10 @@ class resultController extends Controller
                 ->whereNotIn('residencias.id', $notin)
                 ->get();
               }
+              else{
+                $resultado2 = Residencia::select('residencias.id')->where('residencias.id','-1')->get();
+              }
+            }
             if (isset($data['hot_sale'])){
 
                 $resultado3 = HotSale::select()->join('residencias','residencias.id','=','hotsales.residencia_id')
@@ -345,10 +358,10 @@ class resultController extends Controller
 
             }
             if(isset($data['residencia'])){
-
+              if (!$fechainvalida){
               $notin=Reserva::select('reservas.residencia_id')
               ->join('residencias','residencias.id','=','reservas.residencia_id')
-              ->whereBetween('reservas.fecha', [$data['fecha_reserva1'],$carb])
+              ->whereBetween('reservas.fecha', [$dif1,$dif2])
               ->groupBy('reservas.residencia_id')
               ->havingRaw('COUNT(*) = '.++$difweek)
               ->get();
@@ -357,6 +370,10 @@ class resultController extends Controller
               ->where('residencias.dada_de_baja',0)
               ->whereNotIn('residencias.id', $notin)
               ->get();
+            }
+            else{
+              $resultado2 = Residencia::select('residencias.id')->where('residencias.id','-1')->get();
+            }
             }
             if (isset($data['hot_sale'])){
 
