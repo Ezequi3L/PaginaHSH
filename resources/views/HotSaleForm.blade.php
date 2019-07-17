@@ -5,6 +5,7 @@ use  App\Residencia;
 use Carbon\Carbon;
 use App\HotSale;
 use App\Reserva;
+use App\Subasta;
 
 ?>
 
@@ -26,6 +27,11 @@ foreach ($hotsales as $hotsale) {
 $reservas=Reserva::select('fecha')->where('residencia_id',$id)->get();
 foreach($reservas as $reserva) {
 	$carbon=Carbon::createFromFormat('Y-m-d',$reserva->fecha)->format('d/m/Y');
+	$fechas_hotsales=$fechas_hotsales."'".$carbon."'".",";
+}
+$subastas=Subasta::select('fecha_reserva')->where('residencia_id',$id)->get();
+foreach($subastas as $subasta) {
+	$carbon=Carbon::createFromFormat('Y-m-d',$subasta->fecha_reserva)->format('d/m/Y');
 	$fechas_hotsales=$fechas_hotsales."'".$carbon."'".",";
 }
 $fechas_hotsales=$fechas_hotsales."]";
