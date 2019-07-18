@@ -440,7 +440,7 @@ class resultController extends Controller
 
     $resultado2fechas = array();
     $i=0;
-    if (($resultado2 != NULL) and ((COUNT($resultado2)) != 0)){
+   if (($resultado2 != NULL) and ((COUNT($resultado2)) != 0)){
     foreach ($resultado2 as $residencia) {
       $resultado2fechas[$i]="Semanas disponibles: <br>";
       $difaux1=Carbon::create($dif1->year,$dif1->month,$dif1->day);
@@ -450,9 +450,9 @@ class resultController extends Controller
           $resultado2fechas[$i]=$resultado2fechas[$i].$difaux1->year."-".$difaux1->month."-".$difaux1->day. "<br>";
           $difaux1->addWeek();
         }
-        $i++;
 
       }
+      $i++;
     }
   }
 
