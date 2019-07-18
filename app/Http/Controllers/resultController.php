@@ -454,6 +454,7 @@ class resultController extends Controller
       $i++;
     }
     }
+  }
 
       return view('resultView', compact('title','subastas_activas','subastas_programadas','resultado2','resultado3','resultado2fechas'));
     }
