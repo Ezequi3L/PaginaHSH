@@ -18,6 +18,9 @@ Route::get('/', 'WelcomeController@index')
 Route::get('/sucursales', 'WelcomeController@sucursales')
 	->name('sucursales');
 
+Route::get('/about', 'WelcomeController@about')
+	->name('about');
+
 Auth::routes();
 
 Route::group( ['middleware' => 'auth' ], function() {  // rutas para las cuales hay que estar logueado

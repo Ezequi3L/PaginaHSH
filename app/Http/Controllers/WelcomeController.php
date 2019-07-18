@@ -17,4 +17,8 @@ class WelcomeController extends Controller
       'title' => "HSH - Listado de Sucursales"
     ]);
   }
+
+  public function about(){
+    return view('about', ['title' => "HSH - Ayuda"]);
+  }
 }

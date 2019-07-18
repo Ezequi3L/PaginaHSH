@@ -4,8 +4,7 @@
 
   <div class="row">
     <div class="col-sm-8 col-md-7 py-4">
-      <h4 class="text-white">About
-      </h4>
+          <h4><a href="{{ route('about')}}">Ayuda</a></h4>
       <p class="text-muted">
       </p>
     </div>
