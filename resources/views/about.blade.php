@@ -25,3 +25,7 @@
 </div>
 
 @endsection
+
+@section('mainContent')
+<img src=/public/imagenes/about.jpg style= "width: 110%; height: 110%; position: relative;>
+@endsection
