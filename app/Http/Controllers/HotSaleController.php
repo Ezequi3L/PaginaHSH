@@ -59,10 +59,6 @@ class HotSaleController extends Controller
           'monto.required' => 'El campo monto es obligatorio'
           ]);
 
-      if ($data['monto'] <= 0) {
-        return redirect()->route('editHS',[$hsid])->withErrors('El monto debe ser superior a $0 (cero pesos)');
-      }
-
       $hotsale->update($data);
       return redirect()->route('home');
   }

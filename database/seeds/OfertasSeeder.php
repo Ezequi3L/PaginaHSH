@@ -70,10 +70,6 @@ class OfertasSeeder extends Seeder
 
         ]);
 
-        Oferta::create(['monto' => 2000, 'usr_id' => '34', 'subasta_id' => 4
-
-        ]);
-
 
     }
 }
