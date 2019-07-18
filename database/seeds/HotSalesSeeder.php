@@ -12,11 +12,10 @@ class HotSalesSeeder extends Seeder
      */
     public function run()
     {
-    	HotSale::create(['residencia_id' => '50', 'fecha_reserva' => Carbon::now()->addMonths(4), 'monto' => '5000']);
-    	HotSale::create(['residencia_id' => '29', 'fecha_reserva' => Carbon::now()->addMonths(5), 'monto' => '7500']);
-        HotSale::create(['residencia_id' => '2', 'fecha_reserva' => Carbon::now()->addMonths(1), 'monto' => '6500']);
-
-    	HotSale::create(['residencia_id' => '47', 'fecha_reserva' => Carbon::now()->subMonths(1), 'monto' => '4300']);
-		HotSale::create(['residencia_id' => '14', 'fecha_reserva' => Carbon::now()->subMonths(2), 'monto' => '3400']);
+      HotSale::create(['residencia_id' => '50', 'fecha_reserva' => Carbon::now()->addMonths(4), 'monto' => '5000']);
+      HotSale::create(['residencia_id' => '29', 'fecha_reserva' => Carbon::now()->addMonths(5), 'monto' => '7500']);
+      HotSale::create(['residencia_id' => '2', 'fecha_reserva' => Carbon::now()->addMonths(1), 'monto' => '6500']);
+      HotSale::create(['residencia_id' => '47', 'fecha_reserva' => Carbon::now()->subMonths(1), 'monto' => '4300']);
+      HotSale::create(['residencia_id' => '14', 'fecha_reserva' => Carbon::now()->subMonths(3), 'monto' => '3400']);
     }
 }
