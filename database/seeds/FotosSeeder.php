@@ -16,7 +16,7 @@ class FotosSeeder extends Seeder
     			'src' => '/public/imagenes/foto'.$i.'.jpg',
           'residencia_id' => $i
     			]);
-
+        }
           DB::table('fotos')->insert([
             'src' => '/public/imagenes/foto5.jpg',
             'residencia_id' => 1
@@ -217,7 +217,6 @@ class FotosSeeder extends Seeder
                               'src' => '/public/imagenes/15.jpg',
                               'residencia_id' => 50
                               ]);
-    	}
 
 
 
