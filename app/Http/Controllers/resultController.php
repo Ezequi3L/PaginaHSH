@@ -440,6 +440,7 @@ class resultController extends Controller
 
     $resultado2fechas = array();
     $i=0;
+    if ($resultado2 != NULL){
     foreach ($resultado2 as $residencia) {
       $resultado2fechas[$i]="Semanas disponibles: <br>";
       $difaux1=Carbon::create($dif1->year,$dif1->month,$dif1->day);
@@ -451,7 +452,7 @@ class resultController extends Controller
         $difaux1->addWeek();
       }
       $i++;
-
+    }
     }
 
       return view('resultView', compact('title','subastas_activas','subastas_programadas','resultado2','resultado3','resultado2fechas'));
