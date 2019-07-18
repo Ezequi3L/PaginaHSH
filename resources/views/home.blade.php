@@ -18,7 +18,13 @@ if(Auth::user()->tipo_de_usuario != 1){
 
 if ($errors->any()) {
   foreach ($errors->all() as $error) {
-    echo "<p class='alert alert-danger'>*".$error."</p>";
+    echo
+    '<div class="alert alert-danger alert-dismissible fade show" role="alert">*'
+      .$error.
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>';
   }
 }
 
@@ -80,7 +86,7 @@ if ($errors->any()) {
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+            <img src= <?php if ($foto != null){ echo '"'; echo $foto->src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
               <div class="d-flex justify-content-between align-items-center">
