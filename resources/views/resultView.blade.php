@@ -87,7 +87,7 @@
 
         <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-         <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+         <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
           <div class="card-body">
             <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
             <p class="card-text"> <?php echo "Reserva: "; echo $hotsale->fecha_reserva; ?> </p>
@@ -165,7 +165,7 @@
 
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+              <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
               <div class="card-body">
                 <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion->ubicacion; echo ", "; ?> </p>
                 <?php if (Auth::user()->tipo_de_usuario == 3) {  ?>
@@ -241,7 +241,7 @@
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-           <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+           <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
               <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
@@ -312,7 +312,7 @@
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-           <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?>>
+           <img src= <?php if ($foto != null){ $src = $foto->src; echo '"'; echo $src; echo '"';} else{echo '"'; echo $imgnodisp; echo '"';} ?> style="width: 348px; height: 270px;">
             <div class="card-body">
               <p class="card-text"> <?php echo $descripcion; echo "</br>"; echo $ubicacion; echo ", "; ?> </p>
               <p class="card-text"> <?php echo "Reserva: "; echo $subasta->fecha_reserva; ?> </p>
