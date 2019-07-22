@@ -448,8 +448,8 @@ class resultController extends Controller
       while ($difaux2->gte($difaux1)){
         if ((COUNT(Reserva::select('id')->where('residencia_id',$residencia->id)->where('fecha',$difaux1)->get())) == 0){
           $resultado2fechas[$i]=$resultado2fechas[$i].$difaux1->year."-".$difaux1->month."-".$difaux1->day. "<br>";
-          $difaux1->addWeek();
         }
+        $difaux1->addWeek();
 
       }
       $i++;

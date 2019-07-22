@@ -27,7 +27,7 @@ class OfertasSeeder extends Seeder
         Oferta::create(['monto' => 1250, 'usr_id' => '21', 'subasta_id' => 2]);
 
         Oferta::create(['monto' => 14000, 'usr_id' => '2', 'subasta_id' => 2]);
-        
+      
         Oferta::create(['monto' => 850, 'usr_id' => '15', 'subasta_id' => 3]);
 
         Oferta::create(['monto' => 1000, 'usr_id' => '12', 'subasta_id' => 3]);
